@@ -1,0 +1,106 @@
+\documentclass[12pt,a4paper,oldfontcommands,openright]{memoir}
+
+\usepackage{fancyhdr}
+\usepackage[left=30mm,right=30mm,top=30mm,bottom=30mm]{geometry}
+\usepackage{pdfpages}
+\usepackage{tikz}
+\usepackage{titlesec}
+
+% configure header and footer
+\pagestyle{fancy}
+\fancyhead[LE,CE,RE,RO,CO,LO]{} % remove everything
+\fancyhead[RO]{\scriptsize\rightmark} % section name
+\fancyhead[LE]{\scriptsize\leftmark} % chapter name
+\fancyfoot[C]{\thepage} % page number
+
+% set spacing between lines
+\linespread{1.2}
+
+\titleformat{\chapter}[hang]{\vspace*{-6em}\Huge\bfseries}{\thechapter.{ }}{1pt}{\Huge\bfseries}
+
+\begin{document}
+
+% ------------------- FRONT PAGE ------------------ %
+
+\includepdf[fitpaper=true, pages=-]{chapters/frontpage/frontpage.pdf}
+\cleardoublepage
+
+% -------------- ACKNOWLEDGMENTS ------------ %
+
+\section*{{\em Acknowledgments}}
+\label{chap:acknowledgments}
+\input{chapters/acks.tex}
+\thispagestyle{empty}
+\cleardoublepage
+
+% -------------------- DEDICATION ------------------- %
+
+% \thispagestyle{empty}
+% \vspace*{\stretch{1}}
+% \begin{flushleft}
+% 	\itshape To my family\\
+% \end{flushleft}
+% \vspace{\stretch{2}}
+% \cleardoublepage
+
+% ------------------- ABSTRACT ------------------ %
+
+\pagenumbering{arabic}
+
+\chapter*[Abstract]{Abstract}
+\addcontentsline{toc}{chapter}{Abstract}
+
+\input{chapters/abstract.tex}
+\thispagestyle{empty}
+\cleardoublepage
+
+% --------------- TABLE OF CONTENTS --------------- %
+
+\renewcommand{\contentsname}{\vspace*{-3em} Table of Contents}
+\renewcommand{\listfigurename}{\vspace*{-3em}List of Figures}
+\renewcommand{\listtablename}{\vspace*{-3em}List of Tables}
+
+% The asterisk prevents these from showing up in the ToC
+\tableofcontents*
+\thispagestyle{empty}
+\cleardoublepage
+
+\listoffigures*
+\thispagestyle{empty}
+\cleardoublepage
+
+\listoftables*
+\thispagestyle{empty}
+\cleardoublepage
+
+% -------------------- CONTENTS ------------------- %
+
+\chapter[Introduction]{Introduction}
+\label{chap:intro}
+\input{chapters/introduction.tex}
+
+\chapter[Fine-grained Access Control in Android Applications]{Fine-grained Access Control in \\ Android Applications}
+\label{chap:seapp}
+
+\chapter[Lightweight Cloud Application Sandboxing]{Lightweight Cloud Application \\ Sandboxing}
+\label{chap:dmng}
+
+\chapter[Native Code Sandboxing for JavaScript Runtimes]{Native Code Sandboxing for \\ JavaScript Runtimes}
+\label{chap:natisand}
+
+\chapter[Enhancing the Sandbox of WebAssembly Runtimes]{Enhancing the Sandbox of \\ WebAssembly Runtimes}
+\label{chap:wasm}
+
+\chapter[Conclusions]{Conclusions and future work}
+\label{chap:conclusions}
+\input{chapters/conclusions.tex}
+
+% ------------------ BIBLIOGRAPHY ----------------- %
+
+\bibliographystyle{abbrv}
+\renewcommand\bibname{References}
+\bibliography{biblio.bib}
+
+\nocite{*} % to remove
+
+\end{document}
