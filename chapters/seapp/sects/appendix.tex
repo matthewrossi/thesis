@@ -6,7 +6,7 @@
 	\begin{center}
           \includegraphics[width=0.28\textwidth]{chapters/seapp/figs/ae/MainActivity.png}
         \end{center}
-	\caption{ \bf MainActivity}
+	\caption{MainActivity}
 	\label{fig:seapp_mainactivity_view}
       \end{wrapfigure}
       
@@ -42,8 +42,8 @@ follows.
 
 Here are reported the showcase app policy module files.
 \vspace{0.6em}
-\begin{lstlisting}[language=policyfile, caption=\bf showcase app
-seapp\textunderscore contexts, captionpos=b, numbersep=2pt,
+\begin{lstlisting}[language=policyfile, caption=Showcase app
+\seappcontexts, captionpos=b, numbersep=2pt,
 resetmargins=false, label=seapp_seappctxp]
 user=_app seinfo=showcase_app domain=com_example_showcaseapp.core_logic_d name=com.example.showcaseapp:core_logic levelFrom=all
 user=_app seinfo=showcase_app domain=com_example_showcaseapp.user_logic_d name=com.example.showcaseapp:user_logic levelFrom=all
@@ -51,16 +51,16 @@ user=_app seinfo=showcase_app domain=com_example_showcaseapp.ads_d name=com.exam
 user=_app seinfo=showcase_app domain=com_example_showcaseapp.media_d name=com.example.showcaseapp:media levelFrom=all
 \end{lstlisting}
 \vspace{0.6em}
-\begin{lstlisting}[language=policyfile, caption=\bf showcase app
-file\textunderscore contexts, captionpos=b,
+\begin{lstlisting}[language=policyfile, caption=Showcase app
+\filecontexts, captionpos=b,
 numbersep=2pt,resetmargins=false, , label=seapp_filectxp]
 .*                  u:object_r:app_data_file:s0
 files/confidential  u:object_r:com_example_showcaseapp.confidential_t:s0
 files/ads_cache     u:object_r:com_example_showcaseapp.ads_t:s0
 \end{lstlisting}
 \vspace{0.6em}
-\begin{lstlisting}[language=policyfile, caption=\bf showcase app
-mac\textunderscore permissions.xml, captionpos=b, numbersep=2pt, resetmargins=false, label=seapp_macctxp]
+\begin{lstlisting}[language=policyfile, caption=Showcase app
+\macpermissions, captionpos=b, numbersep=2pt, resetmargins=false, label=seapp_macctxp]
 <?xml version="1.0" encoding="iso-8859-1"?>
 <policy><signer signature="SIGNATURE">
 <package name="com.example.showcaseapp">
@@ -68,7 +68,7 @@ mac\textunderscore permissions.xml, captionpos=b, numbersep=2pt, resetmargins=fa
 </signer></policy>
 \end{lstlisting}
 \vspace{0.6em}
-\begin{lstlisting}[language=policyfile, caption=\bf showcase app sepolicy.cil,
+\begin{lstlisting}[language=policyfile, caption=Showcase app \sepolicy,
 captionpos=b, numbersep=2pt, resetmargins=false, label=seapp_sepolctxp]
 (block com_example_showcaseapp
 ; creation of domain types

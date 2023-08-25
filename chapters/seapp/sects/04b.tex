@@ -95,7 +95,7 @@ local file \sepolicy), and (ii) the configuration of the {\em security
 \begin{figure}[t]
 	\centering
 	\includegraphics[width=0.4\textwidth]{chapters/seapp/figs/policy_folder}
-	\caption{\bf \pap policy structure}
+	\caption{\pap policy structure}
 	\label{fig:seapp_policy_folder}
 \end{figure}
 
@@ -188,20 +188,20 @@ file), and then she ensures the components are executed in the process
 labeled with it.  Listing~\ref{seapp_lstdomains} shows an example in
 which the {\tt cameraserver} service is made accessible to the {\em
   secret} process.  \newline
-\begin{lstlisting}[language=policyfile, caption=\bf \seappcontexts
+\begin{lstlisting}[language=policyfile, caption=\seappcontexts
 example, captionpos=b, label=seapp_lstseapp, numbersep=2pt,resetmargins=false]
  user=_app seinfo=cert_id domain=package_name.unclassified name=package.name:unclassified
  user=_app seinfo=cert_id domain=package_name.secret name=package.name:secret
 \end{lstlisting}
 %
-\begin{lstlisting}[language=policyfile, caption=\bf \filecontexts
+\begin{lstlisting}[language=policyfile, caption=\filecontexts
 example, captionpos=b, label=seapp_lstfile, numbersep=2pt,resetmargins=false]
  .*                u:object_r:app_data_file:s0
  dir/unclassified  u:object_r:package_name.unclassified_file:s0
  dir/secret        u:object_r:package_name.secret_file:s0
 \end{lstlisting}
 %
-\begin{lstlisting}[language=policyfile, caption=\bf Granting \texttt{cameraserver}
+\begin{lstlisting}[language=policyfile, caption=Granting \texttt{cameraserver}
 access to secret domain, captionpos=b, label=seapp_lstdomains, numbersep=2pt,resetmargins=false]
 (block package_name
   (type secret)
