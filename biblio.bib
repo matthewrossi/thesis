@@ -1,0 +1,647 @@
+@Comment{SEApp}
+
+@article{seapp_tapsm_m,
+	title={The {Android} Platform Security Model},
+	author={R. Mayrhofer and J. Vander Stoep and C. Brubaker and N. Kralevich},
+	year=2019,
+	journal={arXiv},
+	eprint={1904.05572},
+	archivePrefix={arXiv},
+	primaryClass={cs.CR}
+}
+
+@misc{seapp_sign_scheme,
+	author = {{Android Open Source Project}},
+	title = {{APK} Signature Scheme v3},
+	howpublished = {\url{https://source.android.com/security/apksigning/v3}},
+	year = {2017}
+}
+
+@misc{seapp_dm_verit,
+	author = {{Android Open Source Project}},
+	title = {Implementing dm-verity},
+	howpublished = {\url{https://source.android.com/security/verifiedboot/dm-verity}},
+	year = {2019}
+}
+
+@misc{seapp_android6_per_user,
+	author = {{Android Open Source Project}},
+	title = {Enable per-user isolation for normal apps},
+	howpublished = {\url{https://android.googlesource.com/platform/external/sepolicy/+/a833763ba04147e840fd054b613f759395bada35}},
+	year = {2014}
+}
+
+@misc{seapp_android9_per_app,
+	author = {{Android Open Source Project}},
+	title = {{Android} 9 Release Notes},
+	howpublished = {\url{https://source.android.com/setup/start/p-release-notes#per-app_selinux_sandbox}},
+	year = {2018}
+}
+
+@misc{seapp_isolatedprocess_perm,
+	title={{android:isolatedProcess}},
+	author = {{Android Developers}},
+	howpublished = {\url{https://developer.android.com/guide/topics/manifest/service-element#isolated}},
+	year = {2021}
+}
+
+@misc{seapp_isolated_app_te,
+	title={isolated\textunderscore app.te},
+	author = {{Android Developers}},
+	howpublished = {\url{https://android.googlesource.com/platform/system/sepolicy/+/refs/heads/master/private/isolated_app.te}},
+	year = 2021
+}
+
+@misc{seapp_bound_service_api,
+	title={Bound services overview},
+	author = {{Android Developers}},
+	howpublished = {\url{https://developer.android.com/guide/components/bound-services#Creating}},
+	year = 2021
+}
+
+@misc{seapp_andro_perm,
+	title={{Android Permissions}},
+	author = {{Android Open Source Project}},
+	howpublished = {\url{https://developer.android.com/guide/topics/permissions/overview}},
+	year = {2021}
+}
+
+@misc{seapp_burke_interview,
+	title={The {Android} 11 interview},
+	author = {{Ars Technica}},
+	howpublished = {\url{https://arstechnica.com/gadgets/2020/09/the-android-11-interview-googlers-answer-our-burning-questions/}},
+	year = {2020}
+}
+
+@misc{seapp_app_bundles,
+	title={{Android App Bundles}},
+	author = {{Android Developers}},
+	howpublished = {\url{https://developer.android.com/platform/technology/app-bundle}},
+	year = {2021}
+}
+
+@article{seapp_dacmac,
+	author = {R. Sandhu and P. Samarati},
+	title = {Authentication, Access Control, and Audit},
+	journal={CSUR},
+	year = {1996},
+}
+
+@misc{seapp_andro_man,
+	author = {{Android Open Source Project}},
+	title = {App manifest overview},
+	howpublished = {\url{https://developer.android.com/guide/topics/manifest/manifest-intro}},
+	year = {2021}
+}
+
+@inproceedings{seapp_lsm_fra,
+  title={Linux {S}ecurity {M}odule framework},
+  author={C. Wright and C. Cowan and J. Morris and  James and S. Smalley and G. Kroah-Hartman},
+  booktitle={Ottawa Linux Symposium},
+  year={2002}
+}
+
+@misc{seapp_libselinux,
+	author = {{The SELinux Project}},
+	title = {libselinux},
+	howpublished = {\url{https://github.com/SELinuxProject/selinux/tree/master/libselinux}},
+	year = {2021}
+}
+
+@misc{seapp_binder,
+	author = {{Android Open Source Project}},
+	title = {Binder},
+	howpublished = {\url{https://developer.android.com/reference/android/os/Binder}},
+	year = {2021}
+}
+
+@inproceedings{seapp_seandroid,
+	author    = {S. Smalley and R. Craig},
+	title     = {{Security Enhanced (SE) Android}: Bringing Flexible {MAC} to {Android}},
+	booktitle = {NDSS},
+	year      = {2013}
+}
+
+@misc{seapp_cil,
+author = {K. MacMillan and C. Case and J. Brindle and C. Sellers},
+title = {{SELinux Common Intermediate Language motivation and design}},
+howpublished = {\url{https://github.com/SELinuxProject/cil/wiki}},
+year = {2020}
+}
+
+@misc{seapp_sea_files,
+	author = {{Android Open Source Project}},
+	title = {Implementing {SELinux}},
+	howpublished = {\url{https://source.android.com/security/selinux/implement}},
+	year = {2021}
+}
+
+@misc{seapp_sea_compatibility,
+	author = {{Android Open Source Project}},
+	title = {Policy compatibility},
+	howpublished = {\url{https://source.android.com/security/selinux/compatibility}},
+	year = {2021}
+}
+
+@misc{seapp_start_activity,
+	author = {{Android Open Source Project}},
+	title = {Start another activity},
+	howpublished = {\url{https://developer.android.com/training/basics/firstapp/starting-activity}},
+	year = {2021}
+}
+
+@inproceedings{seapp_apm,
+author = {E. Bacis and S. Mutti and S. Paraboschi},
+year = {2015},
+title = {{AppPolicyModules}: Mandatory Access Control for Third-Party Apps},
+booktitle = {ASIACCS},
+doi = {10.1145/2714576.2714626}
+} 
+
+@misc{seapp_libte_rules,
+	author = {{The SELinux Project}},
+	title = {{Type Enforcement}},
+	howpublished = {\url{https://selinuxproject.org/page/NB_TE}},
+	year = {2015}
+}
+
+@InProceedings{seapp_fratantonio17:cloakdagger,
+    author = {Y. Fratantonio and C. Qian and S. Chung and W. Lee},
+    title = {{Cloak and Dagger}: From Two Permissions to Complete Control of the {UI} Feedback Loop},
+    booktitle = {IEEE S\&P},
+    year = {2017},
+}
+
+@misc{seapp_treble,
+	author = {{Android Open Source Project}},
+	title = {{SELinux} for {Android} 8.0},
+	howpublished = {\url{https://source.android.com/security/selinux/images/SELinux_Treble.pdf}},
+	year = {2017}
+}
+
+@misc{seapp_dt,
+	author = {{Android Open Source Project}},
+	title = {Device Tree Overlays},
+	howpublished = {\url{https://source.android.com/devices/architecture/dto}},
+	year = {2018}
+}
+
+@misc{seapp_early,
+	author = {{Android Open Source Project}},
+	title = {Mounting Partitions Early},
+	howpublished = {\url{https://source.android.com/devices/architecture/kernel/mounting-partitions-early}},
+	year = {2021}
+}
+
+@misc{seapp_untrustedappte,
+	author = {{Android Open Source Project}},
+	title = {{untrusted\textunderscore app\textunderscore all.te}},
+	howpublished = {\url{https://android.googlesource.com/platform/system/sepolicy/+/refs/heads/master/private/untrusted_app_all.te}},
+	year = {2021}
+}
+
+@misc{seapp_adblink,
+	author = {{Android Open Source Project}},
+	title = {{Android Debug Bridge (adb)}},
+	howpublished = {\url{https://developer.android.com/studio/command-line/adb}},
+	year = {2021}
+}
+
+@misc{seapp_topapps,
+	author = {{Google Play Store}},
+	title = {{Android} Top Apps},
+	howpublished = {\url{https://play.google.com/store/apps/top}},
+	year = {2021}
+}
+
+@misc{seapp_zerodium,
+	author = {Zerodium},
+	title = {{Zerodium} - {The} Leading Exploit Acquisition Platform},
+	howpublished = {\url{https://zerodium.com}},
+	year = {2021}
+}
+
+@misc{seapp_adb_install,
+	author = {{Android Developers}},
+	title = {adb install},
+	howpublished = {\url{https://developer.android.com/studio/command-line/adb#move}},
+	year = 2021
+}
+
+@inproceedings{seapp_typebounds,
+	author = {E. Bacis and S. Mutti and S. Paraboschi},
+	title = {Policy Specialization to Support Domain Isolation},
+	booktitle = {SafeConfig},
+	year = {2015},
+}
+
+@INPROCEEDINGS{seapp_sok_android,
+	author={Y. Acar and M. Backes and S. Bugiel and S. Fahl and P. McDaniel and M. Smith},
+	booktitle={IEEE S\&P},
+	title={{SoK}: Lessons Learned from {Android} Security Research for Appified Software Platforms},
+	year={2016},
+	volume={},
+	number={},
+	doi={10.1109/SP.2016.33},
+	ISSN={2375-1207},
+}
+
+@inproceedings{seapp_boxify,
+	author = {M. Backes and S. Bugiel and C. Hammer and O. Schranz and P. Von Styp-Rekowsky},
+	title = {{Boxify}: Full-Fledged App Sandboxing for Stock {Android}},
+	year = {2015},
+	isbn = {9781931971232},
+	booktitle = {USENIX Security},
+}
+
+@inproceedings{seapp_droidcap,
+	title = {{DroidCap}: {OS} Support for Capability-based Permissions in {Android}},
+	year = {2019},
+	booktitle = {NDSS},
+	author = {A. Dawoud and S. Bugiel},
+	url = {https://publications.cispa.saarland/2818/}
+}
+
+@inproceedings{seapp_semantically_rich,
+	author = {M. Ongtang and S. McLaughlin and W. Enck and P. McDaniel},
+	title = {Semantically Rich Application-Centric Security in {Android}},
+	year = {2009},
+	isbn = {9780769539195},
+	url = {https://doi.org/10.1109/ACSAC.2009.39},
+	doi = {10.1109/ACSAC.2009.39},
+	booktitle = {ACSAC},
+	keywords = {application interactions, mediation, mobile phone security, Android},
+}
+
+@misc{seapp_antutu,
+	author = {{AnTuTu Hong Kong}},
+	title = {{AnTuTu} Benchmark},
+	howpublished = {\url{https://www.antutu.com/}},
+	year = {2021}
+}
+
+@misc{seapp_packparse,
+	author = {Android Open Source Project},
+	title = {{PackageParser}},
+	howpublished = {\url{https://android.googlesource.com/platform/frameworks/base/+/master/core/java/android/content/pm/PackageParser.java}},
+	year = {2021}
+}
+
+
+@misc{seapp_bionic,
+	author = {{Android Open Source Project}},
+	title = {Bionic benchmark},
+	howpublished = {\url{https://android.googlesource.com/platform/bionic/}},
+	year = {2021}
+}
+
+@misc{seapp_m4,
+	author = {{Free Software Foundation}},
+	title = {{GNU M4}},
+	howpublished = {\url{https://www.gnu.org/savannah-checkouts/gnu/m4/manual/m4-1.4.18/index.html}},
+	year = {2016}
+}
+
+@misc{seapp_capsic,
+	author = {{Google}},
+	title = {Capsicum Object-Capabilities on {Linux}},
+	howpublished = {\url{https://github.com/google/capsicum-linux}},
+	year = {2017}
+}
+
+@misc{seapp_mmacsel,
+	author = {{Android Open Source Project}},
+	title = {{SELinuxMMAC}},
+	howpublished = {\url{https://android.googlesource.com/platform/frameworks/base/+/refs/heads/master/services/core/java/com/android/server/pm/SELinuxMMAC.java}},
+	year = {2021}
+}
+
+@misc{seapp_aaidl,
+	author = {{Android Developers}},
+	title = {{Android Interface Definition Language}},
+	howpublished = {\url{https://developer.android.com/guide/components/aidl}},
+	year = {2021}
+}
+
+@misc{seapp_restorecondd,
+	author = {{Android Open Source Project}},
+	title = {restorecond service},
+	howpublished = {\url{https://android.googlesource.com/platform/external/selinux/+/refs/heads/master/restorecond/restorecond.service}},
+	year = {2021}
+}
+
+@misc{seapp_secilccom,
+	author = {{Android Open Source Project}},
+	title = {{secilc}},
+	howpublished = {\url{https://android.googlesource.com/platform/external/selinux/+/refs/heads/master/secilc/}},
+	year = {2021}
+}
+
+@misc{seapp_pmsserva,
+	author = {{Android Open Source Project}},
+	title = {{PackageManagerService}},
+	howpublished = {\url{https://android.googlesource.com/platform/frameworks/base/+/refs/heads/master/services/core/java/com/android/server/pm/PackageManagerService.java}},
+	year = {2021}
+}
+
+@misc{seapp_installdid,
+	author = {{Android Open Source Project}},
+	title = {{installd}},
+	howpublished = {\url{https://android.googlesource.com/platform/frameworks/native/+/refs/heads/master/cmds/installd/}},
+	year = {2021}
+}
+
+@misc{seapp_zygoterfi,
+	author = {{Android Open Source Project}},
+	title = {{Zygote}},
+	howpublished = {\url{https://android.googlesource.com/platform/frameworks/base.git/+/master/core/java/com/android/internal/os/Zygote.java}},
+	year = {2021}
+}
+
+@misc{seapp_activitymanserv,
+	author = {{Android Open Source Project}},
+	title = {{ActivityManagerService}},
+	howpublished = {\url{https://android.googlesource.com/platform/frameworks/base/+/refs/heads/master/services/core/java/com/android/server/am/ActivityManagerService.java}},
+	year = {2021}
+}
+
+@misc{seapp_androruntime,
+	author = {{Android Open Source Project}},
+	title = {{Android Runtime}},
+	howpublished = {\url{https://developer.android.com/guide/platform#art}},
+	year = {2021}
+}
+
+@misc{seapp_initstages,
+	author = {{Android Open Source Project}},
+	title = {init},
+	howpublished = {\url{https://android.googlesource.com/platform/system/core/+/refs/heads/master/init/main.cpp}},
+	year = {2021}
+}
+
+@misc{seapp_intentsstart,
+	author = {{Android Open Source Project}},
+	title = {Intent and Intent filters},
+	howpublished = {\url{https://developer.android.com/guide/components/intents-filters}},
+	year = {2021}
+}
+
+@misc{seapp_playprotect,
+	author = {{Android}},
+	title = {{Google Play Protect}},
+	howpublished = {\url{https://www.android.com/play-protect/}},
+	year = {2021}
+}
+
+@misc{seapp_restrioctly,
+        author = {{J. Vander Stoep}},
+        title = {ioctl command whitelisting in {SELinux}},
+        howpublished = {\url{http://kernsec.org/files/lss2015/vanderstoep.pdf}},
+        year = {2015}
+}
+
+@inproceedings{seapp_flaskdroid,
+	author = {S. Bugiel and S. Heuser and A.R. Sadeghi},
+	title = {Flexible and Fine-Grained Mandatory Access Control on {Android} for Diverse Security and Privacy Policies},
+	year = {2013},
+	isbn = {9781931971034},
+	booktitle = {USENIX Security},
+}
+
+@inproceedings{seapp_flaskdroid2,
+	author = {M. Backes and S. Bugiel and S. Gerling and P. von Styp-Rekowsky},
+	title = {{Android} Security Framework: Extensible Multi-Layered Access Control on {Android}},
+	year = {2014},
+	isbn = {9781450330053},
+	url = {https://doi.org/10.1145/2664243.2664265},
+	doi = {10.1145/2664243.2664265},
+	booktitle = {ACSAC},
+}
+
+@InProceedings{seapp_10.1007/978-3-319-20550-2_15,
+	author={Y. Fratantonio and A. Bianchi and W. Robertson and M. Egele and C. Kruegel and E. Kirda and G. Vigna},
+	title={On the Security and Engineering Implications of Finer-Grained Access Controls for {Android} Developers and Users},
+	booktitle={DIMVA},
+	year={2015},
+	abstract={One of the main security mechanisms in Android is the permission system. Previous research has pointed out that this system is too coarse-grained. Hence, several mechanisms have been proposed to address this issue. However, to date, the impact of changes in the current permission system on both end users and software developers has not been studied, and no significant work has been done to determine whether adopting a finer-grained permission system would be feasible in practice.},
+	isbn={978-3-319-20550-2}
+}
+
+@article{seapp_4768655,
+	author={W. Enck and M. Ongtang and P. McDaniel},
+	journal={IEEE S\&P Magazine},
+	title={Understanding {Android} Security},
+	year={2009},
+	keywords={operating systems (computers);security of data;Web services;android security;open source operating system;mobile phones;Application software;Operating systems;Data security;Cellular phones;Middleware;Java;Social network services;Programming;Manufacturing industries;Shipbuilding industry;Android;mobile phones;Smartphones;security},
+	doi={10.1109/MSP.2009.26},
+	ISSN={1558-4046},
+}
+
+@inproceedings{seapp_10.5555/2028067.2028088,
+	author = {W. Enck and D. Octeau and P. McDaniel and S. Chaudhuri},
+	title = {A Study of {Android} Application Security},
+	year = {2011},
+	booktitle = {USENIX Security},
+}
+
+@inproceedings{seapp_asm,
+	author = {S. Heuser and A. Nadkarni and W. Enck and A.R. Sadeghi},
+	title = {{ASM}: A Programmable Interface for Extending {Android} Security},
+	year = {2014},
+	isbn = {9781931971157},
+	booktitle = {USENIX Security},
+}
+
+@inproceedings{seapp_10.1145/2046707.2046779,
+	author = {A.P. Felt and E. Chin and S. Hanna and D. Song and D. Wagner},
+	title = {{Android Permissions} Demystified},
+	year = {2011},
+	isbn = {9781450309486},
+	url = {https://doi.org/10.1145/2046707.2046779},
+	doi = {10.1145/2046707.2046779},
+	booktitle = {CCS},
+	keywords = {android, least privilege, permissions},
+}
+
+@inproceedings{seapp_10.1145/2335356.2335360,
+author = {A.P. Felt and E. Ha and S. Egelman and A. Haney and E. Chin and D. Wagner},
+title = {{Android Permissions}: User Attention, Comprehension, and Behavior},
+year = {2012},
+isbn = {9781450315326},
+url = {https://doi.org/10.1145/2335356.2335360},
+doi = {10.1145/2335356.2335360},
+booktitle = {SOUPS},
+articleno = {Article 3},
+keywords = {mobile phones, usable security, Android, smartphones},
+}
+
+
+@inproceedings{seapp_10.1145/3134600.3134638,
+	author = {H. Chen and N. Li and W. Enck and Y. Aafer and X. Zhang},
+	title = {Analysis of {SEAndroid} Policies: Combining {MAC} and {DAC} in {Android}},
+	year = {2017},
+	isbn = {9781450353458},
+	url = {https://doi.org/10.1145/3134600.3134638},
+	doi = {10.1145/3134600.3134638},
+	booktitle = {ACSAC},
+	keywords = {MAC, Android, SEAndroid, DAC, Policy Analysis},
+}
+
+@INPROCEEDINGS{seapp_7958574,
+	author={F. Fischer and K. B{\"o}ttinger and H. Xiao and C. Stransky and Y. Acar and M. Backes and S. Fahl},
+	booktitle={IEEE S\&P},
+	title={Stack Overflow Considered Harmful? {The} Impact of Copy Paste on {Android} Application Security},
+	year={2017},
+	volume={},
+	number={},
+	doi={10.1109/SP.2017.31},
+	ISSN={2375-1207},
+}
+
+@inproceedings{seapp_10.1145/2414456.2414498,
+	author = {P. Pearce and A.P. Felt and G. Nunez and D. Wagner},
+	title = {{AdDroid}: Privilege Separation for Applications and Advertisers in {Android}},
+	year = {2012},
+	isbn = {9781450316484},
+	url = {https://doi.org/10.1145/2414456.2414498},
+	doi = {10.1145/2414456.2414498},
+	booktitle = {ASIACCS},
+}
+
+@inproceedings{seapp_10.1145/3292006.3300027,
+	author = {M. Diamantaris and E.P. Papadopoulos and E. Markatos and S. Ioannidis and J. Polakis},
+	title = {{REAPER}: Real-Time App Analysis for Augmenting the {Android} Permission System},
+	year = {2019},
+	isbn = {9781450360999},
+	url = {https://doi.org/10.1145/3292006.3300027},
+	doi = {10.1145/3292006.3300027},
+	booktitle = {CODASPY},
+	keywords = {android, personally identifiable information, third-party libraries, permission origin, dynamic analysis},
+}
+
+@inproceedings{seapp_10.1145/2976749.2978333,
+	author = {M. Backes and S. Bugiel and E. Derr},
+	title = {Reliable Third-Party Library Detection in {Android} and Its Security Applications},
+	year = {2016},
+	isbn = {9781450341394},
+	url = {https://doi.org/10.1145/2976749.2978333},
+	doi = {10.1145/2976749.2978333},
+	booktitle = {CCS},
+	keywords = {third-party library detection, android},
+}
+
+@inproceedings{seapp_10.1145/3133956.3134064,
+	author = {J. Huang and O. Schranz and S. Bugiel and M. Backes},
+	title = {The {ART} of App Compartmentalization: Compiler-Based Library Privilege Separation on Stock {Android}},
+	year = {2017},
+	isbn = {9781450349468},
+	url = {https://doi.org/10.1145/3133956.3134064},
+	doi = {10.1145/3133956.3134064},
+	booktitle = {CCS},
+	keywords = {android runtime, app compartmentalization, third-party libraries},
+}
+
+@inproceedings{seapp_10.5555/2831143.2831166,
+	author = {R. Wang and W. Enck and D. Reeves and X. Zhang and P. Ning and D. Xu and W. Zhou and A.M. Azab},
+	title = {{EASEAndroid}: Automatic Policy Analysis and Refinement for {Security Enhanced Android} via Large-Scale Semi-Supervised Learning},
+	year = {2015},
+	isbn = {9781931971232},
+	booktitle = {USENIX Security},
+}
+
+@inproceedings{seapp_10.1145/3052973.3052991,
+	author = {R. Wang and A.M. Azab and W. Enck and N. Li and P. Ning and X. Chen and W. Shen and Y. Cheng},
+	title = {{SPOKE}: Scalable Knowledge Collection and Attack Surface Analysis of Access Control Policy for {Security Enhanced Android}},
+	year = {2017},
+	isbn = {9781450349444},
+	url = {https://doi.org/10.1145/3052973.3052991},
+	doi = {10.1145/3052973.3052991},
+	booktitle = {ASIACCS},
+	keywords = {android, selinux, seandroid, mandatory access control},
+}
+
+@inproceedings{seapp_demetriou2016free,
+	title={Free for All! {Assessing} User Data Exposure to Advertising Libraries on {Android}},
+	author={S. Demetriou and W. Merrill and W. Yang and A. Zhang and C.A. Gunter},
+	booktitle={NDSS},
+	year={2016}
+}
+
+@inproceedings{seapp_jaeger_flow,
+	author = {U. Shankar and T. Jaeger and R. Sailer},
+	title = {Toward Automated Information-Flow Integrity Verification for
+	Security-Critical Applications},
+	booktitle = {NDSS},
+	year = {2006}
+}
+
+@inproceedings{seapp_jaeger_retro,
+	author = {V. Ganapathy and T. Jaeger and S. Jha},
+	title = {Retrofitting legacy code for authorization policy enforcement},
+	booktitle={IEEE S\&P}, 
+	year = {2006},
+	isbn = {0-7695-2574-1},
+	doi = {10.1109/SP.2006.34}
+}
+
+@inproceedings{seapp_jaeger_web,
+	author = {R. Hicks and S. Rueda and D. King and T. Moyer and J. Schiffman and Y. Sreenivasan and P. McDaniel and T. Jaeger},
+	title = {An Architecture for Enforcing End-to-End Access Control over Web Applications},
+	year = {2010},
+	isbn = {9781450300490},
+	url = {https://doi.org/10.1145/1809842.1809870},
+	doi = {10.1145/1809842.1809870},
+	booktitle = {SACMAT},
+	keywords = {policy compliance, access control},
+}
+
+@inproceedings{seapp_jaeger_hook,
+	author = {D. Muthukumaran and T. Jaeger and V. Ganapathy},
+	title = {Leveraging “Choice” to Automate Authorization Hook Placement},
+	year = {2012},
+	isbn = {9781450316514},
+	url = {https://doi.org/10.1145/2382196.2382215},
+	doi = {10.1145/2382196.2382215},
+	booktitle = {CCS},
+	keywords = {static taint analysis, authorization hooks},
+}
+
+@inproceedings{seapp_confused_deputy_attack,
+	author = {S. Bugiel and L. Davi and A. Dmitrienko and T. Fischer and A.R. Sadeghi and B. Shastry},
+	title = {Towards Taming Privilege-Escalation Attacks on {Android}},
+	year = 2012,
+	booktitle = {NDSS},
+}
+
+@misc{seapp_common_play_protect_vulnerabilites,
+	title={{Android} app vulnerability classes: A whirlwind overview of common security and privacy problems in {Android} apps},
+	author={{Google Play Protect}},
+	howpublished={\url{https://static.googleusercontent.com/media/www.google.com/en//about/appsecurity/play-rewards/Android_app_vulnerability_classes.pdf}},
+	year = 2021,
+}
+
+@misc{seapp_unityads,
+	title={{Unity Ads}},
+	author={{Unity}},
+	howpublished={\url{https://unity.com/solutions/unity-ads}},
+	year = 2021
+}
+
+@misc{seapp_ads_use,
+	title={Most popular installed ad network software development kits ({SDKs}) across {Android} apps worldwide as of {September}
+	 2020},
+	author={{Statista}},
+	howpublished={\url{https://www.statista.com/statistics/1035623/leading-mobile-app-ad-network-sdks-android/}},
+	year = 2020
+}
+
+@inproceedings{seapp_aframe,
+	author = {Z. Xiao and A. Amit and D. Wenliang},
+	title = {{AFrame}: Isolating Advertisements from Mobile Applications in {Android}},
+	year = {2013},
+	isbn = {9781450320153},
+	url = {https://doi.org/10.1145/2523649.2523652},
+	doi = {10.1145/2523649.2523652},
+	abstract = {Android uses a permission-based security model to restrict applications from accessing private data and privileged resources. However, the permissions are assigned at the application level, so even untrusted third-party libraries, such as advertisement, once incorporated, can share the same privileges as the entire application, leading to over-privileged problems.We present AFrame, a developer friendly method to isolate untrusted third-party code from the host applications. The isolation achieved by AFrame covers not only the process/permission isolation, but also the display and input isolation. Our AFrame framework is implemented through a minimal change to the existing Android code base; our evaluation results demonstrate that it is effective in isolating the privileges of untrusted third-party code from applications with reasonable performance overhead.},
+	booktitle = {ACSAC},
+}

@@ -1,0 +1,95 @@
+\section{Related work}\label{sect:seapp_relwork}
+
+In traditional desktop operating systems significant effort has been
+spent in retrofitting legacy code for authorization policy enforcement
+leveraging MAC.  An approach is to place reference monitor calls to
+mediate sensitive access locations through the use of static and
+dynamic analysis~\cite{seapp_jaeger_retro, seapp_jaeger_hook}.  An
+evolution of this solution is the multi-layer reference
+monitor~\cite{seapp_jaeger_web}, in which the MAC policy is enforced
+at different levels (e.g., application, OS, Virtual Machine Manager).
+Another approach is to identify integrity-violating permissions
+through the use of information-flow analysis~\cite{seapp_jaeger_flow}.
+
+Android's open source nature and popularity made it the target of
+careful security investigations (e.g., \cite{seapp_sok_android,
+  seapp_10.1007/978-3-319-20550-2_15, seapp_4768655,
+  seapp_10.5555/2028067.2028088}) and several proposals aiming at
+strengthen its security properties.  In the following we discuss the
+ones that try to address app isolation and modularity, underlining the
+key differences with our methodology.
+
+Our approach presents similarities with {\em Secure Application
+  INTeraction (Saint)} proposed by Ongtang et al. in
+\cite{seapp_semantically_rich}, in which the authors also try to
+address the issue of allowing developers to define policies that can
+be verified at both installation time and runtime, to better specify
+the permissions for each component of their app.  However, since the
+paper has been published in 2010, {\em Saint} could not leverage
+SEAndroid~\cite{seapp_seandroid}, which was introduced later, thus the
+authors had to define their own Android security middleware, which
+would not fit into the current Android
+architecture~\cite{seapp_tapsm_m}.
+
+{\em FlaskDroid}~\cite{seapp_flaskdroid} defines a versatile
+middleware and kernel layer policy language.  It is based on Userspace
+Object Managers (USOMs), which control access to services, intents and
+data stored in Content Providers.  However, FlaskDroid does not focus
+on intra-app compartmentalization, a central aspect in our proposal.
+
+{\em ASM}~\cite{seapp_asm} and {\em ASF}~\cite{seapp_flaskdroid2}
+promote the need for a programmable interface that could serve as a
+flexible ecosystem for different security solutions. The generality of
+these solutions, however, requires to introduce several changes to the
+current Android security model.
+
+{\em AppPolicyModules}~\cite{seapp_apm} is another proposal that
+allows app developers to create dedicated policy modules. The authors
+focus more on how apps could use SEAndroid to better protect their
+resources from the system and from other apps, paying limited
+attention to internal compartmentalization.
+
+{\em DroidCap}~\cite{seapp_droidcap} is a recent contribution proposed
+by Dawoud and Bugiel, in which the authors propose to replace
+Android's UID-based ambient authority (DAC) with per-process Binder
+object capabilities.  The proposal is interesting as it permits to
+achieve security compartmentalization between different app
+components. To introduce capability-based access control on files,
+{\em DroidCap} had to integrate {\em Capsicum for
+  Linux}~\cite{seapp_capsic} in Android. Overall, DroidCap is a nicely
+engineered solution, which shares similar objectives with ours, and
+the two could work in parallel as they do not interfere with each
+other.  However, as our proposal relies on SELinux and SEAndroid,
+which are already part of the Android security framework, our
+architecture appears to be more aligned with the natural evolution of
+the Android ecosystem.
+
+{\em Boxify}~\cite{seapp_boxify} is a virtualization environment for
+Android apps, which could be used to achieve a higher level of privacy
+and better control over app permissions. The authors also describe how
+their solution could be used to compartmentalize Ads libraries to
+reduce the risk of sensible information leakage.  Yet, since the
+virtualization environment acts as a mediator between the applications
+and the system, it extends the set of trusted components the app has
+to rely on.
+
+{\em AFrame}~\cite{seapp_aframe} and {\em
+  CompARTist}~\cite{seapp_10.1145/3133956.3134064} propose to
+compartmentalize third-party libs from their host app using a separate
+process with a dedicated UID. In {\em AFrame} the Android Manifest is
+modified with the introduction of library ad-hoc permissions, while
+{\em CompARTist} uses compile time app rewriting. Both proposals do
+not extend the protection at the MAC level.
+
+To summarize, the main differences that characterize our proposal are:
+(i) we propose a natural extension of the role of SELinux to apps
+leveraging what is already used to protect the system itself, thus
+minimizing the impact on it, and (ii) we empower the developers while
+limiting the amount of changes an application must undergo in order to
+take advantage of our solution.
+
+%%% Local Variables: 
+%%% mode: latex
+%%% TeX-master: "../../../main.tex"
+%%% reftex-default-bibliography: "../../../bib/biblio.bib"
+%%% End:

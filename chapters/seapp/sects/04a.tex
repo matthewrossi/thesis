@@ -1,0 +1,244 @@
+\section{Policy language} \label{sect:seapp_lang}
+
+To support the use cases presented in Section~\ref{sect:seapp_motiv},
+we want the developer to have control of the \sel security context of
+subjects and objects related to her security enhanced app.  To each of
+them is assigned a {\em type} (also called {\em domain} when it labels
+processes).  As types directly relate to groups of permissions, the
+evaluation of security contexts is the foundation of each security
+decision.  Since apps may offer many complex functions, the policy
+language has to provide the flexibility of defining multiple domains
+with distinct privileges so that the app, according to the task it has
+to do, may switch to the least privileged domain needed to accomplish
+the job.
+
+\begin{table*}[h!]
+	\centering
+        \small
+	\begin{tabularx}{\textwidth}{|p{5.8em}p{0.15em}X|}
+	\hline
+	\multicolumn{3}{|l|}{\textbf{Policy module syntax}} \\ \hline
+	\textit{blockStmt} & $\to$& $($\texttt{block} \textit{blockId} \textit{cilStmt}$*$$)$ \\
+
+	\textit{cilStmt} & $\to$&  \textit{ typeStmt} $|$
+                                  \textit{typeAttrStmt} $|$
+                                  \textit{typeAttrSetStmt} $|$
+                                  \textit{typeBoundsStmt} $|$
+                                  \textit{typeTransStmt} $|$
+                                  \textit{macroStmt} $|$
+                                  \textit{allowStmt} \\
+
+	\textit{typeStmt} & $\to$ & $($\texttt{type} \textit{typeId}$)$ \\
+
+	\textit{typeAttrStmt} & $\to$& $($\texttt{typeattribute} \textit{typeAttrId}$)$ \\
+
+	\textit{typeAttrSetStmt} & $\to$ & $($\texttt{typeattributeset} \textit{typeAttrId} $($$\langle$\textit{typeId} $|$ \textit{typaAttrId$\rangle$}$+$$)$$)$ \\
+
+	\textit{typeBoundsStmt} & $\to$& $($\texttt{typebounds} \textit{parentTypeId} \textit{childTypeId}$)$ \\
+
+	\textit{typeTransStmt} & $\to$ &  $($\texttt{typetransition} \textit{sourceTypeId} \textit{targetTypeId} \textit{classId} $[$\textit{objectName}$]$ \textit{defaultTypeId}$)$ \\
+
+	\textit{macroStmt} &$\to$ &$($\texttt{call} \textit{macroId} $($\textit{typeId}$)$$)$ \\
+
+	\textit{allowStmt} & $\to$& $($\texttt{allow} $\langle$\textit{sourceTypeId} $|$ \textit{sourceTypeAttrId}$\rangle$  $\langle$\textit{targetTypeId} $|$ \textit{targetTypeAttrId} $|$ \texttt{self}$\rangle$  \textit{classPermissionId}$+$$)$ \\ \hline
+
+      \end{tabularx}
+        \caption{\bf Application policy module CIL syntax}      
+  \label{tab:seapp_syntax}
+\end{table*}
+
+
+The app policy is specified in a module, provided by the app to
+describe its own types.  The policy module is processed at app
+installation time by a component of the system, called {\em \pap
+  Policy Parser}, responsible to verify that the policy is correct and
+does not introduce vulnerabilities into the system.  The addition of a
+policy module is managed by combining the new module with the platform
+policy and the previous installed ones, producing after policy
+compilation a single binary representation of the global policy.
+
+In this section, we provide a description of the \pap policy language
+and the restrictions each module is subject to.  Policy configuration
+is detailed in Section~\ref{sect:seapp_config}, while policy
+compilation and runtime support are discussed in
+Section~\ref{sect:seapp_implementation}.
+
+\subsection{Choice of policy language}\label{seapp_lang}
+
+\sea supports two languages for policies, Type Enforcement
+(TE)~\cite{seapp_libte_rules} and Common Intermediate Language
+(CIL)~\cite{seapp_cil}.  TE was the language available in the early
+implementations of \sel, while CIL was later introduced to offer an
+easy to parse syntax that avoids the pervasive use of general purpose
+macro processors (e.g., M4~\cite{seapp_m4}).  Another aspect that
+differentiates them is that, in Android, TE representations are
+internally converted into CIL before being compiled into the \sel
+binary policy.  To avoid the additional translation step being
+performed at each policy module installation, we decided to use CIL
+over TE.
+
+\subsection{Definition of types and type-attributes}
+
+CIL offers a multitude of commands to define a policy, but only a
+subset has been selected for the definition of an app policy module.
+This was done to control the impact of the policy module on the system
+and it may, as a side effect, facilitate the work of the app developer
+writing the policy.
+
+The syntax is described in Table \ref{tab:seapp_syntax}.  To declare a
+\emph{type}, the \texttt{type} statement can be used.  This permits to
+declare the types involved in an access vector (AV) rule, which grants
+to a source type a list of permissible actions over a target type.  AV
+rules are defined through the \allow statement.
+
+When writing a policy, there is frequently the need to assign the same
+set of authorizations to multiple types.  To avoid the repetition of
+multiple \allow declarations, it is convenient to refer to multiple
+types using a single entity, the {\em type-attribute}.  Using the
+\typeattributeset statement we associate with a \typeattribute a set
+of types and type-attributes.  Each type-attribute essentially
+represents the set of types that is produced by the (possibly
+multi-step) expansion of its definition.  The semantics is that each
+of the types that directly or indirectly (using type-attributes)
+appears as the source of an allow rule will be authorized to operate
+with the specified permission on each of the types directly or
+indirectly appearing as the target.  This improves the conciseness and
+readability of the policy.
+
+After defining the domains with the least group of permissions
+necessary to fulfill the task, the developer can also configure the
+domain transitions using the \typetransition statement.
+By doing so, it is possible to ensure that important native processes run
+in dedicated domains with limited privileges, leading to intra-app
+compartmentalization.
+
+
+\subsection{Policy constraints}\label{subsect:seapp_constraints}
+
+The introduction of dedicated modules for apps raises the need to
+carefully consider the integration of apps and system policies.  The
+first requirement is that an app policy must not change the system
+policy and can only have an impact on processes and resources
+associated with the app itself.  To preserve the overall consistency
+of the \sel policy, each policy module must respect some constraints.
+Since Android supports the side-loading of
+apps~\cite{seapp_adb_install}, we cannot rely on app markets to verify
+app policies.  Therefore, the enforcement of constraints is done on
+the device, by both the \pap Policy Parser and the \sel environment.
+If any of these components raises an exception, during the
+verification or compilation of the policy, app installation is
+stopped.
+
+To ensure that policy modules do not interfere with the system policy
+and among each other, a first necessity is that policy modules are
+wrapped in a unique namespace obtained from the package name.  This is
+done through the {\tt block} CIL statement, which prevents the
+definition of the same \sel type twice, as the resulting global
+identifier is formed by the concatenation of the namespace and the
+local type identifier.  Also, the use of a namespace specific for the
+policy module permits to discriminate between local types or
+type-attributes $T_A$ (namespace equal to the current app package
+name), types or type-attributes of other modules $T_{A'\neq A}$
+(namespace equal to some other app package), and system types or
+type-attributes $T_S$ (system namespace).  At installation time, the
+\pap Policy Parser determines the origin of each type, with an
+explicit prohibition for policies to refer to types or type-attributes
+defined by other policy modules, while use of system types or
+type-attributes is subject to restrictions.
+
+
+With regard to the {\tt allow} statement, a dedicated analysis is
+performed by the \pap Policy Parser.  For each rule, the global origin
+of source and target types is determined.  We refer to system origin
+{\em S}, when the type is directly or indirectly associated with a
+system type in the expansion of its definition, while to local origin
+{\em A} otherwise.  Based on the origin of source and target of each
+rule, there are four cases.  The case {\em AllowSS}, i.e., a
+permission with system origin both as source and target, is
+prohibited, as it represents a direct platform policy modification.
+The case {\em AllowAA} is always permitted, as it only defines access
+privileges internal to the app module.  The cases {\em AllowAS} and
+{\em AllowSA} are more delicate.
+
+An {\em AllowAS} originates when a local type needs to be granted a
+permission on a system type.  A concrete example is shown in
+Section~\ref{sect:seapp_motiv}, where the {\em :media} process needs
+access to the {\tt camera\textunderscore service}.  The case cannot be
+decided locally by the \pap Policy Parser, therefore it is delegated
+to the \sel decision engine during policy enforcement.  This crucial
+postponed restriction depends on the constraint that all app types
+have to appear in a \typebounds statement~\cite{seapp_typebounds},
+which limits the bounded type to have at most the access privileges of
+the bounding type.  As Android 11 assigns to generic third-party apps
+the \untrustedapp domain, this is the candidate we use to bound the
+app types.  If the {\em AllowAS} rule gives to the local type more
+privileges than those associated with \untrustedapp, and at runtime
+these privileges are used, the \sel decision engine identifies the
+policy violation and prohibits the action.
+
+{\em AllowSA} rules are the key to regulate how system components
+access internal types.  To be compliant with Android, the local types
+introduced by the app policy module must ensure interoperability with
+system services crucial to the app lifecycle.  As an example {\em
+  Zygote}~\cite{seapp_zygoterfi}, the native service which spawns and
+configures new app processes, can only execute processes labeled with
+the type-attribute {\tt domain}, which is assigned by default to
+\untrustedapp.  However, giving app developers the freedom to directly
+define {\em AllowSA} rules would lead to two major issues: (i) the
+rules would depend on system policy internals, leading to a solution
+with limited abstraction and modularity; (ii) explicit {\em AllowSA}
+rules could lead to violations of the security assumptions of a system
+service, with the risk of introducing vulnerabilities (e.g., leading
+to a {\em confused deputy attack}
+\cite{seapp_confused_deputy_attack}).  For these reasons we prohibit
+their explicit use.  To limit system types to only those already
+dealing with untrusted content and simplifying the policy, we rely on
+CIL macros, a set of function-like statements that, when invoked by
+the \pap policy module, produce a predefined list of policy
+statements.  This approach permits to retain control on the rules
+produced, ensuring no violation of the default system policy. Also, it
+makes the work of the developer easier, by abstracting away system
+policy internal details.  To preserve the interoperability with system
+services, third-party app functionality has been broken down into the
+CIL macros listed in Table~\ref{tab:seapp_macros}. This list has been
+identified looking at the internal structure of the {\tt
+  untrusted\_app} domain.  With this design philosophy, the developer
+can grant a basic set of permissions to a type (by calling one or more
+macros), and then add to it fine-grained authorizations with {\em
+  AllowAS} rules.
+%
+\begin{table}[t!]
+	\centering
+        \small
+
+	\begin{tabular}{|l|l|}
+		\hline
+                {\bf Macro}           & {\bf Usage}    \\ \hline
+                {\em md\textunderscore appdomain}       & to label app domains \\ \hline
+                {\em md\textunderscore netdomain}       & to access network    \\ \hline
+                {\em md\textunderscore bluetoothdomain} & to access bluetooth  \\ \hline
+                {\em md\textunderscore untrusteddomain} & to get full untrusted app permissions \\ \hline
+                {\em mt\textunderscore appdatafile}     & to label app files   \\ \hline
+	\end{tabular}
+	\caption{\bf \pap macros to grant permissions to local types}
+	\label{tab:seapp_macros}
+\end{table}
+
+With regard to the \typeattributeset statement, the \pap Policy Parser
+uses a verification strategy similar to the one used for allow rules.
+First, the global origin of the type-attribute and of the set
+expression of types and type-attributes is determined.  All statements
+that directly or indirectly relate to system types are blocked.  This
+avoids implicit permission propagation from system and local types.
+
+Similarly, for the \typetransition statement, the \pap Policy Parser
+verifies the origin of the types involved, with a prohibition for all
+the statements that relate to system types, as they may lead to an
+escalation of privileges.
+
+
+%%% Local Variables: 
+%%% mode: latex
+%%% TeX-master: "../../../main.tex"
+%%% reftex-default-bibliography: "../../../bib/biblio.bib"
+%%% End:

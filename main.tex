@@ -2,9 +2,14 @@
 
 \usepackage{fancyhdr}
 \usepackage[left=30mm,right=30mm,top=30mm,bottom=30mm]{geometry}
+\usepackage{listings}
+\usepackage{multirow}
 \usepackage{pdfpages}
 \usepackage{tikz}
 \usepackage{titlesec}
+\usepackage{url}
+\usepackage{wrapfig}
+\usepackage{xspace}
 
 % configure header and footer
 \pagestyle{fancy}
@@ -19,6 +24,7 @@
 \titleformat{\chapter}[hang]{\vspace*{-6em}\Huge\bfseries}{\thechapter.{ }}{1pt}{\Huge\bfseries}
 
 \begin{document}
+\sloppy
 
 % ------------------- FRONT PAGE ------------------ %
 
@@ -81,6 +87,7 @@
 
 \chapter[Fine-grained Access Control in Android Applications]{Fine-grained Access Control in \\ Android Applications}
 \label{chap:seapp}
+\input{chapters/seapp.tex}
 
 \chapter[Lightweight Cloud Application Sandboxing]{Lightweight Cloud Application \\ Sandboxing}
 \label{chap:dmng}
@@ -95,12 +102,17 @@
 \label{chap:conclusions}
 \input{chapters/conclusions.tex}
 
+% -------------------- APPENDIX ------------------- %
+
+\appendix
+
+% seapp appendix
+\input{chapters/seapp/sects/appendix.tex}
+
 % ------------------ BIBLIOGRAPHY ----------------- %
 
 \bibliographystyle{abbrv}
 \renewcommand\bibname{References}
 \bibliography{biblio.bib}
-
-\nocite{*} % to remove
 
 \end{document}

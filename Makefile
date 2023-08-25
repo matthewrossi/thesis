@@ -47,7 +47,7 @@ else ifeq ($(UNAME),Linux)
 endif
 
 clean:
-	@rm -f ${FILE}.{pdf,dvi,ps,jpg,log,aux,out,bbl,blg,synctex.gz,toc,vrb,snm,nav,zip,tdo,lof,lot,run.xml}
+	@rm -f ${FILE}.{pdf,dvi,ps,jpg,log,aux,out,bbl,blg,synctex.gz,toc,vrb,snm,nav,zip,tdo,lof,lot,run.xml,fls,fdb_latexmk}
 	@find . -name "*-converted-to.pdf" -exec rm '{}' +
 	@find . -name "*.pyg" -exec rm '{}' +
 	@rm -f missfont.log

@@ -1,0 +1,139 @@
+\newcommand{\pap}{SEApp\xspace}
+
+%tabularx width
+\newcolumntype{s}{>{\hsize=.5\hsize}X}
+
+%general
+\newcommand{\sel}{SELinux\xspace}
+\newcommand{\sea}{SEAndroid\xspace}
+
+% files 
+\newcommand{\filecontexts}{\texttt{file\_contexts}\xspace}
+\newcommand{\genfscontexts}{\texttt{genfs\_contexts}\xspace}
+\newcommand{\propertycontexts}{\texttt{property\_contexts}\xspace}
+\newcommand{\servicecontexts}{\texttt{service\_contexts}\xspace}
+\newcommand{\seappcontexts}{\texttt{seapp\_contexts}\xspace}
+\newcommand{\macpermissions}{\texttt{mac\_permissions.xml}\xspace}
+\newcommand{\initrc}{\texttt{init.rc}\xspace}
+\newcommand{\manifest}{\texttt{AndroidManifest.xml}\xspace}
+\newcommand{\sepolicy}{\texttt{sepolicy.cil}\xspace}
+\newcommand{\fstab}{\texttt{fstab}\xspace}
+
+% file tags
+\newcommand{\process}{\texttt{android:process}\xspace}
+\newcommand{\seinfo}{\texttt{seinfo}\xspace}
+\newcommand{\mlstrustedsubject}{\texttt{mlstrustedsubject}\xspace}
+
+% file extensions
+\newcommand{\te}{\texttt{.te}\xspace}
+
+% directories
+\newcommand{\apkpolicydir}{\texttt{policy}\xspace}
+\newcommand{\dataselinuxdir}{\texttt{/data/selinux/packageName}\xspace}
+\newcommand{\dataappdir}{\texttt{/data/data/packageName}\xspace}
+\newcommand{\dataselinux}{\texttt{/data/selinux}\xspace}
+
+% partitions
+\newcommand{\selinuxfs}{\texttt{selinuxfs}\xspace}
+\newcommand{\system}{\texttt{/system}\xspace}
+\newcommand{\product}{\texttt{/product}\xspace}
+\newcommand{\vendor}{\texttt{/vendor}\xspace}
+\newcommand{\odm}{\texttt{/odm}\xspace}
+\newcommand{\dev}{\texttt{/dev}\xspace}
+\newcommand{\sys}{\texttt{/sys}\xspace}
+\newcommand{\data}{\texttt{/data}\xspace}
+\newcommand{\proc}{\texttt{/proc}\xspace}
+\newcommand{\selinuxfsfull}{\texttt{/sys/fs/selinux}\xspace}
+
+% capabilities
+\newcommand{\dacoverride}{\texttt{DAC\_OVERRIDE}\xspace}
+\newcommand{\dacreadsearch}{\texttt{DAC\_READ\_SEARCH}\xspace}
+
+% selinux stmt
+\newcommand{\typetransition}{\texttt{typetransition}\xspace}
+\newcommand{\allow}{\texttt{allow}\xspace}
+\newcommand{\typeattribute}{\texttt{typeattribute}\xspace}
+\newcommand{\typeattributeset}{\texttt{typeattributeset}\xspace}
+\newcommand{\typebounds}{\texttt{typebounds}\xspace}
+
+% selinux permissions
+\newcommand{\relabelfrom}{\texttt{relabelfrom}\xspace}
+\newcommand{\relabelto}{\texttt{relabelto}\xspace}
+\newcommand{\dyntransition}{\texttt{dyntransition}\xspace}
+\newcommand{\setcurrent}{\texttt{setcurrent}\xspace}
+
+% selinux types
+\newcommand{\isolatedapp}{\texttt{isolated\_app}\xspace}
+\newcommand{\untrustedapp}{\texttt{untrusted\_app}\xspace}
+\newcommand{\untrustedapptmpfs}{\texttt{untrusted\_app\_tmpfs}\xspace}
+\newcommand{\appdatafile}{\texttt{app\_data\_file}\xspace}
+\newcommand{\initdomain}{\texttt{init}\xspace}
+\newcommand{\kernel}{\texttt{kernel}\xspace}
+
+% certificates name
+\newcommand{\platform}{\texttt{platform}\xspace}
+\newcommand{\media}{\texttt{media}\xspace}
+\newcommand{\net}{\texttt{network\_stack}\xspace}
+
+% components, services, classes, functions, libraries
+\newcommand{\init}{\textit{init}\xspace}
+\newcommand{\restorecon}{\textit{restorecon}\xspace}
+\newcommand{\restoreconc}{\textit{restorecon.c}\xspace}
+\newcommand{\servicemanager}{\textit{servicemanager}\xspace}
+\newcommand{\binder}{\textit{Binder}\xspace}
+\newcommand{\zygote}{\textit{Zygote}\xspace}
+\newcommand{\ams}{\textit{ActivityManagerService}\xspace}
+\newcommand{\installd}{\textit{installd}\xspace}
+\newcommand{\libselinux}{\textit{libselinux}\xspace}
+\newcommand{\systemserver}{\textit{SystemServer}\xspace}
+\newcommand{\pms}{\textit{PackageManagerService}\xspace}
+\newcommand{\forkandspecialize}{\textit{Zygote.forkAndSpecialize()}\xspace}
+\newcommand{\secilc}{\textit{secilc}\xspace}
+\newcommand{\setcontext}{\textit{selinux\_android\_setcontext}\xspace}
+\newcommand{\restoreconpkgdir}{\textit{selinux\_android\_restorecon\_pkgdir}\xspace}
+\newcommand{\restorecond}{\textit{restorecond}\xspace}
+\newcommand{\ioctl}{\textit{ioctl}\xspace}
+\newcommand{\loadpolicy}{\textit{selinux\_android\_load\_policy}\xspace}
+\newcommand{\systemservice}{\textit{SystemService}\xspace}
+\newcommand{\contentprovider}{\textit{ContentProvider}\xspace}
+\newcommand{\activity}{\textit{Activity}\xspace}
+\newcommand{\service}{\textit{Service}\xspace}
+
+% circle shapes
+\newcommand*{\whitecircle}[1]{\tikz[baseline=-0.3em]{
+		\node[shape=circle,scale=0.6,draw,inner sep=2pt] (char) {#1};}}
+\newcommand*{\blackcircle}[1]{\tikz[baseline=-0.3em]{
+		\node[shape=circle,scale=0.6,fill=black,text=white,draw,inner sep=2pt] (char) {#1};}}
+\newcommand*{\bluesquare}[1]{\tikz[baseline=-0.3em]{
+		\node[shape=rectangle,scale=0.85,fill=blue,text=white,draw,inner sep=2pt, minimum height=1pt] (char) {#1};}}
+
+% listing style for policy files
+\lstdefinelanguage{policyfile}{
+	sensitive=true,
+	keywords={},
+	morecomment=[f][\color{blue}][0]{;},
+}
+
+\hyphenation{iso-lat-ed-process}
+\hyphenation{Pack-age-Man-ag-er-Ser-vice}
+\hyphenation{SE-Li-nux-MMAC}
+\hyphenation{Ac-tiv-i-ty-Man-ag-er-Ser-vice}
+\hyphenation{Iso-lat-ed-Ser-vice}
+
+% break url on multiple lines
+\def\UrlBreaks{\do\/\do-}
+
+\lstset{
+  numbers=left,
+  numberstyle=\scriptsize,
+  basicstyle=\ttfamily\footnotesize,
+  numberblanklines=false,
+  stepnumber=1,
+  aboveskip=0pt,
+  belowskip=0pt,
+  breaklines=true,
+  breakindent=5pt,
+  tabsize=4,
+  xleftmargin=2mm,
+  framexleftmargin=0mm
+}

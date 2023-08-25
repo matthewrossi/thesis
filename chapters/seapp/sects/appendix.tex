@@ -1,0 +1,133 @@
+\chapter[Seapp documentation]{SEApp documentation}\label{appendix:seapp_analysis}
+
+\vspace{-1.8em}
+\begin{wrapfigure}{r}{0.3\textwidth}
+  \vspace{-1.5em}
+	\begin{center}
+          \includegraphics[width=0.28\textwidth]{chapters/seapp/figs/ae/MainActivity.png}
+        \end{center}
+	\caption{ \bf MainActivity}
+	\label{fig:seapp_mainactivity_view}
+      \end{wrapfigure}
+      
+\vspace{-1em}
+This chapter gives a technical demonstration of the security measures
+introduced by \pap. The description is based on the showcase app
+presented in Section~\ref{sect:seapp_motiv}. We show that: (1) the
+showcase app can operate without a policy module; in this mode, its
+vulnerabilities can be exploited; (2) the showcase app can also
+operate with the policy module listed in
+Appendix~\ref{appendix:seapp_policy} and use the services offered by
+SEApp; in this mode, the internal vulnerabilities are no longer
+exploitable.
+
+The showcase app has a minimal structure. Its entry point is the {\em
+  MainActivity} (Figure~\ref{fig:seapp_mainactivity_view}), which is associated with the {\em core\_logic}
+process. From the {\em MainActivity} it is possible to send a {\em
+  startActivity} intent to one among {\em UseCase1Activity}, {\em
+  UseCase2Activity} and {\em UseCase3Activity}; the entry points of
+use cases~1, 2 and~3, respectively. For each entry point {\em Zygote}
+starts a dedicated process and, according to the content of the
+\seappcontexts (in Listing~\ref{seapp_seappctxp}), assigns its
+specific domain ({\tt user\_logic\_d} to UC\#1, {\tt ads\_d} to UC\#2,
+{\tt media\_d} to UC\#3).  A dedicated description of each use case
+follows.
+
+\input{chapters/seapp/sects/usecases/uc1.tex}
+\input{chapters/seapp/sects/usecases/uc2.tex}
+\newpage
+\input{chapters/seapp/sects/usecases/uc3.tex}
+
+\section[Policy module]{Showcase app policy module}\label{appendix:seapp_policy}
+
+Here are reported the showcase app policy module files.
+\vspace{0.6em}
+\begin{lstlisting}[language=policyfile, caption=\bf showcase app
+seapp\textunderscore contexts, captionpos=b, numbersep=2pt,
+resetmargins=false, label=seapp_seappctxp]
+user=_app seinfo=showcase_app domain=com_example_showcaseapp.core_logic_d name=com.example.showcaseapp:core_logic levelFrom=all
+user=_app seinfo=showcase_app domain=com_example_showcaseapp.user_logic_d name=com.example.showcaseapp:user_logic levelFrom=all
+user=_app seinfo=showcase_app domain=com_example_showcaseapp.ads_d name=com.example.showcaseapp levelFrom=all
+user=_app seinfo=showcase_app domain=com_example_showcaseapp.media_d name=com.example.showcaseapp:media levelFrom=all
+\end{lstlisting}
+\vspace{0.6em}
+\begin{lstlisting}[language=policyfile, caption=\bf showcase app
+file\textunderscore contexts, captionpos=b,
+numbersep=2pt,resetmargins=false, , label=seapp_filectxp]
+.*                  u:object_r:app_data_file:s0
+files/confidential  u:object_r:com_example_showcaseapp.confidential_t:s0
+files/ads_cache     u:object_r:com_example_showcaseapp.ads_t:s0
+\end{lstlisting}
+\vspace{0.6em}
+\begin{lstlisting}[language=policyfile, caption=\bf showcase app
+mac\textunderscore permissions.xml, captionpos=b, numbersep=2pt, resetmargins=false, label=seapp_macctxp]
+<?xml version="1.0" encoding="iso-8859-1"?>
+<policy><signer signature="SIGNATURE">
+<package name="com.example.showcaseapp">
+<seinfo value="showcase_app"/></package>
+</signer></policy>
+\end{lstlisting}
+\vspace{0.6em}
+\begin{lstlisting}[language=policyfile, caption=\bf showcase app sepolicy.cil,
+captionpos=b, numbersep=2pt, resetmargins=false, label=seapp_sepolctxp]
+(block com_example_showcaseapp
+; creation of domain types
+(type core_logic_d)
+(call md_untrusteddomain (core_logic_d))
+(type user_logic_d)
+(call md_appdomain (user_logic_d))
+(type ads_d)
+(call md_appdomain (ads_d))
+(call md_netdomain (ads_d))
+(type media_d)
+(call md_appdomain (media_d))
+(typeattribute domains)
+(typeattributeset domains (core_logic_d user_logic_d ads_d media_d))
+; creation of file types
+(type confidential_t)
+(call mt_appdatafile (confidential_t))
+(type ads_t)
+(call mt_appdatafile (ads_t))
+; bounding the domains and types
+(typebounds untrusted_app core_logic_d)
+(typebounds untrusted_app user_logic_d)
+(typebounds untrusted_app ads_d)
+(typebounds untrusted_app media_d)	
+(typebounds app_data_file confidential_t)
+(typebounds app_data_file ads_t)
+; grant core_logic_d access to confidential files
+(allow core_logic_d confidential_t (dir (search write add_name)))
+(allow core_logic_d confidential_t (file (create getattr open read write)))
+; grant ads_d access to ads_cache files
+(allow ads_d ads_t(dir(search write add_name)))
+(allow ads_d ads_t(file(create getattr open read write)))
+; minimum app_api_service subset
+(allow domains activity_service (service_manager (find)))
+(allow domains activity_task_service (service_manager (find)))
+(allow domains ashmem_device_service (service_manager (find)))
+(allow domains audio_service (service_manager (find)))
+(allow domains surfaceflinger_service (service_manager (find)))
+(allow domains gpu_service (service_manager (find)))
+; grant core_logic_d the needed permissions
+(allow core_logic_d restorecon_service (service_manager (find)))
+(allow core_logic_d location_service (service_manager (find)))
+; grant ads_d access to unity3ads needed services
+(allow ads_d radio_service (service_manager (find)))
+(allow ads_d webviewupdate_service (service_manager (find)))
+(allow ads_d autofill_service (service_manager (find)))
+(allow ads_d clipboard_service (service_manager (find)))
+(allow ads_d batterystats_service(service_manager (find)))
+(allow ads_d batteryproperties_service (service_manager (find)))
+(allow ads_d audioserver_service (service_manager (find)))
+(allow ads_d mediaserver_service (service_manager (find)))
+; grant media_d the needed permissions
+(allow media_d autofill_service (service_manager (find)))
+(allow media_d cameraserver_service (service_manager (find))))
+\end{lstlisting}
+
+
+%%% Local Variables: 
+%%% mode: latex
+%%% TeX-master: "../../../main.tex"
+%%% reftex-default-bibliography: "../../../bib/biblio.bib"
+%%% End:

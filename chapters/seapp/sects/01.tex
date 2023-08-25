@@ -1,0 +1,72 @@
+\section{Introduction}
+\label{sect:seapp_introduction}
+
+Security in operating systems has greatly evolved and has been able to
+address many of the threats originating by an extensive and varied
+collection of adversaries.
+
+The mitigation of security threats is particularly important
+for {\em mobile operating systems}, due to their wide deployment and
+the confidential information they hold.
+
+Both Android and iOS have seen significant investments toward the
+realization of advanced security techniques, which have led to a great
+increase in the level of protection offered to
+users~\cite{seapp_tapsm_m}.  The strength of security and the value of
+protected resources is testified, for instance, by the payouts
+associated with working exploits in markets like
+Zerodium~\cite{seapp_zerodium}, where the payouts for mobile operating
+systems are the highest\footnote{At the time of writing, US\$2.5M and
+  US\$2M are paid for a zero click solution able to subvert the
+  security of Androd and iOS, respectively. }.
+
+A peculiar threat that characterizes mobile operating systems is the
+need to balance on one side the high sensitivity of the information,
+and on the other hand the need for users to install into the system a
+large number of applications (called simply {\em apps} in this domain)
+often produced by unknown developers, which may hide malicious
+functions.  A first level of protection is offered, both in iOS and
+Android, by a preliminary screening of apps before they are made
+available on the platform market~\cite{seapp_playprotect} or installed
+to a device, but this approach cannot provide a strong guarantee.
+Security mechanisms internal to the operating system are needed in
+order to constrain the apps to only operate within the boundaries
+specified by the device owner at installation time.
+
+The approach used in the design of mobile operating systems considers
+as the first requirement the protection of system resources.  Focusing
+on Android, which is open source and more accessible to researchers,
+we notice a significant evolution in its internal security
+architecture.  This architecture is quite rich and consists of many
+security measures~\cite{seapp_10.1145/2046707.2046779,seapp_tapsm_m}.
+In this environment, we specifically look at the role of SELinux.
+SELinux implements the {\em Mandatory Access Control} (MAC) mechanism,
+which relies on a system-level policy to declare the operations that a
+process can execute over a resource based on the security labels
+associated with them.  Compared to classical {\em Discretionary Access
+  Control} (DAC), still used in Android in an extensive way, MAC is
+more rigid and provides stronger guarantees against unwanted
+behaviors.  When SELinux was introduced into Android 4.3 in 2013 (see
+Figure~\ref{fig:seapp_mac_evolution}), it used a limited set of system
+domains and it was mainly aimed at separating system resources from
+user apps.  In the next releases, the configuration of SELinux has
+progressively become more complex, with a growing set of domains
+isolating different services and resources, so that a bug or
+vulnerability in some system component does not lead to a direct
+compromise of the whole system.
+
+The introduction of SELinux into Android has been a clear success.
+Unfortunately, the stronger protection benefits do not extend to
+regular apps which are assigned with a single domain named
+\untrustedapp.  Since Android 9, isolation of apps has increased with
+the use of categories, which guarantees that distinct apps operate on
+separate security contexts.  Our proposal, \pap, builds upon the
+observation that giving app developers the ability to apply MAC to the
+internal structure of the app would provide more robust protection
+against other apps and internal vulnerabilities.
+
+%%% Local Variables: 
+%%% mode: latex
+%%% TeX-master: "../../../main.tex"
+%%% reftex-default-bibliography: "../../../bib/biblio.bib"
+%%% End:
