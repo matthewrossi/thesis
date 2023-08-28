@@ -12,24 +12,24 @@ limitation, giving the application developer the power to specify new
 \sel types and associated permissions.
 
 \subsection{Use cases}\label{sect:seapp_use-cases}
-We envision several scenarios that justify the use of \pap.  Many of
+We envision several scenarios that justify the use of \seapp.  Many of
 them have been previously considered by researchers as motivations for
 the introduction in Android of dedicated
 components~\cite{seapp_10.1145/2976749.2978333,
   seapp_10.1145/3292006.3300027, seapp_10.1145/3133956.3134064}.
 
-In this section, we give a tour of \pap capabilities using a showcase
-app\footnote{The showcase app is available in the \pap repository
+In this section, we give a tour of \seapp capabilities using a showcase
+app\footnote{The showcase app is available in the \seapp repository
   along with the set of modifications to the AOSP.}.  The architecture
 of the showcase app is shown in Figure~\ref{fig:seapp_showcase}. Our
 description is based on three use cases: fine-granularity in access to
 files, fine-granularity in access to services, and isolation of
 vulnerability prone components.  Each of the use cases emphasizes the
-intra-app security features introduced by \pap.  A dedicated
+intra-app security features introduced by \seapp.  A dedicated
 description, along with policy files that show concretely how to
 enforce these use cases, appears in the
 Appendix~\ref{appendix:seapp_analysis}; we provide there a technical
-demonstration of how \pap can provide protection against a number of
+demonstration of how \seapp can provide protection against a number of
 common security problems in Android
 apps~\cite{seapp_common_play_protect_vulnerabilites} that were
 implemented in the showcase app.
@@ -52,7 +52,7 @@ its visibility to only some internal components, labeling sensitive
 and non-sensitive data with distinct \sel types (use case 1).  Yet, in
 the current Android security model, apps do not have the option to
 assign distinct MAC labels to different resources, as all internal
-files are labeled \appdatafile.  \pap allows the developer to
+files are labeled \appdatafile.  \seapp allows the developer to
 introduce dedicated types, and to organize the app's structure with a
 separation between components managing non-sensitive data and those
 requiring access to sensitive data.  The sensitive components will be
@@ -80,7 +80,7 @@ the execution of the library, but may want to have guarantees that the
 library cannot abuse the access privileges granted by the user to the
 whole application sandbox (use case 2).  A common concern is
 preventing access to system services such as {\em location}.  These
-requirements can be managed by \pap with the definition of a separate
+requirements can be managed by \seapp with the definition of a separate
 MAC domain for the library.  The process managing the delivery of Ads
 will be associated with this domain, which will provide only the
 necessary privileges to access the dedicated resources needed for the
@@ -94,7 +94,7 @@ network but is prevented from accessing \texttt{location service}.
 In Appendix~\ref{appendix:seapp_uc2} we give a demonstration of how
 the showcase app can support the execution of the Unity
 Ads~\cite{seapp_unityads} framework with a dedicated \sel domain. We
-also describe in detail how \pap prevents a malicious component, which
+also describe in detail how \seapp prevents a malicious component, which
 was deliberately injected by us into the library process, to capture
 the device location.
 
@@ -125,7 +125,7 @@ API~\cite{seapp_bound_service_api}.  Also, {\em isolatedprocess} can
 only access already open app files received over Binder.  Another
 shortcoming is that each invocation of an {\em isolatedprocess}
 requires the creation of a new process.  If a series of requests are
-made by the app, the performance impact can be significant.  \pap
+made by the app, the performance impact can be significant.  \seapp
 offers an easier way to do this compared to {\em isolatedprocess}, as
 it permits to assign a domain to the process in which the component is
 executed, and then configure the required permissions at MAC level.
@@ -137,7 +137,7 @@ confine the {\em :media} component.
 In Appendix~\ref{appendix:seapp_uc3} we give a demonstration of how
 the showcase app can support the execution of media components relying
 on a native library in a dedicated process. We also describe how the
-developer can leverage \pap to prevent the code of the library from
+developer can leverage \seapp to prevent the code of the library from
 the execution of unwanted or unintended operations, like opening a
 network connection.
 
@@ -158,11 +158,11 @@ In these large and modular apps, developers find it difficult to fully
 control which components of an app are using sensitive
 data\footnote{The topic was explicitly considered
   in~\cite{seapp_burke_interview}, an interview with Android's VP of
-  Engineering.}.  The availability of a solution such as \pap can
+  Engineering.}.  The availability of a solution such as \seapp can
 greatly reduce such risk.  A better compartmentalization can reduce
 the impact of internal vulnerabilities in modular apps, since each
 module can be associated with a dedicated policy fragment.  From a
-security and software engineering standpoint, \pap permits to separate
+security and software engineering standpoint, \seapp permits to separate
 the activities of security policy maintenance and development of new
 features.
 
@@ -186,13 +186,13 @@ app installation time, and a negligible runtime impact
 (Section~\ref{sect:seapp_performance}).
 
 \subsection{Compatibility with other proposals}
-As presented in Section~\ref{sect:seapp_use-cases}, \pap by itself
+As presented in Section~\ref{sect:seapp_use-cases}, \seapp by itself
 provides protection against a broad spectrum of attacks (see
 Appendix~\ref{appendix:seapp_analysis}), but its merit does not end
 there.  As multiple literature proposals (e.g.,
 \cite{seapp_10.1145/3133956.3134064, seapp_boxify, seapp_aframe})
 build upon process isolation and use it to accomplish separation of
-privileges at the application layer, \pap could be used as building
+privileges at the application layer, \seapp could be used as building
 block to enforce such restrictions at the MAC layer too, enabling
 defense in depth. Moreover, SEApp could also work in conjunction with
 other solutions that work at MAC level such as {\em

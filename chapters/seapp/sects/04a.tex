@@ -50,14 +50,14 @@ the job.
 
 The app policy is specified in a module, provided by the app to
 describe its own types.  The policy module is processed at app
-installation time by a component of the system, called {\em \pap
+installation time by a component of the system, called {\em \seapp
   Policy Parser}, responsible to verify that the policy is correct and
 does not introduce vulnerabilities into the system.  The addition of a
 policy module is managed by combining the new module with the platform
 policy and the previous installed ones, producing after policy
 compilation a single binary representation of the global policy.
 
-In this section, we provide a description of the \pap policy language
+In this section, we provide a description of the \seapp policy language
 and the restrictions each module is subject to.  Policy configuration
 is detailed in Section~\ref{sect:seapp_config}, while policy
 compilation and runtime support are discussed in
@@ -124,7 +124,7 @@ of the \sel policy, each policy module must respect some constraints.
 Since Android supports the side-loading of
 apps~\cite{seapp_adb_install}, we cannot rely on app markets to verify
 app policies.  Therefore, the enforcement of constraints is done on
-the device, by both the \pap Policy Parser and the \sel environment.
+the device, by both the \seapp Policy Parser and the \sel environment.
 If any of these components raises an exception, during the
 verification or compilation of the policy, app installation is
 stopped.
@@ -141,14 +141,14 @@ type-attributes $T_A$ (namespace equal to the current app package
 name), types or type-attributes of other modules $T_{A'\neq A}$
 (namespace equal to some other app package), and system types or
 type-attributes $T_S$ (system namespace).  At installation time, the
-\pap Policy Parser determines the origin of each type, with an
+\seapp Policy Parser determines the origin of each type, with an
 explicit prohibition for policies to refer to types or type-attributes
 defined by other policy modules, while use of system types or
 type-attributes is subject to restrictions.
 
 
 With regard to the {\tt allow} statement, a dedicated analysis is
-performed by the \pap Policy Parser.  For each rule, the global origin
+performed by the \seapp Policy Parser.  For each rule, the global origin
 of source and target types is determined.  We refer to system origin
 {\em S}, when the type is directly or indirectly associated with a
 system type in the expansion of its definition, while to local origin
@@ -164,7 +164,7 @@ An {\em AllowAS} originates when a local type needs to be granted a
 permission on a system type.  A concrete example is shown in
 Section~\ref{sect:seapp_motiv}, where the {\em :media} process needs
 access to the {\tt camera\textunderscore service}.  The case cannot be
-decided locally by the \pap Policy Parser, therefore it is delegated
+decided locally by the \seapp Policy Parser, therefore it is delegated
 to the \sel decision engine during policy enforcement.  This crucial
 postponed restriction depends on the constraint that all app types
 have to appear in a \typebounds statement~\cite{seapp_typebounds},
@@ -194,7 +194,7 @@ to a {\em confused deputy attack}
 their explicit use.  To limit system types to only those already
 dealing with untrusted content and simplifying the policy, we rely on
 CIL macros, a set of function-like statements that, when invoked by
-the \pap policy module, produce a predefined list of policy
+the \seapp policy module, produce a predefined list of policy
 statements.  This approach permits to retain control on the rules
 produced, ensuring no violation of the default system policy. Also, it
 makes the work of the developer easier, by abstracting away system
@@ -220,18 +220,18 @@ macros), and then add to it fine-grained authorizations with {\em
                 {\em md\textunderscore untrusteddomain} & to get full untrusted app permissions \\ \hline
                 {\em mt\textunderscore appdatafile}     & to label app files   \\ \hline
 	\end{tabular}
-	\caption{\pap macros to grant permissions to local types}
+	\caption{\seapp macros to grant permissions to local types}
 	\label{tab:seapp_macros}
 \end{table}
 
-With regard to the \typeattributeset statement, the \pap Policy Parser
+With regard to the \typeattributeset statement, the \seapp Policy Parser
 uses a verification strategy similar to the one used for allow rules.
 First, the global origin of the type-attribute and of the set
 expression of types and type-attributes is determined.  All statements
 that directly or indirectly relate to system types are blocked.  This
 avoids implicit permission propagation from system and local types.
 
-Similarly, for the \typetransition statement, the \pap Policy Parser
+Similarly, for the \typetransition statement, the \seapp Policy Parser
 verifies the origin of the types involved, with a prohibition for all
 the statements that relate to system types, as they may lead to an
 escalation of privileges.

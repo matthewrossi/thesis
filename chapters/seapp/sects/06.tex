@@ -1,7 +1,7 @@
 \section{Experimental results}
 \label{sect:seapp_performance}
 
-We now present a performance evaluation of \pap.  The experiments have
+We now present a performance evaluation of \seapp.  The experiments have
 been conducted on both Android 9 and 10, each with Linux kernel v4.9.
 However, all the measurements shown refer to Android 10 (release
 android-10.0.0\textunderscore r41).  The device used to run the tests
@@ -15,7 +15,7 @@ have an associated confidence level of 99\%.
 \subsection{App installation}
 
 The introduction of dedicated app policies implies further steps to be
-executed at app installation time, as each \pap module has to be
+executed at app installation time, as each \seapp module has to be
 validated, compiled, and loaded.  To evaluate the impact on
 performance, we wrote dedicated tests to stress the installation
 procedure with multiple application samples.
@@ -43,9 +43,12 @@ domains.
 \begin{figure}[t]
 	\centering
 	\includegraphics[width=0.7\columnwidth]{chapters/seapp/data/top100_cumulative}
-	\caption{\label{fig:seapp_benchmark100} Cumulative install time
-          overhead when installing the top 100 free apps on Google
-          Play Store with our policies}
+	\caption[Cumulative install time overhead of the top 100 free apps
+      with our policies]{
+        \label{fig:seapp_benchmark100} Cumulative install time
+        overhead when installing the top 100 free apps on Google Play
+        Store with our policies
+    }
 \end{figure}
 %
 Each test was repeated five times, measuring the time each package
@@ -70,7 +73,7 @@ configurations exhibit a negligible slowdown, never exceeding
 $1.22 \pm 0.02 s$.
 
 \noindent{\bf Test II.}
-To evaluate the overall impact of \pap in a typical consumer scenario,
+To evaluate the overall impact of \seapp in a typical consumer scenario,
 we performed a test evaluating cumulative installations.  At first, we
 repeated the installation of the top 100 apps on Google Play Store
 with the same policy configuration as in Test I (see
@@ -125,7 +128,7 @@ the overall size in KBytes of the binary policy.
 \subsection{Runtime performance}
 
 We now evaluate the runtime overhead for an app taking full advantage
-of \pap.  We focus on the creation of processes and files, as they are
+of \seapp.  We focus on the creation of processes and files, as they are
 the entities directly affected by the changes made in the
 implementation.  The data shown refer to the creation time of each
 resource.  The measurements have been acquired via
@@ -136,7 +139,7 @@ from the mean have been suppressed.
 
 \subsubsection{Processes}
 
-As discussed in Section~\ref{sect:seapp_implementation}, in \pap the
+As discussed in Section~\ref{sect:seapp_implementation}, in \seapp the
 creation of a process is originated from the request of execution of
 an Android component.  Thus, the slowdown occurs between the request
 for the component and the execution of the method \textit{onCreate},
@@ -148,7 +151,7 @@ supporting the \process attribute in the manifest.
 
 Separate test cases have been identified based on the type of process
 that supports the component.  We refer to \emph{Local}, \emph{Remote},
-\emph{Isolated} or \emph{\pap} components when we run components
+\emph{Isolated} or \emph{\seapp} components when we run components
 respectively in the current process, in another process, in another
 process with the \isolatedapp domain (using the {\em isolatedprocess}
 we described in Section~\ref{sect:seapp_int_comp_isolation}), or in a
@@ -166,20 +169,20 @@ times the app reuses a previously instantiated one.
                            (ms)}}&\multicolumn{4}{c|}{\textbf{Warm start (ms)}} \\
     \cline{1-9}
 
-    \multicolumn{1}{|c|}{\multirow{2}{*}{\textbf{\emph{Component}}}}&\multicolumn{2}{c|}{\textbf{\emph{Stock OS}}}&\multicolumn{2}{c|}{\textbf{\emph{\pap}}}&\multicolumn{2}{c|}{\textbf{\emph{Stock OS}}}&\multicolumn{2}{c|}{\textbf{\emph{\pap}}}  \\ \cline{2-9}
+    \multicolumn{1}{|c|}{\multirow{2}{*}{\textbf{\emph{Component}}}}&\multicolumn{2}{c|}{\textbf{\emph{Stock OS}}}&\multicolumn{2}{c|}{\textbf{\emph{\seapp}}}&\multicolumn{2}{c|}{\textbf{\emph{Stock OS}}}&\multicolumn{2}{c|}{\textbf{\emph{\seapp}}}  \\ \cline{2-9}
 
     \multicolumn{1}{|c|}{}  & $\mu$ & $\sigma$ & $\mu$ & $\sigma$ & $\mu$ & $\sigma$ & $\mu$ & $\sigma$   \\ \hline
 
         LocalActivity		& 39.102	& 1.094	& 38.689	& 0.980	& 21.052	& 6.046	& 18.685	& 5.001	\\ \cline{1-9}
         RemoteActivity	& 123.468	& 3.176	& 124.649	& 3.526	& 15.722	& 2.682	& 15.933	& 3.256	\\ \cline{1-9}
-        \pap Activity		& -			& -		& 127.356	& 3.542	& -			& -		& 15.188	& 2.394	\\ \cline{1-9}
+        \seapp Activity		& -			& -		& 127.356	& 3.542	& -			& -		& 15.188	& 2.394	\\ \cline{1-9}
 
     \hline \hline
 
         LocalService		& 19.164	& 1.444	& 18.835	& 1.392	& 1.399	& 0.208	& 1.328	& 0.208	\\ \cline{1-9}
         RemoteService		& 105.467	& 2.800	& 106.935	& 2.565	& 2.617	& 0.879	& 2.676	& 0.593	\\ \cline{1-9}
         IsolatedService	& 103.923	& 2.425	& 104.260	& 3.727	& -		& -		& -		& -		\\ \cline{1-9}
-        \pap Service		& -			& -		& 106.925	& 3.774	& -		& -		& 2.528	& 0.675 \\ \cline{1-9}
+        \seapp Service		& -			& -		& 106.925	& 3.774	& -		& -		& 2.528	& 0.675 \\ \cline{1-9}
   \end{tabular}
   \caption{Cold and warm start performance for activities and
     services}
@@ -187,9 +190,9 @@ times the app reuses a previously instantiated one.
 \end{table}
 
 The results shown in Table~\ref{tab:seapp_start_2} demonstrate that
-the performance of a stock version of the OS and \pap are equivalent.
+the performance of a stock version of the OS and \seapp are equivalent.
 Also, we observe that apps willing to benefit of the intra-app
-isolation feature get from the use of \pap the same performance they
+isolation feature get from the use of \seapp the same performance they
 would get from the use of remote components.  Our approach also proves
 to outperform the \textit{IsolatedService}, as the {\em
   isolatedprocess} option forces the creation of a new process every
@@ -200,7 +203,7 @@ system caching mechanism.
 
 \subsubsection{Files}
 
-Alongside the usual creation method, \pap introduces in Android the
+Alongside the usual creation method, \seapp introduces in Android the
 possibility of creating files with a security domain defined by the
 app dedicated \filecontexts.  Table~\ref{tab:seapp_file_creation}
 shows the time required to create a file, for each of the methods
@@ -218,8 +221,8 @@ on the file does not exhibit any performance degradation.
     \multicolumn{3}{|c|}{\textbf{File creation}}  \\ \hline \hline
     \textbf{\textit{Test}} & \textbf{$\mu$ (\textmu s)} & \textbf{$\sigma$ (\textmu s)} \\ \hline
         Stock OS			&  57.077	&  5.174		\\ \hline
-        \pap				&  60.696	&  6.782		\\ \hline
-        \pap +                          & \multirow{2}{*}{431.472} & \multirow{2}{*}{109.494} \\
+        \seapp				&  60.696	&  6.782		\\ \hline
+        \seapp +                          & \multirow{2}{*}{431.472} & \multirow{2}{*}{109.494} \\
         \restorecon & & \\ \hline
   \end{tabular}
   \caption{File creation performance}

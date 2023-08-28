@@ -37,7 +37,7 @@ component retrieves through the \servicemanager a handle to the {\tt
   LocationManager}, and registers to it an asynchronous listener to
 capture GPS location (Figure~\ref{fig:seapp_uc2_exploit}).
 
-We show that when the policy module is enforced by \pap, the malicious
+We show that when the policy module is enforced by \seapp, the malicious
 component cannot access the GPS coordinates. This is because the
 component is executed in the same process of the library, which is
 labeled with {\tt ads\textunderscore d}. If we look at the \sepolicy

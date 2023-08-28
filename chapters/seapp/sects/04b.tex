@@ -1,7 +1,7 @@
 \section{Policy configuration}\label{sect:seapp_config}
 
 In this section, we explore the structure of application policy
-modules.  Before describing the content of \pap configuration files,
+modules.  Before describing the content of \seapp configuration files,
 we give a short description of how \sea defines the security contexts
 of processes, files and system services.  There are strong
 similarities between the structure of system and app policies.
@@ -74,12 +74,12 @@ Furthermore, preventing a process from obtaining a \binder reference
 prevents the process from using any functionality exposed by the
 service.
 
-\subsection{\pap policy structure}\label{subsect:seapp_structure}
+\subsection{\seapp policy structure}\label{subsect:seapp_structure}
 
 Developers interested in taking advantage of our approach to improve
 the security of their apps are required to load the policy into their
 Android Package (APK).  A predefined directory, \apkpolicydir, at the
-root of the archive, is where the \pap-aware package installer will be
+root of the archive, is where the \seapp-aware package installer will be
 looking for the policy module (see
 Figure~\ref{fig:seapp_policy_folder}).  Inside this directory, the
 installer looks for four files (which we refer to as {\em local}),
@@ -95,13 +95,13 @@ local file \sepolicy), and (ii) the configuration of the {\em security
 \begin{figure}[t]
 	\centering
 	\includegraphics[width=0.4\textwidth]{chapters/seapp/figs/policy_folder}
-	\caption{\pap policy structure}
+	\caption{\seapp policy structure}
 	\label{fig:seapp_policy_folder}
 \end{figure}
 
 \subsubsection{Processes}\label{subsub:seapp_process_control}
 
-\pap permits to assign a \sel domain to each process of the security
+\seapp permits to assign a \sel domain to each process of the security
 enhanced app.  To do this, the developer lists in the local
 \seappcontexts a set of entries that determine the security context to
 use for its processes.  For each entry, we restrict the list of valid

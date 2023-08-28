@@ -1,7 +1,7 @@
 \section{Implementation}\label{sect:seapp_implementation}
 
 In this section, we describe the main changes introduced in Android by
-\pap.  We first analyze the modifications required to manage policy
+\seapp.  We first analyze the modifications required to manage policy
 modules, both during device boot and at app installation.  We then
 describe how the runtime support was realized.
 
@@ -36,7 +36,7 @@ performs the builtin functions listed there, among them mounting the
 \data partition.  Now, the policy modules are available, and we can
 produce with \secilc~\cite{seapp_secilccom} (the \sel CIL compiler)
 the binary policy consisting of the integration among the system
-policy, the \pap macros and the app policy modules.  To trigger the
+policy, the \seapp macros and the app policy modules.  To trigger the
 build and reload of the policy, we implemented a new builtin function,
 and modified the \initrc to call this function right after \data is
 mounted.  The policy is considered immediately after the \data
@@ -49,7 +49,7 @@ with Treble support and, therefore, execute their \sel setup stage on
 the \sepolicy fragments scattered among multiple partitions, \init
 still supports the use of a legacy monolithic binary policy.  For
 compatibility towards devices using a monolithic binary policy,
-additional changes are required, as \pap needs the system policy
+additional changes are required, as \seapp needs the system policy
 written in CIL to be compiled alongside with app modules.  To this
 end, we modified the Android build process to push the \sepolicy files
 onto the device even for non-Treble devices.  New entries in the
@@ -58,7 +58,7 @@ device tree were added to make the policy segments available during
 
 As previously mentioned, we decided to store the policy modules in the
 \data partition; even if this choice required us to adapt the boot
-procedure of the device, it smoothly integrates \pap with the current
+procedure of the device, it smoothly integrates \seapp with the current
 Android design.  In fact, the \data partition is one of the few
 writable partitions, it is dedicated to hold the APK the user
 installs, as well as their dedicated data directories and, therefore,
@@ -95,7 +95,7 @@ directory identified by the package name (\blackcircle{2}).  Then, the
 \pms invokes \installd~\cite{seapp_installdid} through the {\em
   Installer} to trigger the policy compilation with an exec call to
 the \secilc program (\blackcircle{3}, \blackcircle{4}).  {\em Secilc}
-reads the system \sepolicy fragments, the \pap macros and the
+reads the system \sepolicy fragments, the \seapp macros and the
 \sepolicy fragments of the app policy modules in the \dataselinux
 directory (\blackcircle{5}), and builds the binary policy
 (\blackcircle{6}).  When the \secilc execution returns and no
@@ -117,7 +117,7 @@ class responsible for loading the appropriate {\tt mac\textunderscore
 to apks, was modified to load the new \macpermissions specified within
 the app policy module.  The loading of \filecontexts and
 \seappcontexts was configured to treat system and app configuration
-files apart.  So, \pap-enhanced applications will load exclusively
+files apart.  So, \seapp-enhanced applications will load exclusively
 their configuration files, whereas the loading of system's and other
 apps' configuration files is not needed since their use is prohibited.
 System services and daemons, instead, load the base system
@@ -127,7 +127,7 @@ configuration files as they are needed.  An example of this are
 \seappcontexts and \filecontexts, respectively (see
 Section~\ref{sect:seapp_app_runtime}).
 
-Our implementation also supports the uninstallation of \pap apps.  The
+Our implementation also supports the uninstallation of \seapp apps.  The
 regular uninstallation process is extended with a step where the
 global policy is recompiled, in order to remove the impact of old
 modules on the overall binary policy.  With reference to application
@@ -221,7 +221,7 @@ context based on UID and \sel category is assigned); however, all the
 files stored in the same app folder are labeled with the \appdatafile
 type.
 
-To make the most out of \sel, \pap complements Android with the
+To make the most out of \sel, \seapp complements Android with the
 implementation of a new service, which we called \restorecon (to
 recall the \sel \restoreconc tool).  The \restorecon service is
 spawned by {\em init} at boot, and works in its own \sel domain.  Its
@@ -230,7 +230,7 @@ local \filecontexts.  To ease development, we implemented the new {\tt
   android.os.File} abstraction, which exposes an interface equal to
 that of {\tt java.io.File}, and transparently handles the call to our
 service.  Figure~\ref{fig:seapp_restorecon} details the new control
-flow.  A component running in a \pap-enhanced process (highlighted in
+flow.  A component running in a \seapp-enhanced process (highlighted in
 green in Figure~\ref{fig:seapp_restorecon}) invokes {\tt
   android.os.file}, and triggers a new file creation request
 (\whitecircle{1}).  The new API first interacts with the {\em
@@ -258,8 +258,8 @@ system daemon that watches (inodes of) a configurable list of files
 and checks that they are labeled as stated in the system
 \filecontexts.  Although it may realize the control, \restorecond was
 meant for a few system files, therefore its performance would hardly
-scale, especially considering that \pap needs to manage all files
-created by \pap-aware apps.  Another major issue is that this approach
+scale, especially considering that \seapp needs to manage all files
+created by \seapp-aware apps.  Another major issue is that this approach
 is exposed to race conditions, because there is a delay between file
 creation and its relabeling.
 
