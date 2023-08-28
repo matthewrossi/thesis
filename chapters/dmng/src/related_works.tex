@@ -1,0 +1,64 @@
+\section{Related work}
+
+Several research works have highlighted the importance of sandboxing
+and isolation techniques in modern software~\cite{kim2013practical,
+  lsm_fra, berman1995tron, RLBox, seapp, ALBANESE2020934}. Indeed,
+sandboxing plays a key role in many plaftorms (e.g., Linux, Windows,
+iOS, Android), and is integrated in widely used software such as
+browsers (e.g., Chrome~\cite{chromium-sandbox},
+Firefox~\cite{firefox-sandbox}), service managers (e.g.,
+Systemd~\cite{systemd-sandbox}) and document viewers (e.g.,
+Acrobat~\cite{acrobat-sandbox}).
+
+With specific reference to the cloud scenario, many recent proposals
+have investigated the use of sandboxing to mitigate
+vulnerabilities~\cite{natisand, cage4deno, enhance-wasm-sandbox,
+  sanddriller-staicu, staicu2021bilingual, binwrap, zimmermann-risks,
+  npm-malicious-update}. In {\em NatiSand}~\cite{natisand} and {\em
+  Cage4Deno}~\cite{cage4deno} the authors modify the Deno runtime to
+control the permissions available to applications running native
+code. {\em BinWrap}~\cite{binwrap} proposes similar measures to
+restrict the permissions available to Node.js native add-ons.  {\em
+  SandDriller}~\cite{sanddriller-staicu} describes an approach based
+on dynamic analysis for detecting sandbox escape vulnerabilities for
+Node.js applications. Zimmermann et al.~\cite{zimmermann-risks} and
+Ferreira et al.~\cite{npm-malicious-update} study the risks associated
+with vulnerable or malicious third-party dependencies and propose
+possible install (and update) time countermeausures. In general, all
+the previous proposals address the issues associated with a specific
+runtime ecosystem. Conversely, we aim to secure applications
+independently of their build toolchain or runtime.
+
+Virtual machines and containers are two fundamental technologies in
+modern cloud architectures. Both permit to virtualize resources and
+execute applications in an isolated environment. Virtual machines
+ensure stronger security guarantees at the cost of higher resource
+utilization with respect to containers. The main reason is that
+applications executed in separate virtual machines have a distinct set
+of resources and do not share the same
+kernel~\cite{casola-optimization, CASOLA2018235}.  With specific
+reference to our scenario, both these technologies are associated with
+coarse granularity. Indeed, when working with them developers grant
+the application access to volumes rather than single resources. So, we
+provide a complementary approach to enable the introduction of
+fine-grained, per-resource access rules.
+
+Modern industrial platforms like Cilium~\cite{cilium} and
+Falco~\cite{falco} rely on eBPF as the primary means to enforce
+security policies in cloud applications. Cilium provides networking,
+observability, and security functions for container workloads, while
+Falco implements a threat detection engine for clusters. Both
+solutions are enterprise-oriented, hence the developer may find
+difficult to set up fine-grained policies leveraging them. Moreover,
+as already mentioned in the paper, the performance of eBPF-based
+solutions is associated with large variability when fine-grained rules
+are used~\cite{falco-overhead}. Therefore, we propose to complement
+these solutions by assisting the developer in the generation of least
+privilege security policies and using recent sandboxing technologies
+like Landlock, to reduce the overhead and strengthen the security
+boundary of the application.
+
+%%% Local Variables:
+%%% mode: latex
+%%% TeX-master: "../main"
+%%% End:

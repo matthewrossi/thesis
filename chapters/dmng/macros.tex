@@ -1,0 +1,66 @@
+\newcommand{\new}[1]{{\color{blue} #1}}
+\newcommand{\fix}[1]{{\color{red} #1}}
+
+\newcommand{\dmng}[0]{Dmng\xspace}
+\newcommand{\ebpf}[0]{eBPF\xspace}
+
+\colorlet{punct}{red!60!black}
+\definecolor{background}{HTML}{EEEEEE}
+\definecolor{delim}{RGB}{20,105,176}
+\definecolor{types}{RGB}{255,0,0}
+\definecolor{myBrickRed}{RGB}{203,65,84}
+
+\lstset{
+	xleftmargin=1.5em,
+	basicstyle=\small\ttfamily,
+	numbers=left,
+	numberstyle=\scriptsize,
+	stepnumber=1,
+	numbersep=8pt,
+	frame=lines,
+	backgroundcolor=\color{background},
+	captionpos=b,
+}
+
+\lstdefinelanguage{sh}{
+	keywords=[1]{dmng},
+	keywordstyle=[1]\color{blue},
+	morecomment=[f][\color{myBrickRed}][0]{\#},
+	extendedchars=true,
+	showstringspaces=false,
+	showspaces=false,
+	breaklines=true,
+	literate=
+	*{:}{{{\color{punct}{:}}}}{1}
+	{,}{{{\color{punct}{,}}}}{1}
+	{\{}{{{\color{delim}{\{}}}}{1}
+	{\}}{{{\color{delim}{\}}}}}{1}
+	{[}{{{\color{delim}{[}}}}{1}
+	{]}{{{\color{delim}{]}}}}{1}
+	{<}{{{\color{delim}{<}}}}{1}
+	{>}{{{\color{delim}{>}}}}{1},
+}
+
+\lstdefinelanguage{json}{
+	xleftmargin=2em,
+	basicstyle=\footnotesize\ttfamily\linespread{1.2},
+	numbers=left,
+	numberstyle=\scriptsize,
+	stepnumber=1,
+	numbersep=8pt,
+	showstringspaces=false,
+	breaklines=true,
+	backgroundcolor=\color{background},
+	literate=
+	*{:}{{{\color{punct}{:}}}}{1}
+	{,}{{{\color{punct}{,}}}}{1}
+	{\{}{{{\color{delim}{\{}}}}{1}
+	{\}}{{{\color{delim}{\}}}}}{1}
+	{[}{{{\color{delim}{[}}}}{1}
+	{]}{{{\color{delim}{]}}}}{1},
+}
+
+%%% Local Variables:
+%%% mode: plain-tex
+%%% TeX-master: t
+%%% End:

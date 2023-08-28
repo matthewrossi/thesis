@@ -1,0 +1,82 @@
+\section{Introduction}
+
+Cloud applications are often built of many components, each
+implementing a specific set of business requirements. Components
+naturally evolve, their requirements may change, and as the overall scale
+of the application grows it can be challenging to ensure a high
+security standard. Many factors contribute to making this objective
+hard to achieve; the most common ones are: the presence of buggy
+components, the reliance on potentially vulnerable native libraries
+written with memory unsafe languages, and broad access to system
+resources.
+
+Several research works have investigated the scenario (e.g.,
+\cite{staicu2021bilingual, binwrap,natisand, zimmermann-risks}). For
+instance, Staicu et al.~\cite{staicu2021bilingual} explain the
+security problems that arise when web applications interact with
+native extensions. BinWrap~\cite{binwrap} and NatiSand~\cite{natisand}
+analyze recent vulnerabilities and integrate new security
+measures in the Node.js and Deno runtimes to improve isolation and
+limit access to confidential resources. Lastly, 
+Zimmermann et al.~\cite{zimmermann-risks} present an extensive study of third-party
+dependencies, finding that large parts of the entire web ecosystem can
+be impacted by security issues even when individual packages are
+vulnerable or they include malicious code on purpose.
+
+Recently, industry standards have also emerged to encourage
+organizations to proactively include new security measures. A notable
+example is the NIST SP 800-190~\cite{nist-sp800-190}, which focuses on
+environments that adopt microservices, containers and Kubernetes. The
+production environment is given particular attention, with the goal of
+finding and stopping malicious threats in real time.  The directive
+clearly indicates that there is a need for policies to defend against
+vulnerabilities that could lead to disruptions, such as modification
+of important files. The same regulation also provides instructions to
+prevent the tampering of the file system, prompting that applications
+and containers must be run with a set of permissions as minimal as
+possible, namely following the {\em least privilege} principle.
+
+Powered by the recent eBPF kernel technology, frameworks like
+Tetragon~\cite{tetragon} and Falco~\cite{falco} have been proposed to
+monitor cloud applications, identify unexpected security-relevant
+events, and act on them (e.g., denying access). While effective, they
+tend to introduce non-negligible overhead when fine-grained policy
+rules are used~\cite{falco-overhead}.  We argue that the combined use
+of classical operating system access control and sandboxing mechanisms
+may lead to a more resource efficient solution to isolate application
+components.  For instance, the recent Landlock LSM~\cite{landlock}
+permits a process to restrict itself ensuring strong security
+guarantees with minimum performance footprint.  Furthermore, the
+integration of Landlock, or an equivalent security mechanism, in cloud
+applications significantly mitigates the risk associated with the
+exploitation of a vulnerability, as the amount of resources available
+to a potential attacker is greatly reduced.
+
+Unfortunately, to benefit from this protection developers must obtain
+a policy that clearly states the resources an application component
+must be granted access to, and the related permissions. This is far
+from trivial in the case of complex applications. Indeed, the list of
+resources can vary based on the production environment, or be subject
+to changes when different inputs are provided. All these reasons hold
+back the potential of sandboxing, and cloud applications may solely
+rely on the coarse isolation provided by the virtual machine or the
+container in which the application is executed.
+
+\paragraph*{Our contribution}
+In this paper we propose a new approach to systematically integrate
+fine-grained sandboxing in cloud applications that is aligned with the
+current regulations and best practices. In detail, we provide an
+intuitive, open-source solution to retrieve all the file system
+resources required by an application component, to build and customize
+least privilege policies. We then showcase how policies are used to
+sandbox programs with Landlock, mitigating the impact of severe
+CVEs. The approach we propose is flexible and does not depend on the
+toolchain leveraged to build each application component. The
+experiments showcase the minimal performance footprint at runtime, and
+highlight the ability to monitor the application without affecting its
+execution state.
+
+%%% Local Variables:
+%%% mode: latex
+%%% TeX-master: "../main"
+%%% End:

@@ -1,0 +1,120 @@
+\section{Policy}\label{sect:policy}
+
+In this section we present the structure of the policy, explaining how
+it can be customized. We also discuss aspects such as coverage and
+effectiveness.
+
+\paragraph*{Policy structure} The policy obtained from \dmng is a JSON
+file structured as a list of objects as shown in
+Listing~\ref{lst:policy_file}. For each of them, a field {\em
+  policy\textunderscore name} identifies the application component the
+policy applies to, while the sections {\em read}, {\em write} and {\em
+  exec} are used to configure the related permissions. The structure
+of the policy is flexible, and for each object only the field {\em
+  policy\textunderscore name} is required. Since the policy implements
+a \mbox{{\em default-deny}} model, an object that does not list any
+section in its body has no runtime permission, hence the corresponding
+component cannot access any file system
+resource. Listing~\ref{lst:policy_file} shows an example in which a
+component called {\em filter} is granted execution access to the Awk
+program (together with its shared libraries) to process the
+\mbox{read-only} {\em users.csv} dataset.
+
+\paragraph*{Policy customization} \dmng provides a CLI interface that
+work simultaneously with multiple data sources to produce the list of
+requirements. By default, it implements the logic to automatically
+merge the requirements collected with ptrace and the eBPF
+programs. Moreover, it permits to customize the policy interactively,
+adding, changing and removing requirements. For instance, it allows to
+delete requirements based on the permission mask (e.g., {\tt
+  r\textunderscore x}, {\tt r--}), or change the permission associated
+with all the requirements that match a given path regex (e.g., {\tt
+  /usr/bin/libnet.*}).  \newline A useful feature implemented by \dmng
+is {\em permission pruning}. This function takes advantage of the
+structure of the Directory Tree~\cite{hier} to help the developer
+lower the number of requirements in the policy by reducing the
+granularity of permissions. The reduction in granularity is based on a
+{\em pruning goal} set by the developer that represents the desirable
+maximum number of policy rules associated with an application
+component. To implement this feature, \dmng first uses the policy
+template to build a trie (or prefix tree), then starts pruning its
+branches iteratively following a best effort approach, until the
+pruning goal is achieved.  The rationale is that there are areas of
+the file system in which fine granularity brings strong security
+guarantees (e.g., {\tt /lib}), but there are also many other areas
+where fewer rules make the policy more concise without affecting
+security (e.g., {\tt /share}). So, it is important to consider
+contextual information about the current prefix path to guide the
+pruning process.  Moreover, we want to comply with the {\em write xor
+  execute} memory protection policy whereby every file may be either
+writable or executable, but not both. Thus, limiting the propagation
+of potentially insecure configurations (e.g., no dynamic library
+stored in {\tt /lib} must be writable and executable by the
+application).  After the pruing process terminates, the changes to the
+template are audited by the developer, and can be committed or
+discarded.
+
+
+\begin{lstlisting}[
+  captionpos=t,
+  caption=Example of JSON file with single policy,
+  float=tp,
+  floatplacement=tbp,
+  language=json,
+  label=lst:policy_file,
+  frame=none,
+  aboveskip=-0.3em,
+]
+{
+  "policies": [{
+      "policy_name": "filter",
+      "read": [
+        "/lib/x86_64-linux-gnu/libsigsegv.so.2",
+        "/lib/x86_64-linux-gnu/libreadline.so.8",
+        "/lib/x86_64-linux-gnu/libmpfr.so.6",
+        "/lib/x86_64-linux-gnu/libgmp.so.10",
+        "/lib/x86_64-linux-gnu/libm.so.6",
+        "/lib/x86_64-linux-gnu/libc.so.6",
+        "/lib/x86_64-linux-gnu/libtinfo.so.6"',
+        "/lib64/ld-linux-x86-64.so.2",
+        "/usr/bin/awk",
+        "users.csv"
+      ],
+      "exec": [
+        "/lib/x86_64-linux-gnu/libsigsegv.so.2",
+        "/lib/x86_64-linux-gnu/libreadline.so.8",
+        "/lib/x86_64-linux-gnu/libmpfr.so.6",
+        "/lib/x86_64-linux-gnu/libgmp.so.10",
+        "/lib/x86_64-linux-gnu/libm.so.6",
+        "/lib/x86_64-linux-gnu/libc.so.6",
+        "/lib/x86_64-linux-gnu/libtinfo.so.6"',
+        "/lib64/ld-linux-x86-64.so.2",
+        "/usr/bin/awk"
+      ]
+  }]
+}
+\end{lstlisting}
+
+\paragraph*{Coverage and effectiveness}
+
+To generate the policy templates, \dmng registers the activity
+performed by the application while a set of test cases is
+executed. This approach is similar to the one proposed by the Slim
+toolkit~\cite{slimtoolkit} to identify the dependencies of a container
+and minify its image, and to the one followed by the Google Sandbox2
+utility~\cite{sandbox2} to retrieve the requirements of programs
+distributed as ELF files. However, test-based policy generation can be
+subject to coverage issues if the set of test cases is not
+exhaustive. Another aspect worth mentioning is that applications
+poorly structured may benefit less from the isolation properties
+provided by sandboxing. Indeed, on a traditional Unix operating
+system, components executed within the same thread will inevitably
+share the same policy. Since \dmng supports the sandboxing of
+components with a per-thread policy, we recommend to leverage this
+function and execute potentially vulnerable components in dedicated
+compartments.
+
+%%% Local Variables:
+%%% mode: latex
+%%% TeX-master: "../main"
+%%% End:

@@ -1,0 +1,24 @@
+\section{Conclusions}
+
+The mitigation of security bugs and vulnerabilities that affect cloud
+applications is an important topic. In this work, we presented an
+approach to support the introduction of security policies to restrict
+the file system resources available to an application. To facilitate
+adoption, a central aspect in our proposal is the support to policy
+generation. We provide an open source tool to generate and customize
+least privilege policies leveraging the powerful, yet complex, ptrace
+and eBPF kernel technologies.  Compared to virtualization technologies
+such as VMs and containers, which are associated with coarse
+granularity, we demonstrate that our proposal enables the introduction
+of fine-grained, per-resource access rules. The experiments showcase
+the capability of our approach to mitigate severe CVEs at the cost of
+limited, often negligible, overhead.
+
+While currently the protection is limited to the file system, the
+isolation can be extended to other subsystems (e.g., the network).
+This is a promising line of research we aim to explore in the future.
+
+%%% Local Variables:
+%%% mode: latex
+%%% TeX-master: "../main"
+%%% End:

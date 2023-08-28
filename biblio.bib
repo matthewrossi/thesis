@@ -645,3 +645,272 @@ keywords = {mobile phones, usable security, Android, smartphones},
 	abstract = {Android uses a permission-based security model to restrict applications from accessing private data and privileged resources. However, the permissions are assigned at the application level, so even untrusted third-party libraries, such as advertisement, once incorporated, can share the same privileges as the entire application, leading to over-privileged problems.We present AFrame, a developer friendly method to isolate untrusted third-party code from the host applications. The isolation achieved by AFrame covers not only the process/permission isolation, but also the display and input isolation. Our AFrame framework is implemented through a minimal change to the existing Android code base; our evaluation results demonstrate that it is effective in isolating the privileges of untrusted third-party code from applications with reasonable performance overhead.},
 	booktitle = {ACSAC},
 }
+
+@Comment{Dmng}
+
+@inproceedings{seapp,
+	author = {Rossi, Matthew and Facchinetti, Dario and Bacis, Enrico and Rosa,
+	          Marco and Paraboschi, Stefano},
+	title = {{SEApp: Bringing Mandatory Access Control to Android Apps}},
+	booktitle = {{USENIX} Security Symposium},
+	year = {2021},
+}
+
+@inproceedings{RLBox,
+	title = {{Retrofitting Fine Grain Isolation in the Firefox Renderer}},
+	author = {Shravan Narayan and Craig Disselkoen and Tal Garfinkel and Nathan
+	          Froyd and Eric Rahm and Sorin Lerner and Hovav Shacham and Deian
+	          Stefan},
+	booktitle = {{USENIX} Security Symposium},
+	year = {2020},
+}
+
+@inproceedings{enhance-wasm-sandbox,
+	author = {Marco Abbadini and Michele Beretta and Dario Facchinetti and
+	          Gianluca Oldani and Matthew Rossi and Stefano Paraboschi},
+	booktitle = {ACM ASIACCS},
+	title = {{POSTER: Leveraging eBPF to enhance sandboxing of WebAssembly runtimes}},
+	year = {2023},
+}
+
+@inproceedings{cage4deno,
+	author = {Marco Abbadini and Dario Facchinetti and Gianluca Oldani and
+	          Matthew Rossi and Stefano Paraboschi},
+	booktitle = {ACM ASIACCS},
+	title = {{Cage4Deno: A Fine-Grained Sandbox for Deno Subprocesses}},
+	year = {2023},
+}
+
+@misc{landlock,
+	title = {{Landlock: unprivileged access control}},
+	author = {{M. Salaün}},
+	year = {2022},
+	url = {https://docs.kernel.org/userspace-api/landlock.html},
+}
+
+@misc{exiftool-exploit-example,
+	title = {{Gitlab Exiftool vulnerability}},
+	author = {{CVE Mitre}},
+	year = {2021},
+	url = {https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2021-22205},
+}
+
+@misc{ffmpeg-exploit-example,
+	title = {{External SSRF and Local File Read via video upload due to
+	         vulnerable FFmpeg HLS processing}},
+	author = {{Hackerone}},
+	year = {2021},
+	url = {https://hackerone.com/reports/1062888},
+}
+
+@misc{nist-sp800-190,
+	title = {{Application Container Security Guide}},
+	author = {{NIST}},
+	year = {2023},
+	url = {https://csrc.nist.gov/publications/detail/sp/800-190/final},
+}
+
+@inproceedings{sanddriller-staicu,
+	title = {{SandDriller: A fully-automated approach for testing language-based JavaScript sandboxes}},
+	author = {A. AlHamdan and C.A. Staicu},
+	booktitle = {{USENIX} Security Symposium},
+	year = {2023},
+}
+
+@misc{cilium-repo,
+	title = {Cilium},
+	author = {{The Cilium Authors}},
+	url = {https://cilium.io},
+	year = {2023},
+}
+
+@misc{hubble-repo,
+	title = {Hubble},
+	author = {{The Hubble Authors}},
+	url = {https://github.com/hubblestack/hubble},
+	year = {2023},
+}
+
+@misc{libbpf-doc,
+	title = {libbpf},
+	author = {libbpf},
+	url = {https://libbpf.readthedocs.io/en/latest/index.html},
+	year = {2023},
+}
+
+@misc{falco,
+	title = {{Falco}},
+	author = {{The Falco Authors}},
+	year = 2023,
+	url = {https://falco.org},
+}
+
+@misc{cilium,
+	title = {Cilium},
+	author = {{The Cilium Authors}},
+	url = {https://cilium.io},
+	year = 2023,
+}
+
+@misc{falco-overhead,
+	title = {{What is the performance overhead or resource utilization of Falco?}},
+	author = {{The Falco Authors}},
+	year = {2023},
+	url = {https://falco.org/about/faq/#what-is-the-performance-overhead-or-resource-utilization-of-falco},
+}
+
+@misc{tetragon,
+	title = {{Tetragon}},
+	author = {{The Tetragon authors}},
+	year = {2023},
+	url = {https://tetragon.cilium.io/},
+}
+
+@inproceedings{staicu2021bilingual,
+	title={{Bilingual Problems: Studying the Security Risks Incurred by Native Extensions in Scripting Languages}},
+	author={Staicu, Cristian-Alexandru and Rahaman, Sazzadur and Kiss, {\'A}gnes and Backes, Michael},
+	booktitle = {{USENIX} Security Symposium},
+	year={2023}
+}
+
+@inproceedings{binwrap,
+	author = {Christou, George and Ntousakis, Grigoris and Lahtinen, Eric and Ioannidis, Sotiris and Kemerlis, Vasileios P. and Vasilakis, Nikos},
+	title = {{BinWrap: Hybrid Protection Against Native Node.js Add-ons}},
+	year = {2023},
+	booktitle = {ACM ASIACCS},
+}
+
+@inproceedings{zimmermann-risks,
+	author = {Zimmermann, Markus and Staicu, Cristian-Alexandru and Tenny, Cam and Pradel, Michael},
+	title = {{Smallworld with High Risks: A Study of Security Threats in the Npm Ecosystem}},
+	year = {2019},
+	booktitle = {{USENIX} Security Symposium},
+}
+
+@inproceedings{natisand,
+    author = {Marco Abbadini and Dario Facchinetti and Gianluca Oldani and Matthew Rossi and Stefano Paraboschi},
+    booktitle = {RAID},
+    title = {{NatiSand: Native Code Sandboxing for JavaScript Runtimes}},
+    year = {2023}
+}
+
+
+@inproceedings{npm-malicious-update,
+  title={{Containing malicious package updates in npm with a lightweight permission system}},
+  author={Ferreira, Gabriel and Jia, Limin and Sunshine, Joshua and K{\"a}stner, Christian},
+  booktitle={ICSE},
+  year={2021}
+}
+
+@misc{slimtoolkit,
+	title = {{SlimToolKit}},
+	author = {{Slim.AI}},
+	year = {2023},
+	url = {https://github.com/slimtoolkit/slim},
+}
+
+@misc{hier,
+	title = {{hier}},
+	author = {{Linux man pages}},
+	year = {2023},
+	url = {https://man7.org/linux/man-pages/man7/hier.7.html}
+}
+
+@misc{sandbox2,
+	title = {{sandbox2}},
+	author = {{Google}},
+	year = {2023},
+	url = {https://developers.google.com/code-sandboxing/sandbox2}
+}
+
+@misc{jia2023programmable,
+      title={Programmable System Call Security with eBPF}, 
+      author={J. Jia and Y. Zhu and D. Williams and A. Arcangeli and C. Canella and H. Franke and T. Feldman-Fitzthum and D. Skarlatos and D. Gruss and T. Xu},
+      year={2023},
+      archivePrefix={arXiv}
+}
+
+@inproceedings{kim2013practical,
+  title={{Practical and Effective Sandboxing for Non-root Users}},
+  author={Kim, T. and Zeldovich, N.},
+  booktitle={USENIX ATC},
+  year={2013}
+}
+
+@inproceedings{lsm_fra,
+  title={Linux {S}ecurity {M}odule framework},
+  author={C. Wright and C. Cowan and J. Morris and  James and S. Smalley and G. Kroah-Hartman},
+  booktitle={Ottawa Linux Symposium},
+  year={2002}
+}
+
+@inproceedings{berman1995tron,
+  title={{TRON: Process-Specific File Protection for the UNIX Operating System}},
+  author={Berman, A. and Bourassa, V. and Selberg, E.},
+  booktitle={USENIX ATC},
+  year={1995}
+}
+
+@misc{k8s-seccomp,
+	title = {{Restrict a Container's Syscalls with seccomp}},
+	author = {{The Kubernetes Authors}},
+	year = {2023},
+	url = {https://kubernetes.io/docs/tutorials/security/seccomp/}
+}
+
+@article{sandboxed-containers,
+  title={{Orchestrated sandboxed containers, unikernels, and virtual machines for isolation-enhanced multitenant workloads and serverless computing in cloud}},
+  author={I. Mavridis and H. Karatza},
+  journal={Concurrency and Computation: Practice and Experience},
+  year={2023}
+}
+
+@article{casola-optimization,
+title = {{Security-by-design in multi-cloud applications: An optimization approach}},
+journal = {Information Sciences},
+year = {2018},
+author = {V. Casola and A. {De Benedictis} and M. Rak and U. Villano}
+}
+
+@incollection{CASOLA2018235,
+title = {Monitoring Data Security in the Cloud: A Security SLA-Based Approach},
+booktitle = {Security and Resilience in Intelligent Data-Centric Systems and Communication Networks},
+year = {2018},
+series = {Intelligent Data-Centric Systems},
+author = {V. Casola and A. {De Benedictis} and M. Rak and U. Villano}
+}
+
+@article{ALBANESE2020934,
+title = {{Security and trust in cloud application life-cycle management}},
+journal = {Future Generation Computer Systems},
+year = {2020},
+author = {M. Albanese and A. {De Benedictis} and D. D.J. {de Macedo} and F. Messina}
+}
+
+@misc{chromium-sandbox,
+	title = {Sandbox},
+	url = {https://chromium.googlesource.com/chromium/src/+/refs/heads/main/docs/design/sandbox.md},
+	author = {{Chromium}},
+	year = {2023}
+}
+
+@misc{firefox-sandbox,
+	title = {{Sandbox Architecture}},
+	url = {https://wiki.mozilla.org/Security/Sandbox/Process_model},
+	author = {{MozillaWiki}},
+	year = {2023}
+}
+
+@misc{systemd-sandbox,
+	title = {{Service sandboxing}},
+	url = {https://wiki.debian.org/ServiceSandboxing},
+	author = {{Debian}},
+	year = {2023}
+}
+
+@misc{acrobat-sandbox,
+	title = {{Sandbox protections}},
+	url = {https://www.adobe.com/devnet-docs/acrobatetk/tools/AppSec/sandboxprotections.html},
+	author = {{Adobe Inc.}},
+	year = {2023}
+}

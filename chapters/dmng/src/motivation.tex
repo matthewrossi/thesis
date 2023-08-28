@@ -1,0 +1,106 @@
+\section{Motivation}\label{sect:motivation}
+
+This Section explains the threat model and the motivation.
+
+\subsection{Threat model}\label{subsect:threat-model}
+
+We assume that the code part of the cloud application (including
+native code executed by it) is trusted and not malicious, but
+potentially affected by vulnerabilities due to bugs.  In this
+scenario, an attacker may leverage web interfaces or programmatic APIs
+to send the application malicious payloads with the goal of exploiting
+such vulnerabilities. This attack vector may leave the application
+exposed to, e.g., arbitrary file read and write, file system
+compromise, and execution of arbitrary programs; all of which can lead
+to an inconsistent state of the application and its volumes. We aim at
+the creation of fine-grained, component-specific policies that are
+used by developers to gradually introduce sandboxing, mitigating the
+impact of vulnerabilities. This approach is complementary to the use
+of containers, as a compromised process running in a container can
+still damage all the resources available to it.
+
+\subsection{Dependency identification}
+
+An important use case for cloud applications is represented by
+services that handle media resources such as videos, photos, and
+audio. These applications typically rely on an extensive set of
+editing libraries and codecs to perform a number of operations like
+crop, scale, introduction of effects, format conversion, and
+compression. This software is usually available as dynamic libraries
+that are loaded and executed depending on the type of operation to be
+performed, on the input source, and on the hardware support
+available. A solution able to automatically collect all the resources
+used by a component for a set of test cases can significantly help the
+developer detecting and isolating the dependencies of the application.
+
+\subsection{Mitigation of bugs}
+
+Open source libraries and programs are used extensively while
+developing cloud applications. Examples include database drivers,
+media processing libraries, and encoding utilities.  This software is
+often trusted, but it may be subject to vulnerabilities as explained
+in Section~\ref{subsect:threat-model}.  When vulnerable third-party
+code is executed by the application, it can be targeted and
+compromised by an attacker who sends malicious payloads, as described
+in~\cite{sanddriller-staicu, cage4deno, npm-malicious-update}.
+Popular cases are the Server-Side Request Forgery and Arbitrary File
+Read vulnerabilities found in FFmpeg and exploited against
+TikTok~\cite{ffmpeg-exploit-example}, and the Remote Command Execution
+vulnerability found in ExifTool and exploited against
+GitLab~\cite{exiftool-exploit-example}. Other examples include:
+1)~CVE-2020-24020, CVE-2022-2566, CVE-2020-2499 associated with video
+processing software, 2)~CVE-2022-1292, CVE-2022-2068, CVE-2022-2274
+related to cryptographic software, and 3)~CVE-2021-4118,
+CVE-2021-37678, CVE-2022-0845 targeting machine learning software.
+
+With our approach we aim to support the progressive introduction of
+fine-grained policies that are used to sandbox the application or any
+of its components, making harder for an attacker to tamper the file
+system, corrupt data, or exfiltrate sensitive information such as
+private keys or database entries.
+
+\subsection{Performance and usability}
+
+Modern cloud applications are often deployed as Kubernetes Pod
+instances and executed in one or more containers. Kubernetes provides
+several tools to improve the security and isolation of Pods. Relevant
+to this scenario are the support for RBAC policies and the
+availability of restricted Seccomp profiles. RBAC policies by default
+permit to define access of human users, however, they can also be used
+to govern the behavior of software resources through {\em service
+  accounts}. Unfortunately, these policies can only restrict access to
+Kubernetes APIs, therefore they are not suitable for fine-grained
+restriction of permissions at an application component level. The same
+limitation is shared with Seccomp profiles, which can limit the kernel
+interface available to the cloud application, but are only applied at
+container level~\cite{k8s-seccomp} and cannot operate depending on the
+specific requested resource~\cite{jia2023programmable}.
+
+Recent solutions based on eBPF, like Tetragon and Falco, enable the
+introduction of fine-grained policy rules to overcome the previous
+limitations. To this end, they load into the kernel dedicated filters
+which are run system-wide every time a security event like the opening of a file
+or the execution of a program occurs. Based on the content of the
+policy, and therefore the filters, these frameworks can grant or deny
+a particular action, effectively restricting the privileges available
+to a cloud application. However, as mentioned in Falco's
+documentation~\cite{falco-overhead}, the main problem associated with
+this approach is that performance overhead can have a large
+variability. This is mainly due to the fact that filters are evaluated
+every time a certain hook point (e.g., a syscall) is triggered, and
+that many hooks may need to be controlled to enforce a given security
+policy. Furthermore, these frameworks do not assist the developer in
+the generation of application-specific policies.
+
+With our proposal we aim at giving the developer a complementary
+approach to secure applications and limit the file system resources
+accessible to them.  Our idea is that the developer can benefit from
+the advantages brought by technologies like Landlock (i.e., strong
+security guarantees, low overhead), while at the same time rely on
+eBPF-based technologies, but only to monitor a restricted subset of
+important security events.
+
+%%% Local Variables:
+%%% mode: latex
+%%% TeX-master: "../main"
+%%% End:
