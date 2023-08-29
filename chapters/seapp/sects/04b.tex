@@ -207,7 +207,9 @@ access to secret domain, label=seapp_lstdomains, numbersep=2pt,resetmargins=fals
   (type secret)
   (call md_appdomain (secret))
   (typebounds untrusted_app secret)
-  (allow secret cameraserver_service (service_manager (find)))...)
+  (allow secret cameraserver_service (service_manager (find)))
+  ...
+)
 \end{lstlisting}
 
 %%% Local Variables: 

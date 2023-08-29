@@ -41,7 +41,7 @@ Here are reported the showcase app policy module files.
 \begin{lstlisting}[
   language=policyfile, caption=Showcase app \seappcontexts,
   numbersep=2pt, resetmargins=false, label=seapp_seappctxp,
-  aboveskip=4mm, belowskip=2mm
+  aboveskip=4mm, belowskip=1mm
 ]
 user=_app seinfo=showcase_app domain=com_example_showcaseapp.core_logic_d name=com.example.showcaseapp:core_logic levelFrom=all
 user=_app seinfo=showcase_app domain=com_example_showcaseapp.user_logic_d name=com.example.showcaseapp:user_logic levelFrom=all
@@ -51,7 +51,7 @@ user=_app seinfo=showcase_app domain=com_example_showcaseapp.media_d name=com.ex
 \begin{lstlisting}[
   language=policyfile, caption=Showcase app \filecontexts,
   numbersep=2pt,resetmargins=false, label=seapp_filectxp,
-  aboveskip=2mm, belowskip=2mm
+  aboveskip=2mm, belowskip=1mm
 ]
 .*                  u:object_r:app_data_file:s0
 files/confidential  u:object_r:com_example_showcaseapp.confidential_t:s0
@@ -60,73 +60,83 @@ files/ads_cache     u:object_r:com_example_showcaseapp.ads_t:s0
 \begin{lstlisting}[
   language=policyfile, caption=Showcase app \macpermissions,
   numbersep=2pt, resetmargins=false, label=seapp_macctxp,
-  aboveskip=2mm, belowskip=2mm
+  aboveskip=2mm, belowskip=1mm
 ]
 <?xml version="1.0" encoding="iso-8859-1"?>
-<policy><signer signature="SIGNATURE">
-<package name="com.example.showcaseapp">
-<seinfo value="showcase_app"/></package>
-</signer></policy>
+<policy>
+  <signer signature="SIGNATURE">
+    <package name="com.example.showcaseapp">
+      <seinfo value="showcase_app"/>
+    </package>
+  </signer>
+</policy>
 \end{lstlisting}
-\newpage
 \begin{lstlisting}[
   language=policyfile, caption=Showcase app \sepolicy,
   numbersep=2pt, resetmargins=false, label=seapp_sepolctxp,
-  aboveskip=2mm, belowskip=2mm
+  aboveskip=2mm, belowskip=1mm, basicstyle=\footnotesize\ttfamily,
 ]
 (block com_example_showcaseapp
-; creation of domain types
-(type core_logic_d)
-(call md_untrusteddomain (core_logic_d))
-(type user_logic_d)
-(call md_appdomain (user_logic_d))
-(type ads_d)
-(call md_appdomain (ads_d))
-(call md_netdomain (ads_d))
-(type media_d)
-(call md_appdomain (media_d))
-(typeattribute domains)
-(typeattributeset domains (core_logic_d user_logic_d ads_d media_d))
-; creation of file types
-(type confidential_t)
-(call mt_appdatafile (confidential_t))
-(type ads_t)
-(call mt_appdatafile (ads_t))
-; bounding the domains and types
-(typebounds untrusted_app core_logic_d)
-(typebounds untrusted_app user_logic_d)
-(typebounds untrusted_app ads_d)
-(typebounds untrusted_app media_d)	
-(typebounds app_data_file confidential_t)
-(typebounds app_data_file ads_t)
-; grant core_logic_d access to confidential files
-(allow core_logic_d confidential_t (dir (search write add_name)))
-(allow core_logic_d confidential_t (file (create getattr open read write)))
-; grant ads_d access to ads_cache files
-(allow ads_d ads_t(dir(search write add_name)))
-(allow ads_d ads_t(file(create getattr open read write)))
-; minimum app_api_service subset
-(allow domains activity_service (service_manager (find)))
-(allow domains activity_task_service (service_manager (find)))
-(allow domains ashmem_device_service (service_manager (find)))
-(allow domains audio_service (service_manager (find)))
-(allow domains surfaceflinger_service (service_manager (find)))
-(allow domains gpu_service (service_manager (find)))
-; grant core_logic_d the needed permissions
-(allow core_logic_d restorecon_service (service_manager (find)))
-(allow core_logic_d location_service (service_manager (find)))
-; grant ads_d access to unity3ads needed services
-(allow ads_d radio_service (service_manager (find)))
-(allow ads_d webviewupdate_service (service_manager (find)))
-(allow ads_d autofill_service (service_manager (find)))
-(allow ads_d clipboard_service (service_manager (find)))
-(allow ads_d batterystats_service(service_manager (find)))
-(allow ads_d batteryproperties_service (service_manager (find)))
-(allow ads_d audioserver_service (service_manager (find)))
-(allow ads_d mediaserver_service (service_manager (find)))
-; grant media_d the needed permissions
-(allow media_d autofill_service (service_manager (find)))
-(allow media_d cameraserver_service (service_manager (find))))
+  ; creation of domain types
+  (type core_logic_d)
+  (call md_untrusteddomain (core_logic_d))
+  (type user_logic_d)
+  (call md_appdomain (user_logic_d))
+  (type ads_d)
+  (call md_appdomain (ads_d))
+  (call md_netdomain (ads_d))
+  (type media_d)
+  (call md_appdomain (media_d))
+  (typeattribute domains)
+  (typeattributeset domains (core_logic_d user_logic_d ads_d media_d))
+
+  ; creation of file types
+  (type confidential_t)
+  (call mt_appdatafile (confidential_t))
+  (type ads_t)
+  (call mt_appdatafile (ads_t))
+
+  ; bounding the domains and types
+  (typebounds untrusted_app core_logic_d)
+  (typebounds untrusted_app user_logic_d)
+  (typebounds untrusted_app ads_d)
+  (typebounds untrusted_app media_d)	
+  (typebounds app_data_file confidential_t)
+  (typebounds app_data_file ads_t)
+
+  ; grant core_logic_d access to confidential files
+  (allow core_logic_d confidential_t (dir (search write add_name)))
+  (allow core_logic_d confidential_t (file (create getattr open read write)))
+  ; grant ads_d access to ads_cache files
+  (allow ads_d ads_t(dir(search write add_name)))
+  (allow ads_d ads_t(file(create getattr open read write)))
+
+  ; minimum app_api_service subset
+  (allow domains activity_service (service_manager (find)))
+  (allow domains activity_task_service (service_manager (find)))
+  (allow domains ashmem_device_service (service_manager (find)))
+  (allow domains audio_service (service_manager (find)))
+  (allow domains surfaceflinger_service (service_manager (find)))
+  (allow domains gpu_service (service_manager (find)))
+
+  ; grant core_logic_d access to the necessary services
+  (allow core_logic_d restorecon_service (service_manager (find)))
+  (allow core_logic_d location_service (service_manager (find)))
+
+  ; grant ads_d access to unity3ads needed services
+  (allow ads_d radio_service (service_manager (find)))
+  (allow ads_d webviewupdate_service (service_manager (find)))
+  (allow ads_d autofill_service (service_manager (find)))
+  (allow ads_d clipboard_service (service_manager (find)))
+  (allow ads_d batterystats_service(service_manager (find)))
+  (allow ads_d batteryproperties_service (service_manager (find)))
+  (allow ads_d audioserver_service (service_manager (find)))
+  (allow ads_d mediaserver_service (service_manager (find)))
+
+  ; grant media_d access to the necessary services
+  (allow media_d autofill_service (service_manager (find)))
+  (allow media_d cameraserver_service (service_manager (find)))
+)
 \end{lstlisting}
 
 
