@@ -189,20 +189,20 @@ labeled with it.  Listing~\ref{seapp_lstdomains} shows an example in
 which the {\tt cameraserver} service is made accessible to the {\em
   secret} process.  \newline
 \begin{lstlisting}[language=policyfile, caption=\seappcontexts
-example, captionpos=b, label=seapp_lstseapp, numbersep=2pt,resetmargins=false]
+example, label=seapp_lstseapp, numbersep=2pt,resetmargins=false]
  user=_app seinfo=cert_id domain=package_name.unclassified name=package.name:unclassified
  user=_app seinfo=cert_id domain=package_name.secret name=package.name:secret
 \end{lstlisting}
 %
 \begin{lstlisting}[language=policyfile, caption=\filecontexts
-example, captionpos=b, label=seapp_lstfile, numbersep=2pt,resetmargins=false]
+example, label=seapp_lstfile, numbersep=2pt,resetmargins=false]
  .*                u:object_r:app_data_file:s0
  dir/unclassified  u:object_r:package_name.unclassified_file:s0
  dir/secret        u:object_r:package_name.secret_file:s0
 \end{lstlisting}
 %
 \begin{lstlisting}[language=policyfile, caption=Granting \texttt{cameraserver}
-access to secret domain, captionpos=b, label=seapp_lstdomains, numbersep=2pt,resetmargins=false]
+access to secret domain, label=seapp_lstdomains, numbersep=2pt,resetmargins=false]
 (block package_name
   (type secret)
   (call md_appdomain (secret))

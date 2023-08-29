@@ -123,17 +123,16 @@
 % break url on multiple lines
 \def\UrlBreaks{\do\/\do-}
 
+\definecolor{background}{HTML}{EEEEEE}
+
 \lstset{
-  numbers=left,
-  numberstyle=\scriptsize,
-  basicstyle=\ttfamily\footnotesize,
-  numberblanklines=false,
-  stepnumber=1,
-  aboveskip=0pt,
-  belowskip=0pt,
+	xleftmargin=3mm,
+	basicstyle=\small\ttfamily,
+	numbers=left,
+	numberstyle=\scriptsize,
+	stepnumber=1,
+	numbersep=8pt,
+	frame=lines,
+	backgroundcolor=\color{background},
   breaklines=true,
-  breakindent=5pt,
-  tabsize=4,
-  xleftmargin=2mm,
-  framexleftmargin=0mm
 }

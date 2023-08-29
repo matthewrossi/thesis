@@ -1,6 +1,5 @@
-\vspace{-1.6em}\section{Use case 1}\label{appendix:seapp_uc1}
+\section{Use case 1}\label{appendix:seapp_uc1}
 
-\vspace*{-0.5em}
 In this use case we demonstrate how an app could benefit from the
 fine-granularity access to files.  In particular, we show how the {\em
   UseCase1Activity}, suffering of a path traversal vulnerability,
@@ -30,15 +29,19 @@ To test this use case, we first start {\em UseCase1Activity}, then we
 send an intent to ``confuse'' {\em UseCase1Activity} into showing us
 the content of {\tt confidential/data}. This can be done via ADB with
 the command:
-\begin{lstlisting}[numbers=none]
+\begin{lstlisting}[
+  numbers=none,
+  aboveskip=2mm,
+  belowskip=2mm,
+  xleftmargin=0mm
+]
 adb shell am start
 -n com.example.showcaseapp/.UseCase1Activity
 -a "com.example.showcaseapp.intent.action.SHOW"
 --es "com.example.showcaseapp.intent.extra.PATH" "../confidential/data"
 \end{lstlisting}
-\normalsize
 
-When the policy module is not availableg, all app internal files are
+When the policy module is not available, all app internal files are
 flagged with {\tt app\_data\_file} and every app component executes
 within the {\tt untrusted\_app} domain, which holds read access to
 {\tt app\_data\_file}. As a consequence the vulnerability is
