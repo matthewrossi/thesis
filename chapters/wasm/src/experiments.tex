@@ -1,0 +1,60 @@
+\section{Experiments \label{sec:exp}}
+
+To investigate the overhead introduced by our solution we implemented
+it in WasmEdge and Wasmtime, two industrial state-of-the-art Wasm
+runtimes. The evaluation has been performed in the following test
+environment: an Ubuntu 22.04 LTS server powered by an AMD Ryzen 2950X
+CPU with 16 cores, 128 GB RAM, and 2 TB SSD. %No kernel
+%upgrade or modification was required, as eBPF is already available in
+%the default OS image.
+In order to assess the performance, we tested one of the most popular
+binaries that can be compiled to Wasm with support to WASI: {\tt uutils
+coreutils}, the porting of the coreutils in Rust~\cite{coreutils-repo}.
+First, we compiled the coreutils with the {\tt wasm32-wasi}
+target, and applied runtime-specific optimization
+(with {\tt wasmedgec}~\cite{wasmedgec} for WasmEdge and with
+{\tt wasmtime compile}~\cite{wasmtimecompile} for Wasmtime) to further
+speed up the code. Then, we reproduced
+the benchmarks reported in the coreutils repository, with the
+exception of those that are not portable to WASI due to temporary lack
+of support (e.g., the {\tt dd} utility needs to spawn threads, a
+feature that is yet to be implemented~\cite{wasi-threads}). Finally, we
+repeated the experiments with our protection in place. The Hyperfine
+benchmarking tool~\cite{hyperfine} was used to log measures, and 1000
+runs were performed (with 100 warmups). As shown from the results in Table~\ref{table:exp}, our approach introduces
+a limited overhead, ranging from an additional 0.12\% to 6.30\% for
+WasmEdge, and from 0.28\% to 14.29\% for Wasmtime. As expected, the
+highest overhead is experienced by short-living utilities (e.g.,
+{\tt head}). We also observe that there are notable differences
+between the WasmEdge and Wasmtime test execution time for some utilities (e.g.,
+{\tt ls} and {\tt cut}); from our analysis these differences are
+mostly caused by the specific post-compilation optimizations.
+
+\begin{table}[!t]
+	\setlength{\tabcolsep}{0.38cm}
+	\begin{tabular*}{\columnwidth}{l r r r r}
+		\toprule
+		{\bf Utility} & {\bf WasmEdge} & {\bf WasmEdge*} & {\bf Wasmtime} & {\bf Wasmtime*}\\
+		\midrule
+		{\tt head}  &   32 &   34 (+6.25\%) &   14 &   16 (+14.29\%) \\
+		{\tt sum}   &  134 &  137 (+2.24\%) &  130 &  136  (+4.62\%) \\
+		{\tt tac}   &  149 &  150 (+0.67\%) &  152 &  155  (+1.97\%) \\
+		{\tt wc}    &  285 &  287 (+0.70\%) &  309 &  310  (+0.32\%) \\
+		{\tt shuf}  &  298 &  300 (+0.67\%) &  356 &  358  (+0.56\%) \\
+		{\tt ls}    &  512 &  526 (+2.73\%) & 1077 & 1113  (+3.34\%) \\
+		{\tt seq}   & 1155 & 1157 (+0.17\%) & 1526 & 1533  (+0.46\%) \\
+		{\tt cut}   & 1403 & 1411 (+0.57\%) &  359 &  360  (+0.28\%) \\
+		{\tt join}  & 1601 & 1603 (+0.12\%) & 2054 & 2065  (+0.54\%) \\
+		{\tt split} & 4416 & 4694 (+6.30\%) & 4933 & 4998  (+1.32\%) \\
+		\bottomrule
+	\end{tabular*}
+	\caption[Average execution time of coreutils with and without our approach]{
+		\label{table:exp} Average execution time in {\em ms} of the
+		coreutils without and with* our approach (\% overhead in
+		parenthesis)
+	}
+\end{table}
+%%% Local Variables:
+%%% mode: latex
+%%% TeX-master: "../main.tex"
+%%% End:

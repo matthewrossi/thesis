@@ -100,12 +100,10 @@
 \newcommand{\service}{\textit{Service}\xspace}
 
 % circle shapes
-\newcommand*{\whitecircle}[1]{\tikz[baseline=-0.3em]{
+\DeclareRobustCommand{\whitecircle}[1]{\tikz[baseline=-0.3em]{
 		\node[shape=circle,scale=0.6,draw,inner sep=2pt] (char) {#1};}}
-\newcommand*{\blackcircle}[1]{\tikz[baseline=-0.3em]{
+\DeclareRobustCommand{\blackcircle}[1]{\tikz[baseline=-0.3em]{
 		\node[shape=circle,scale=0.6,fill=black,text=white,draw,inner sep=2pt] (char) {#1};}}
-\newcommand*{\bluesquare}[1]{\tikz[baseline=-0.3em]{
-		\node[shape=rectangle,scale=0.85,fill=blue,text=white,draw,inner sep=2pt, minimum height=1pt] (char) {#1};}}
 
 % listing style for policy files
 \lstdefinelanguage{policyfile}{

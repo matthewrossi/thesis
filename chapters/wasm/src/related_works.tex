@@ -1,0 +1,46 @@
+\section{Related Work}
+\label{rel_works}
+
+There are several successful solutions that leverage Wasm to sandbox
+untrusted code~\cite{RLBox, ewasm, sledge}. RLBox~\cite{RLBox} is a
+framework that facilitates the isolation of third-party libraries in
+pre-existing software. eWASM~\cite{ewasm} optimizes the execution of
+Wasm in embedded systems with constrained resources. Sledge~\cite{sledge}
+enables efficient Wasm-based serverless execution on the
+edge. The use of our approach for restricting access to the file
+system within these frameworks can strengthen their security
+assurance.
+
+The memory safety guarantees of Wasm depend on the runtime
+implementation~\cite{lehmann2020everything}. Hence, Bosamiya et
+al.~\cite{bosamiya2022provably} explore the problem of producing
+provably safe sandboxes. WaVe~\cite{johnson2022wave} explains that any
+interaction with the unsafe interfaces exposed by WASI can
+introduce security and safety violations. Thus, the authors proposed
+a verified secure runtime system
+implementing WASI. However, both works require to redesign the runtime
+toolchain, while our solution can be directly integrated into existing
+runtimes.
+%However, both proposals rely on implementing a new runtime, 
+%while our approach integrates with existing runtimes used in the industry.
+
+The academic and industrial communities have investigated the use of eBPF
+for the isolation of software~\cite{findlay2020bpfbox, findlay2021bpfcontain,
+cilium-repo, falco}.
+{\em BPFBox}~\cite{findlay2020bpfbox} and {\em BPFContain}
+~\cite{findlay2021bpfcontain} use an eBPF daemon to confine processes and
+services.
+{\em Cilium}~\cite{cilium-repo} provides eBPF-based networking, observability
+and security for container workloads.
+{\em Falco}~\cite{falco} enables lightweight threat detection in the
+cluster. These solutions highlight the potential of eBPF, and provide
+a simple and flexible confinement of system resources. However, they
+focus on containers or services, while our solution aims at enforcing
+fine-grained per-sandbox policies.
+
+% say something about the match between WASM & eBPF portability ???
+
+%%% Local Variables:
+%%% mode: latex
+%%% TeX-master: "../main.tex"
+%%% End:

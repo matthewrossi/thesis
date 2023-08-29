@@ -1,0 +1,19 @@
+\hyphenation{Web-Assembly}
+\hyphenation{stand-a-lone}
+
+\colorlet{punct}{red!60!black}
+\definecolor{background}{HTML}{EEEEEE}
+\definecolor{delim}{RGB}{20,105,176}
+\definecolor{types}{RGB}{255,0,0}
+\definecolor{myBrickRed}{RGB}{203,65,84}
+
+% circle shapes
+\DeclareRobustCommand{\blackcircle}[1]{\tikz[baseline=-0.3em]{
+		\node[shape=circle,scale=0.55,fill=black,text=white,draw,inner sep=2pt] (char) {#1};}}
+\DeclareRobustCommand{\whitecircle}[1]{\tikz[baseline=-0.3em]{
+		\node[shape=circle,scale=0.65,fill=white,text=black,draw,inner sep=2pt] (char) {#1};}}
+
+%%% Local Variables:
+%%% mode: plain-tex
+%%% TeX-master: t
+%%% End:
