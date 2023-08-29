@@ -1,4 +1,4 @@
-\section{Use case 1}\label{appendix:seapp_uc1}
+\section{UC\#1: fine-granularity in access to files}\label{appendix:seapp_uc1}
 
 In this use case we demonstrate how an app could benefit from the
 fine-granularity access to files.  In particular, we show how the {\em
@@ -35,10 +35,11 @@ the command:
   belowskip=2mm,
   xleftmargin=0mm
 ]
-adb shell am start
--n com.example.showcaseapp/.UseCase1Activity
--a "com.example.showcaseapp.intent.action.SHOW"
---es "com.example.showcaseapp.intent.extra.PATH" "../confidential/data"
+adb shell am start \
+  -n com.example.showcaseapp/.UseCase1Activity \
+  -a "com.example.showcaseapp.intent.action.SHOW" \
+  --es "com.example.showcaseapp.intent.extra.PATH" \
+       "../confidential/data"
 \end{lstlisting}
 
 When the policy module is not available, all app internal files are
@@ -68,13 +69,13 @@ vulnerability.
   \subfloat{\includegraphics[width=0.28\textwidth]{chapters/seapp/figs/ae/UsaCase1ActivityExploited.png}}
   \hfill
   \subfloat{\includegraphics[width=0.28\textwidth]{chapters/seapp/figs/ae/UseCase1ActivityNotExploited.png}}
-  \caption{\label{fig:seapp_uc1_views} Use case 1 views}
+  \caption{\label{fig:seapp_uc1_views} UC\#1 view (initiation, exploitation, and mitigation)}
 \end{figure}
 
 \begin{figure}[h!]
   \centering
   \includegraphics[width=\textwidth]{chapters/seapp/figs/ae/UseCase1Logcat.png}
-  \caption{\label{fig:seapp_uc1_logcat} Use case 1 logcat}  
+  \caption{\label{fig:seapp_uc1_logcat} UC\#1 \sel denial message in the system log} 
 \end{figure}
 
 \newpage
