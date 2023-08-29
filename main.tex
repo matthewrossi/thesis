@@ -1,5 +1,6 @@
 \documentclass[12pt,a4paper,oldfontcommands,openright]{memoir}
 
+\usepackage{amsmath}
 \usepackage[font=bf]{caption}
 \usepackage{fancyhdr}
 \usepackage[hidelinks]{hyperref}
@@ -7,6 +8,7 @@
 \usepackage{listings}
 \usepackage{multirow}
 \usepackage{pdfpages}
+\usepackage{pifont}
 \usepackage{subcaption}
 \usepackage{tikz}
 \usepackage{titlesec}
@@ -102,6 +104,7 @@
 
 \chapter[Native Code Sandboxing for JavaScript Runtimes]{Native Code Sandboxing for \\ JavaScript Runtimes}
 \label{chap:natisand}
+\input{chapters/natisand.tex}
 
 \chapter[Conclusions]{Conclusions and future work}
 \label{chap:conclusions}
@@ -113,6 +116,8 @@
 
 % seapp appendix
 \input{chapters/seapp/sects/appendix.tex}
+% natisand appendix
+\input{chapters/natisand/src/appendix.tex}
 
 % ------------------ BIBLIOGRAPHY ----------------- %
 

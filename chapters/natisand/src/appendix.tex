@@ -1,0 +1,45 @@
+\chapter{Policy generated for the \texttt{curl} command}\label{appendix:curl_policy}
+
+\vspace{-0.2mm}
+Listing~\ref{lst:curl_policy_file} reports the policy associated with
+the execution of the {\tt curl https://www.example.com} command. The policy has
+been automatically generated using the utility described in
+Section~\ref{sect:sci-ffi-policy-generation}.
+
+\begin{lstlisting}[
+    abovecaptionskip=-2pt,
+    caption=Example of policy associated with curl,
+    language=json,
+    label=lst:curl_policy_file,
+]
+[{
+  "name": "/usr/bin/curl",
+  "fs": {
+    "read": [
+      "/etc/gai.conf",
+      "/etc/host.conf",
+      "/etc/hosts",
+      "/etc/ld.so.cache",
+      "/etc/localtime",
+      "/etc/nsswitch.conf",
+      "/etc/passwd",
+      "/etc/resolv.conf",
+      "/etc/ssl/certs/ca-certificates.crt",
+      "/lib/x86_64-linux-gnu",
+      "/lib64/ld-linux-x86-64.so.2",
+      "/usr/bin/curl",
+      "/usr/lib/locale/locale-archive",
+      "/usr/lib/ssl/openssl.cnf"
+    ],
+    "exec": [
+      "/lib/x86_64-linux-gnu",
+      "/lib64/ld-linux-x86-64.so.2",
+      "/usr/bin/curl"
+    ]
+  },
+  "net": [{
+    "name": "https://www.example.com",
+    "ports": [443]
+  }]
+}]
+\end{lstlisting}

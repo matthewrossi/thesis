@@ -1,0 +1,121 @@
+\section{Security motivation}
+\label{sect:sci-ffi}
+
+JS runtimes let developers specify the set of access privileges given
+to a web application~\cite{deno-permissions, node-permissions}.  This
+is possible through a set of configuration flags that, when specified,
+allow to constrain how JS code can access system resources.  This is a
+significant security improvement compared to the past, where
+applications were able to access any underlying system
+resource~\cite{staicu2018synode, 10.5555/3361338.3361407}.  However,
+these constraints only apply to JS code; any function written in other
+languages is executed unconstrained, either through a subprocess or
+the use of Foreign Function Interfaces (FFI).  Indeed, native code
+does not access system resources using the APIs provided by the JS
+runtime and the reference monitor of the JS runtime is
+bypassed~\cite{deno-permissions}.
+
+There is a broad variety of applications that rely on the use of
+native code.  One well-known example is the use of database drivers;
+low latency of queries is crucial to satisfy the constraints on
+response time of a web application and a pure JS implementation may
+not be able to match them. This led to the development of third-party
+modules that depend on the code of shared libraries corresponding to
+the required database driver (e.g., libsqlite3.so and
+libmysqlclient.so).  To testify the wide adoption of this practice,
+popular modules for both Node.js (e.g.,
+node-sqlite3) and Deno (e.g.,
+deno-sqlite3) report more than 600 thousand
+\mbox{downloads/week}. Notably, the deno-sqlite3 module was part of
+the official showcase of the performance of Deno when invoking the
+native code of a shared library~\cite{deno-ffi-improvements}. Previous
+work~\cite{staicu2021bilingual} demonstrated how this module can be
+exploited with harmful effects for the web application and the
+underlying system.
+
+Database drivers are just one example of how web application
+development relies on native code.  Other popular use cases are audio
+encoding (e.g., libopus), image processing (e.g., ImageMagick,
+libvips), video manipulation (e.g., FFmpeg), optical character
+recognition (e.g., Tesseract), and many others.  The native code may
+contain vulnerabilities, which may be exploited and lead to a variety
+of security violations.
+
+\paragraph{{Filesystem compromise}}
+Guaranteeing the integrity and confidentiality of the application host
+filesystem is crucial to mitigate risks of data corruption and
+exfiltration~\cite{berman1995tron}. As a whole a web application often has access
+to many critical resources: databases, executables, private keys, user
+confidential files, etc. When native code is executed, it can use the
+same privileges of the web application.  In line with the
+least privilege principle, the potentially vulnerable components
+should be able to access only the files needed to perform their
+duties.  Authorizing access only to the needed portions of the
+filesystem restricts what can be read, written or run by an attacker,
+highly limiting the security risk associated with the presence of
+vulnerabilities.
+
+\paragraph{Escalation of privileges}
+Another relevant attack surface is the privilege of using the IPC
+channels provided by the operating system (e.g., pipes, message
+queues, unix sockets). By leveraging IPC, a compromised binary can
+establish a communication channel with system components and attempt a
+confused deputy attack to achieve privilege escalation on the
+host~\cite{shao2016misuse, bui2018man}.  Given the potential of this
+attack vector, it is important to limit the scope and set of IPC
+channels available to a specific native component only to those strictly
+necessary for its benign behavior.
+
+\paragraph{{Malicious network channels}}
+Network access is a precious resource that a malicious actor can
+leverage during an attack. A significant portion of malicious payloads
+open reverse shells to gain control of the victim system over the
+network~\cite{bulekov2021saphire}.  In addition, attackers may open
+network channels to remotely recover data obtained on the vulnerable
+host~\cite{schwarz2020seng}. Restrictions on how a single native component of the
+web application can access the network can greatly improve the overall
+security of the application. Network access should be forbidden or
+restricted only to domains defined by the developer, thus restricting
+the ability of adversaries to perform data exfiltration or fetch
+malicious payloads.
+
+ \vspace{2 mm}
+  \noindent Notice that the JavaScript application may require a
+  significant number of privileges to ensure all of its components
+  operate as intended. Therefore, the application of sandboxing at
+  runtime-level rather than native component-level not only is in
+  contrast with the least privilege principle, it also increases the
+  attack surface, so the chances of an attack to be successful.  
+
+\subsection{Threat model}
+\label{sect:threat-model}
+
+We consider the operating system trusted, although binary utilities
+may be malicious due to supply chain attacks, or affected by
+vulnerabilities due to incorrect memory management, improper data
+validation, etc. Protection against attacks targeting JS code is out
+of the scope of our proposal, since we consider JS engines and the
+permissions system enforced by JS runtimes able to securely render JS
+code. \pap aims to constrain the execution of potentially malicious, or vulnerable,
+binary utilities and functions used by JS applications.  This native
+code accesses system resources unconstrained by the security
+mechanisms offered by the JS runtime, and its actions may
+cause severe security breaches. Moreover, the input processed by the
+web application is often untrusted and can be unsanitized, due to
+errors in the sanitization process, misconfiguration or lack of
+awareness by the developer.  Therefore, a malicious actor can exploit
+this attack vector by submitting specifically crafted requests
+targeting the unconstrained native dependencies of the web
+application, compromising the host system. The attack vectors may take
+multiple forms, e.g., strings, videos, images, and audio files,
+depending on the input provided by the JS application to the
+vulnerable components. The goal of our proposal is to mitigate the
+security risk by
+empowering developers with a way to establish clear security
+boundaries for the execution of binary utilities and components
+depending on them with a per-native-component granularity.
+
+%%% Local Variables:
+%%% mode: latex
+%%% TeX-master: "../main.tex"
+%%% End:

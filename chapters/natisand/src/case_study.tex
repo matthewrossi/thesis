@@ -1,0 +1,140 @@
+\section{Case study: Deno runtime}
+\label{sect:case-study-deno}
+
+There are three well-known alternatives for the execution of JS code
+on the backend, namely Node.js, Deno, and Bun. As highlighted in
+Section~\ref{sect:background-js-runtime}, their architectures have
+strong similarities, and NatiSand is designed to be compatible with
+all of them (since no assumption is made on specific runtime
+components). Nevertheless the integration is not trivial, and it requires
+significant engineering effort, therefore we integrated \pap into only
+one of them to demonstrate the achievement of the set objectives
+(Section~\ref{subsect:objectives}). In this section we explain our
+decision, then we highlight the main architectural changes.
+
+\subsection{Runtime selection}
+\label{sect:deno-selection}
+
+Considering (i)~popularity among web developers, (ii)~availability and
+support of third-party modules, and (iii)~security-oriented features
+provided by the runtime, we selected Deno. Bun is still in beta
+version (v0.5.8), so it is the least used by developers.
+Node.js is nowadays the most
+widely used platform, and it offers developers the largest collection
+of open source packages. However, Node.js by default does not prevent
+JS applications to access system resources, and although it
+recently introduced a module-based permission model, the feature is
+experimental~\cite{node-permissions}. Deno was instead designed with the protection of
+the host as one of its main goals~\cite{nodejs-regret}, thus no access to privileged system
+resources is given to JS applications unless the developer
+explicitly grants it. Deno provides the
+{\em Node Compatibility Mode}~\cite{deno-compatibility-mode}, a
+feature enabling the reuse of
+code and libraries originally built for Node.js. The availability of
+this function permits to
+import packages hosted by Deno on {\tt deno.land/x}, as well as
+modules published to npm. To conclude, Node.js and Deno prevail
+over Bun on all three dimensions. Node.js wins over Deno on
+popularity (but Deno is quickly growing), they are comparable in terms
+of third-party modules, and Deno significantly outperforms Node.js on
+security oriented-features, leading us to choose Deno.
+
+\subsection{Deno integration}
+\label{subsect:deno-integration}
+
+Deno has a modular architecture organized into components. Three of
+them are particularly important for \pap: (i) {\em
+  rusty\textunderscore v8}, the package that bridges Deno and the V8
+engine implementing the set of bindings to the V8's C++ API, (ii) {\em
+  deno\textunderscore core}, which leverages {\em rusty\textunderscore
+  v8} to expose the interfaces provided by Deno to the JS application,
+and (iii) {\em deno}, which defines the runtime executable together
+with the Command Line Interface.
+
+\paragraph{Bootstrap}
+%
+Shortly after the Deno executable is run, the {\em deno} component is
+used to read the permissions granted by the developer via CLI. We
+extended this stage to read and parse the policy file specified with
+the new {\tt native-sandbox} flag, then we added the permissions
+associated with each security context to the {\em global state} stored
+by the runtime. To complete the bootstrap phase, we also integrated
+the steps to load the necessary eBPF programs and to initialize the
+pool of isolated contexts, as explained in Section~\ref{subsect:arch}.
+
+\paragraph{Application runtime}
+%
+After the JS application is started, the function
+calls that cannot be directly handled by V8 are routed to the Deno
+runtime through the bindings defined by {\em rusty\textunderscore
+  v8}. Each of them is associated with the {\em op\textunderscore
+  code}, a unique code identifying the operation to be
+performed. The {\em deno\textunderscore core} component receives such
+requests, it checks the permissions available from the global state,
+and serves them accordingly. We identified requests that
+require to execute native code (e.g., {\tt command}, {\tt dlopen},
+{\tt run}), and modified {\em deno\textunderscore core} so that they
+are restricted by \pap. The {\em op\textunderscore code} along
+with the arguments are used to select the proper security context.
+
+
+\subsection{Support to fast JS calls}
+\label{subsect:fast-api}
+
+In October 2020 V8 announced the support to fast JS
+calls~\cite{v8-fast-calls}. The function allows V8 to directly invoke optimized native
+functions without leveraging the bindings that connect V8 and the
+embedder (e.g., JS runtime). This permits to obtain substantial
+performance gains, since native function calls can be resolved in
+nanoseconds. 
+
+Deno has introduced unstable support to fast JS calls in July
+2022~\cite{deno-v1234}. The change affected the implementation of the
+{\em dlopen} API, which is now able to generate an optimized and a
+fallback (i.e., standard) execution path for native functions. The
+optimized path is triggered only when V8 is actually able to optimize
+a symbol, and it entails the execution of code leveraging the fast
+call interface. While the optimized path is associated with minimum
+overhead, from a security perspective it permits the web application
+to execute native code without the mediation of the JS runtime,
+invalidating the security reference monitor of Deno.
+%
+In our prototype we address this Deno security issue offering
+developers two alternatives: (i) turn off
+the fast call support and safely rely on the execution of sandboxed
+native functions with \pap without any code change, and (ii) enable insecure fast calls but
+allow to select the JS functions that need to be isolated with minimal code changes. The second
+option permits to take advantage of fast calls when performance is
+critical and risks are limited (e.g., arithmetic operations), and at
+the same time benefit from the security features \pap provides. To
+this end, we introduced a new API named {\tt Deno.nativeCall()}. The API receives, as first argument, the name of the function
+to be sandboxed, along with the list of its arguments.
+Listing~\ref{lst:sqlite3_example} shows how to sandbox the functions
+from the native database driver {\em sqlite3}.
+%
+\begin{lstlisting}[
+	abovecaptionskip=-5pt,
+	caption=Code sandboxing with {\tt nativeCall()},
+	float=t,
+	floatplacement=tbp,
+	label=lst:sqlite3_example,
+	language=javascript,
+	]
+function query(db, stmt) {
+    const sqliteDB = new sqlite3.Database(db);
+    const query = sqliteDB.prepare(stmt);
+    const tuples = query.all();
+    sqlite_db.close();
+    return tuples;
+}
+
+const db = "database.db";  
+const stmt = "SELECT * FROM table";
+const ts = Deno.nativeCall(query, [db, stmt]);
+console.log(ts); // print tuples
+\end{lstlisting}
+
+%%% Local Variables:
+%%% mode: latex
+%%% TeX-master: "../main.tex"
+%%% End:

@@ -1,0 +1,129 @@
+\section{Related work}
+\label{natisand:rel_works}
+
+Isolation of software has been widely investigated by both the academic
+and industrial communities~\cite{berman1995tron, kim2013practical,
+  demarinis2020sysfilter, minijail, sandbox2, firejail,
+  bubblewrap,seapp,wasi-poster}.  {\em MBOX}~\cite{
+  kim2013practical} features an unprivileged sandboxing mechanism that
+prevents a process from modifying the host filesystem by layering the
+sandbox filesystem on top of it. The solution is implemented by
+interposing syscalls using Seccomp and {\em ptrace}. The use of {\em
+  ptrace} required the authors careful attention to avoid the risk of
+TOCTOU attacks, moreover it suffers from non-negligible performance
+degradation. DeMarinis et al.~\cite{demarinis2020sysfilter} propose
+{\em Sysfilter}, a static analysis framework to reduce the attack
+surface of the kernel, by restricting with Seccomp the system call set
+available to processes.  This approach proves to be effective in
+limiting the kernel APIs that can be abused by attackers, but whenever
+a system call is necessary for the benign behavior of a program, there
+is no way to control with Seccomp the specific instance of the
+resource used. {\em BPFBox}~\cite{ findlay2020bpfbox}, {\em
+  BPFContain}~\cite{findlay2021bpfcontain}, and {\em
+  Snappy}~\cite{belair2021snappy} are security frameworks that provide
+confinement of processes and containers with the use of eBPF.  These
+solutions highlight the benefit of eBPF by providing simple, efficient,
+and flexible confinement of system resources, however these solutions
+either require a privileged daemon or require to load kernel modules
+to introduce a set of {\em dynamic helpers}.   Often,
+industrial sandboxing solutions take advantage of multiple protection
+techniques to support process containment. This is the case for {\em
+  Minijail}~\cite{minijail}, and {\em Sandbox2}~\cite{ sandbox2}. Some
+of the security mechanisms used are: introduction of new user ids,
+capabilities restriction, namespace isolation and policy-based Seccomp
+filtering. These tools expose a powerful interface meant
+to be used by security experts. Similar considerations are shared with
+other less mature tools such as {\em Firejail}~\cite{ firejail} and
+{\em Bubblewrap}~\cite{bubblewrap}.
+
+Multiple research efforts have studied the use of third-party
+components in software products~\cite{RLBox, kirth2022pkru,
+  wu2012codejail, cali}. {\em PKRU-Safe}~\cite{kirth2022pkru} proposes an
+automated method for preventing the memory corruption of memory-safe
+languages due to the interaction with unsafe code. It leverages the
+compiler infrastructure to provide hardware-backed memory protection
+requiring changes to build files, dependencies, and code (in the form
+of code annotations). {\em Codejail}~\cite{wu2012codejail} provides
+partial isolation of libraries by spawning a new process and
+configuring the necessary communication channels to support tight
+memory interactions with the main program. To support the change in
+the interactions without modifications to the library code it is
+necessary to write a wrapper library.
+{\em Cali}~\cite{cali} is a compiler-assisted library
+isolation system that compartmentalizes libraries into their own
+process, and automates the configuration of the necessary
+communication channels by tracking data flow between the program and
+the library at link time.
+{\em RLBox}~\cite{RLBox} is a
+framework to isolate libraries in lightweight sandboxes -- i.e.,
+process, Wasm. It facilitates the retrofitting of applications
+employing static information flow enforcement and dynamic checks
+expressed in the C++ type system. These solutions were designed for
+compiled languages, so while some of the concepts are portable to JS
+runtimes, the solutions are not easily adapted to this domain.
+
+A recent study by Staicu et al.~\cite{staicu2021bilingual} highlights
+how the possibility to invoke native code from scripting languages
+undermines the security assumption of applications. They discuss a
+methodology to detect misuses of the native extension API and show how
+the exploit of these vulnerabilities in npm packages can lead to web
+applications compromise. Previous proposals~\cite{
+  vasilakis2018breakapp, wyss2022wolf, binwrap} tackle this problem by
+providing solutions to isolate the execution of third-party
+modules. {\em Wolf at the Door}~\cite{wyss2022wolf} reduces the risk
+associated with the installation of npm packages by mediating their
+install-time capabilities. It enforces complex user-defined policies
+by leveraging AppArmor, hence prohibiting unauthorized access to
+confidential files and connections using an LSM that currently cannot
+coexist with SELinux and SMACK. {\em BreakApp}~\cite{
+  vasilakis2018breakapp} takes advantage of module boundaries to
+compartmentalize npm modules in accordance with a set of code
+annotations. Modules are isolated with software, process, or container
+isolation, and it is possible to configure the visibility of the
+application context available to external modules. Process and
+container isolation enable the protection of native code, however the
+specification of their permissions are beyond the scope of the
+proposal.
+{\em Cage4deno}~\cite{cage4deno} protects filesystem resources from subprocesses
+executed by JavaScript runtimes.
+{\em BinWrap}~\cite{binwrap} separates the execution of
+third-party components from the rest of the application using distinct
+execution threads for different domains of trust. The main focus
+of the proposal is prohibiting arbitrary accesses to sensitive data
+stored in the memory of the JS runtime by leveraging Intel's MPK/PKU.
+\pap is complementary to the above solutions since our goal
+is to specify and enforce permissions on native code dependencies of
+web applications, rather than providing memory isolation for
+untrusted components.
+
+Protecting JS code from being compromised is out of the scope of \pap,
+nonetheless, since proposals in this domain and ours both target the
+web development audience, our proposal shares some ideas with previous
+works in this domain~\cite{vasilakis2021preventing, sandtrap,
+  terrace2012javascript, ntousakis2021detecting}. For instance, Ferreira et al.~\cite{
+  npm-malicious-update} propose a lightweight permission system providing
+per-package on/off switches that limit access to Node.js core modules
+(e.g., child\_process, fs, http). By doing so, it can prohibit access
+to subprocess, filesystem, and network resources for the JS
+code. Similarly, \pap takes care of protecting filesystem, IPC, and
+network resources, targeting native code. {\em Mir}~\cite{
+  vasilakis2021preventing} is a system preventing the compromise of
+the application by third-party modules with the enforcement of
+fine-grained RWX permissions on every field of every variable in the
+JS context. \pap adopts an equivalent permission model to contain
+native code when accessing filesystem resources. Another research work
+enforcing security boundaries stated in a policy is {\em
+  SandTrap}~\cite{sandtrap}. The approach enforces fine-grained
+access control policies on cross-domain interactions between
+application code and the third-party modules. The creation of policy
+files described by the authors consists in running test suites to
+create a policy with acceptable static cross-domain interaction
+coverage. We adopt a similar approach in the policy generation of
+\pap. Note that, differently from our proposal, solutions protecting
+JS code can run in user space, thus they do not limit the portability
+of the JS runtime to Linux systems.
+
+%%% Local Variables:
+%%% mode: latex
+%%% TeX-master: "../main.tex"
+%%% End:

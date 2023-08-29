@@ -1,0 +1,26 @@
+Modern runtimes render JavaScript code in a secure and isolated
+environment, but when they execute binary programs and shared
+libraries, no isolation guarantees are provided. This is an important
+limitation, and it affects many popular runtimes including Node.js,
+Deno, and Bun~\cite{node-permissions,deno-permissions}.
+
+In this paper we propose \pap, a component for JavaScript runtimes
+that leverages {\em Landlock}, {\em eBPF}, and {\em Seccomp} to
+control the filesystem, Inter-Process Communication (IPC), and network
+resources available to binary programs and shared libraries.  \pap
+does not require changes to the application code and offers to the
+user an easy interface.
+%
+To demonstrate the effectiveness and efficiency of our approach we
+implemented \pap and integrated it into Deno, a modern,
+security-oriented JavaScript runtime. We reproduced a number of
+vulnerabilities affecting third-party code, showing how they are
+mitigated by \pap. We also conducted an extensive experimental
+evaluation to assess the performance, proving that our approach is
+competitive with state of the art code sandboxing solutions. The
+implementation is available open source.
+
+%%% Local Variables:
+%%% mode: latex
+%%% TeX-master: "../main"
+%%% End:

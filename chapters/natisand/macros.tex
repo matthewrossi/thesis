@@ -1,0 +1,154 @@
+\colorlet{punct}{red!60!black}
+\definecolor{background}{HTML}{EEEEEE}
+\definecolor{delim}{RGB}{20,105,176}
+\definecolor{types}{RGB}{255,0,0}
+\definecolor{myBrickRed}{RGB}{203,65,84}
+\lstdefinelanguage{json}{
+	xleftmargin=0.8em,
+	basicstyle=\small\ttfamily,
+	numbers=left,
+	numberstyle=\scriptsize,
+	stepnumber=1,
+	numbersep=8pt,
+	showstringspaces=false,
+	breaklines=true,
+	frame=lines,
+	backgroundcolor=\color{background},
+	literate=
+	*{:}{{{\color{punct}{:}}}}{1}
+	{,}{{{\color{punct}{,}}}}{1}
+	{\{}{{{\color{delim}{\{}}}}{1}
+	{\}}{{{\color{delim}{\}}}}}{1}
+	{[}{{{\color{delim}{[}}}}{1}
+	{]}{{{\color{delim}{]}}}}{1},
+}
+
+\lstdefinelanguage{javascript}{
+	xleftmargin=0.8em,
+	basicstyle=\small\ttfamily,
+    keywords=[1]{Array},
+	keywordstyle=[1]\color{blue},
+	keywords=[2]{number, string},
+	keywordstyle=[2]\color{red},
+	extendedchars=true,
+	numbers=left,
+	numberstyle=\scriptsize,
+	stepnumber=1,
+	numbersep=8pt,
+	showstringspaces=false,
+	showspaces=false,
+	breaklines=true,
+	frame=lines,
+	backgroundcolor=\color{background},
+	literate=
+	*{:}{{{\color{punct}{:}}}}{1}
+	{,}{{{\color{punct}{,}}}}{1}
+	{\{}{{{\color{delim}{\{}}}}{1}
+	{\}}{{{\color{delim}{\}}}}}{1}
+	{[}{{{\color{delim}{[}}}}{1}
+	{]}{{{\color{delim}{]}}}}{1}
+	{<}{{{\color{delim}{<}}}}{1}
+	{>}{{{\color{delim}{>}}}}{1},
+}
+
+
+\lstdefinelanguage{rust}{
+	xleftmargin=0.8em,
+	basicstyle=\small\ttfamily,
+	keywords=[1]{struct, Option, Vec},
+	keywordstyle=[1]\color{blue},
+	keywords=[2]{Policy, PolicyIdentifiers, PolicyVector, PolicyVectors, String, u32},
+	keywordstyle=[2]\color{red},
+	extendedchars=true,
+	numbers=left,
+	numberstyle=\scriptsize,
+	stepnumber=1,
+	numbersep=8pt,
+	showstringspaces=false,
+	showspaces=false,
+	breaklines=true,
+	frame=lines,
+	backgroundcolor=\color{background},
+	literate=
+	*{:}{{{\color{punct}{:}}}}{1}
+	{,}{{{\color{punct}{,}}}}{1}
+	{\{}{{{\color{delim}{\{}}}}{1}
+	{\}}{{{\color{delim}{\}}}}}{1}
+	{[}{{{\color{delim}{[}}}}{1}
+	{]}{{{\color{delim}{]}}}}{1}
+	{<}{{{\color{delim}{<}}}}{1}
+	{>}{{{\color{delim}{>}}}}{1},
+}
+
+\lstdefinelanguage{sh}{
+	xleftmargin=0.8em,
+	basicstyle=\small\ttfamily,
+	keywords=[1]{dmng},
+	keywordstyle=[1]\color{blue},
+	morecomment=[f][\color{myBrickRed}][0]{\#},
+	extendedchars=true,
+	numbers=left,
+	numberstyle=\scriptsize,
+	stepnumber=1,
+	numbersep=8pt,
+	showstringspaces=false,
+	showspaces=false,
+	breaklines=true,
+	frame=lines,
+	backgroundcolor=\color{background},
+	literate=
+	*{:}{{{\color{punct}{:}}}}{1}
+	{,}{{{\color{punct}{,}}}}{1}
+	{\{}{{{\color{delim}{\{}}}}{1}
+	{\}}{{{\color{delim}{\}}}}}{1}
+	{[}{{{\color{delim}{[}}}}{1}
+	{]}{{{\color{delim}{]}}}}{1}
+	{<}{{{\color{delim}{<}}}}{1}
+	{>}{{{\color{delim}{>}}}}{1},
+}
+
+\newcommand{\twoRows}[2]{\begin{tabular}{@{}c@{}}#1 \\ #2\end{tabular}}
+
+% Two row cell in table
+\newcommand{\pap}{NatiSand\xspace}
+
+\newcommand{\generation}{\color{blue}\input{src/proposal/generation}\color{black}}
+
+% do not count empty lines in listings
+\makeatletter
+%
+\lst@Key{countblanklines}{true}[t]%
+    {\lstKV@SetIf{#1}\lst@ifcountblanklines}
+%
+\lst@AddToHook{OnEmptyLine}{%
+    \lst@ifnumberblanklines\else%
+       \lst@ifcountblanklines\else%
+         \advance\c@lstnumber-\@ne\relax%
+       \fi%
+       \fi}
+%    
+\lst@AddToHook{OnEmptyLine}{\addtocounter{lstnumber}{-1}}% Remove line number increment from listings
+%    
+\makeatother
+
+
+
+% DESIGN OBJECTIVES
+\newcommand{\objintegration}{\textbf{O1}\xspace}
+\newcommand{\objeasy}{\textbf{O2}\xspace}
+\newcommand{\objfinegrained}{\textbf{O3}\xspace}
+\newcommand{\objpolicy}{\textbf{O4}\xspace}
+\newcommand{\objmitigation}{\textbf{O5}\xspace}
+\newcommand{\objoverhead}{\textbf{O6}\xspace}
+
+% circle shapes
+\DeclareRobustCommand{\whitecircle}[1]{\tikz[baseline=-0.3em]{
+		\node[shape=circle,scale=0.6,minimum size=0.6cm,draw,inner sep=1pt] (char) {\LARGE #1};}}
+\DeclareRobustCommand{\graycircle}[1]{\tikz[baseline=-0.3em]{
+		\node[shape=circle,scale=0.6,minimum size=0.6cm,fill=gray!70,text=white,draw=gray!70,inner sep=1pt] (char) {\LARGE #1};}}
+\DeclareRobustCommand{\blackcircle}[1]{\tikz[baseline=-0.3em]{
+		\node[shape=circle,scale=0.6,minimum size=0.6cm,fill=black,text=white,draw,inner sep=1pt] (char) {\LARGE #1};}}
+
+% marks
+\newcommand{\cmark}{\text{\ding{51}}}
+\newcommand{\xmark}{\text{\ding{55}}}

@@ -1,4 +1,4 @@
-\section{Policy}\label{sect:policy}
+\section{Policy}\label{dmng:sect:policy}
 
 In this section we present the structure of the policy, explaining how
 it can be customized. We also discuss aspects such as coverage and
@@ -6,7 +6,7 @@ effectiveness.
 
 \paragraph*{Policy structure} The policy obtained from \dmng is a JSON
 file structured as a list of objects as shown in
-Listing~\ref{lst:policy_file}. For each of them, a field {\em
+Listing~\ref{dmng:lst:policy_file}. For each of them, a field {\em
   policy\textunderscore name} identifies the application component the
 policy applies to, while the sections {\em read}, {\em write} and {\em
   exec} are used to configure the related permissions. The structure
@@ -15,7 +15,7 @@ of the policy is flexible, and for each object only the field {\em
 a \mbox{{\em default-deny}} model, an object that does not list any
 section in its body has no runtime permission, hence the corresponding
 component cannot access any file system
-resource. Listing~\ref{lst:policy_file} shows an example in which a
+resource. Listing~\ref{dmng:lst:policy_file} shows an example in which a
 component called {\em filter} is granted execution access to the Awk
 program (together with its shared libraries) to process the
 \mbox{read-only} {\em users.csv} dataset.
@@ -60,7 +60,7 @@ discarded.
   float=tp,
   floatplacement=tbp,
   language=json,
-  label=lst:policy_file,
+  label=dmng:lst:policy_file,
   frame=none,
   aboveskip=-0.3em,
 ]

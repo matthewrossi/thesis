@@ -1,0 +1,118 @@
+\section{Introduction}
+\label{sect:introduction}
+
+JavaScript (JS) and TypeScript (TS) are popular choices for the
+implementation of web applications. This success is motivated by their
+flexibility, since both are simple to use for the development of
+frontend and backend services, and by the vast ecosystem of open
+source packages that are available. For instance, the sole {\em npm
+  registry} collects more than 1.3 million
+packages~\cite{npm-registry}.
+
+The execution of JS code on the server-side is enabled by a {\em JS
+  runtime}.  Since its introduction in 2009, Node.js~\cite{node} has
+been the de facto solution selected by developers, but recently
+Deno~\cite{deno} and Bun~\cite{bun} have received considerable
+attention by the community. While the three platforms provide
+distinctive features, they all depend on a key external component,
+namely the {\em JS engine}, V8~\cite{v8-site} in the
+case of Node.js and Deno, JavaScriptCore~\cite{javascriptcore} in the
+case of Bun. The engine is a sophisticated software that securely
+renders the JS code in an isolated sandbox. Runtimes extend the engine
+providing components to access resources and functions that are not
+directly available to the web application from within the
+sandbox~\cite{node-api, deno-api}. Prominent examples are the
+functions to access the network and to read/write the
+filesystem. Runtimes also provide support for the execution of native
+code -- i.e., running binary programs installed on the host operating
+system and calling functions from the available shared libraries.
+
+The support provided by the runtime for the execution of native code
+greatly simplifies the work of the developer building the backend of a
+web application. However, the APIs enabling access to system resources
+and the execution of native code also raise security concerns, since
+they effectively break the isolation between the JS application and
+the host OS. The ability to control the resources accessible to a JS
+program was indeed one of the reasons that led to the creation of Deno
+in 2018~\cite{nodejs-regret}, and the solution identified by the
+community was to configure the resources available to an application
+with simple permission flags~\cite{deno-permissions}. This change also
+influenced the design of Node.js, which introduced a similar
+flag-based control model\footnote{Node.js support for creating
+  security policies is still experimental as of 2023.} two years
+later~\cite{node-permissions}. Unfortunately, while permissions are
+effective in restricting access to the JS application, they do not
+provide isolation guarantees when native code is
+executed,
+leaving the host exposed to security breaches~\cite{deno-permissions}.
+
+Previous research~\cite{staicu2021bilingual,npm-malicious-update} has
+already shown that frequently JS modules depend on components written
+in native languages such as C or C++.  The reuse of existing utilities
+permits to take advantage of popular high performance libraries and,
+in addition to performance, it minimizes the cost of
+development. Notable examples are: the node-sqlite3~\cite{
+  node-sqlite3} and deno-sqlite3~\cite{deno-sqlite3} database drivers;
+modules to perform image/video conversions, such as
+sharp~\cite{sharp}, fluent-ffmpeg~\cite{fluentffmpeg-npm} and
+gm~\cite{gm-npm}; OCR engines like Tesseract~\cite{tesseract}; and the
+cryptography modules relying on bcrypt~\cite{bcrypt}. The 2022 State
+of Open Source Security~\cite{snyk-report} claims that each open
+source JS project relies on an average of 174 third-party
+dependencies; also, each project is estimated to be affected by 40
+vulnerabilities when its dependencies are taken into account. Taking
+into consideration that web applications in most cases process
+untrusted input, the risk of security incidents is high. For instance,
+we identified a sample of 32 high severity CVEs\footnote{The list is
+  reported in Table~\ref{table-cve}.} that affect native code used by
+popular packages (with 2.6M \mbox{downloads/week}), and allow an
+adversary to corrupt the filesystem, perform privilege escalation,
+execute arbitrary code, open network connections to exfiltrate data,
+etc.
+
+\paragraph*{Our contribution}
+
+We see a security gap in the way modern JS runtimes execute native
+code, as neither Node.js, nor Deno, nor Bun sandbox it.  In this work
+we propose \pap, a framework to provide strong isolation guarantees
+against the execution of native code. In detail, \pap allows the
+developer to control on a native-component basis, access to filesystem, Inter-Process
+Communication, and network, effectively reducing the risks coming from
+the execution of binary programs and shared libraries. Our solution is
+characterized by a compact, generic architecture that fits nicely with
+modern runtimes. Internally, it leverages {\em
+  Seccomp}~\cite{seccompbpf} and Linux Security Modules (LSMs), such
+as {\em Landlock}~\cite{landlock} and {\em eBPF}~\cite{corbet2014eBPF}
+to restrict access to protected resources. In the design of our
+solution we paid attention to usability by developers; it is not
+necessary to have a full understanding of its advanced security
+features to use it.  The developer is only required to provide a
+concise and readable JSON-formatted policy file, detailing the {\em
+  ambient rights} -- i.e., the access privileges available to the
+components of the web application that rely on native code. To this
+end, we provide the developer a comprehensive and interactive CLI tool
+to support policy generation, which, as best practice
+suggests, can also be integrated into CI/CD pipelines and run against
+a set of test cases~\cite{sandtrap,slimtoolkit}. Another key advantage
+of our approach is that it permits to sandbox native code preserving
+backward compatibility, namely it does not require to change existing
+modules (including third-party dependencies) to leverage the new
+security features.
+
+We implemented \pap and integrated it into Deno. We demonstrate the
+security benefits showing how our solution mitigates a number of
+recent, high-severity vulnerabilities. We performed an extensive
+experimental evaluation to assess its performance. We compare the
+overhead introduced by our solution to scenarios in which no native
+code sandboxing is performed, and when sandboxing is achieved through
+other general purpose, state of the art solutions. The experiments
+show that, compared to the alternatives, \pap exhibits substantial
+performance improvements. In addition it also provides an easier
+interface that does not require any specific security expertise to be
+correctly configured.
+
+
+%%% Local Variables:
+%%% mode: latex
+%%% TeX-master: "../main.tex"
+%%% End:

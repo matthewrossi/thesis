@@ -1,11 +1,11 @@
-\section{Experiments}\label{sect:exp}
+\section{Experiments}\label{dmng:sect:exp}
 
 This section presents our experimental evaluation. In the first part
-(Section~\ref{sect:exp-mitig}), we show the benefits coming from the
+(Section~\ref{dmng:sect:exp-mitig}), we show the benefits coming from the
 introduction of sandboxing in cloud applications. In detail, we
 reproduce a sample of CVEs affecting open source software, and
 showcase how the sandbox mitigates the exploits. In the second part
-(Section~\ref{sect:exp-perf}), we analyze the performance
+(Section~\ref{dmng:sect:exp-perf}), we analyze the performance
 overhead. Specifically, we implement an application that performs
 various operations on media resources, and then evaluate the
 degradation of latency when sandboxing and eBPF-based monitoring are
@@ -13,7 +13,7 @@ activated. The tests have been executed on a workstation with Arch
 Linux, kernel version 6.4, an AMD Ryzen 5 7600X CPU, 32 GB RAM, and 1
 TB SSD.
 
-\subsection{Mitigation of vulnerabilities}\label{sect:exp-mitig}
+\subsection{Mitigation of vulnerabilities}\label{dmng:sect:exp-mitig}
 
 To demonstrate the importance of the introduction of sandboxing, we
 selected the sample of high severity vulnerabilities reported in
@@ -55,7 +55,7 @@ protections extend to a broader set of CVEs.
   \end{tabularx}
 \end{table}
 
-\subsection{Overhead}\label{sect:exp-perf}
+\subsection{Overhead}\label{dmng:sect:exp-perf}
 
 As mentioned in Section~\ref{sect:motivation}, an important use case
 for cloud applications is represented by services that handle media

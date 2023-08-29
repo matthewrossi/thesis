@@ -1,0 +1,197 @@
+\section{Policy}
+\label{natisand:sect:policy}
+
+In this section we present the structure of the policy file, then we
+explain how to generate the permission rules.
+
+\subsection{Policy structure}
+\label{sect:sci-ffi-policy-structure}
+
+JS applications executed by \pap are associated with a policy
+file. The policy must be provided by the developer before the
+application is run, and to this end, a CLI flag (e.g., {\tt
+  native-sandbox}) needs to be added to the JS runtime. The policy
+file is formatted in JSON, with the following structure: a policy
+defines an array of objects and each object details the permissions
+available to a security context.  Within each object, a {\em name} is
+used to identify the context, a {\em type} indicates whether the
+context applies to an executable, a library, or a function of a
+library; the sections {\em fs}, {\em ipc} and {\em net} are used to
+configure the corresponding permissions. The structure of the objects
+is flexible, and only a {\em name} is required to configure a valid
+context. As the policy follows a {\em default-deny} model, a context
+that specifies only its name has no permissions at runtime. An excerpt
+from a policy file is shown in Listing~\ref{natisand:lst:policy_file} (the
+complete example is reported in Appendix~\ref{appendix:curl_policy}),
+while a summary of the most relevant policy features is described
+next.
+
+\subsubsection*{Name, Type}
+
+The name and type elements are used by \pap to determine which policy
+context must be enforced. The type element can be set to {\tt
+  executable} (the default value), {\tt library} or {\tt function}.
+At runtime \pap extracts the absolute path of the native program and function
+name, and based on the information available, it identifies the most
+selective entry in the policy. This gives the developer the
+flexibility to use different policies in case binaries and libraries
+have the same basename, or when different functions
+from the same library are invoked. Moreover, since absolute
+paths are used, this approach ensures symlinks cannot trick the lookup
+of the security context. Listing~\ref{natisand:lst:policy_file} shows
+a policy that is enforced every time the application runs the curl
+program.
+
+\subsubsection*{Fs}
+
+The fs element is used to configure filesystem-related permissions. Fs
+stores three optional arrays: {\em read}, {\em write} and {\em
+  exec}. Filesystem paths are used as array values. As an example, the
+context detailed in Listing~\ref{natisand:lst:policy_file} can read and execute
+the curl binary, and write to {\tt response.json} in the current
+working directory of the web application. In case the developer wants
+to operate with a coarser granularity, the value {\tt true} can be
+used to replace any of the {\em fs}, {\em read}, {\em write} and {\em
+  exec} arrays to grant access to the whole filesystem.
+
+\subsubsection*{Ipc}
+
+To restrict IPC access we decided to expose developers a simple
+interface where flags can be turned on and off based on their needs.
+Six optional flags are available in the policy: {\em fifo}, {\em
+  message}, {\em semaphore}, {\em shmem}, {\em signal}, and {\em
+  socket}. For example, in Listing~\ref{natisand:lst:policy_file}, curl is
+allowed to use abstract, named, and unnamed Unix sockets. It is up to our sandboxer to abstract away the complexity
+of the underlying architecture and enforce the policy when IPC is
+performed between groups of threads associated with separate
+contexts. No understanding of the standards available (e.g., System V,
+POSIX) is required by developers to restrict the permissions
+associated with their application. Similarly to the filesystem case, the
+developer can use a coarser granularity by setting the {\em ipc}
+element to {\tt true}, enabling all communication mechanisms.
+Notice that globally available IPC channels are often bound to
+filesystem resources, so, while the granularity of the six flags
+described above may seem coarse, finer-grained permissions can be
+specified leveraging the path associated with the IPC resource.
+For example, the developer can restrict the use of a specific named
+pipe (pinned to the filesystem) by using its fully qualified path.
+
+\subsubsection*{Net}
+
+Web application developers are often interested in restricting the
+hosts an application can connect to. The policy permits to
+specify an array of reachable hosts. Each host is fully qualified by
+its URL/IP, and the sequence of permitted ports. As in the case of the
+filesystem, the policy permits to grant access to the network without
+limitations (setting {\em net} to {\tt true}), enable all the ports
+for a specific host (setting {\em ports} to {\tt true}), or completely
+remove access to the network (leveraging the default-deny
+behavior). In Listing~\ref{natisand:lst:policy_file}, the process executing
+curl is only allowed to connect to {\tt https://www.example.com} on
+port 443.
+
+\begin{lstlisting}[
+    abovecaptionskip=-5pt,
+    caption=Example of JSON policy file with single context,
+    float=tp,
+    floatplacement=tbp,
+    language=json,
+    label=natisand:lst:policy_file,
+]
+[{
+   "name": "/usr/bin/curl",
+   "type": "executable",
+   "fs": {
+           "read":   ["/usr/bin/curl", ...],
+           "write":  ["response.json"],
+           "exec":   ["/usr/bin/curl", ...]
+   },
+   "ipc": {
+           "socket": true,
+   },
+   "net": [{
+	   "name":   "https://www.example.com",
+	   "ports":  [443]
+   }]
+}]
+\end{lstlisting}
+
+
+\subsection{Policy generation}
+\label{sect:sci-ffi-policy-generation}
+
+While designing \pap we opted for a minimal and easy to understand
+policy syntax to target a broad spectrum of users. However, writing a
+policy for large components may be a tedious and tricky task, since we
+do not expect all the developers to be aware of how binaries and
+external libraries used by their web application work internally. To
+assist the developer, we follow an approach similar to
+SlimToolkit~\cite{slimtoolkit}, where a service is run against a test
+suite to generate the security profile.
+Specifically, we developed a CLI utility written in Go that provides
+generation of policy templates the developer can understand,
+modify, and audit. The utility persists policy-relevant information
+in a SQLite database, and exposes to the user many functions that
+permit to configure multiple contexts, merge the results collected
+from multiple tests, and refine policies interactively.
+In the following we provide details on
+the work we performed for each of the protected subsystems.
+
+\subsubsection*{Filesystem}
+
+The automatic retrieval of the dependencies of a binary is a
+well-known problem. Our utility is capable to discover the
+dependencies of programs installed as ELF files, and programs that are
+spawned by dedicated POSIX or shell wrappers. The utility first uses
+{\em ldd}~\cite{linux-ldd} to discover the direct and transient
+dependencies, then, it relies on {\em strace}~\cite{linux-strace} to
+monitor the interaction between the kernel and a traced binary, so to
+complement the information previously found with additional
+filesystem permissions.
+
+\subsubsection*{IPC}
+
+\pap adopts a policy language that abstracts away IPC complexity.  Our
+utility supports policy generation by analyzing the results of
+multiple test cases where the Seccomp filter and eBPF
+programs of the sandboxer are set to {\em auditing mode}.  These
+programs return the flags to be enabled.
+
+\subsubsection*{Network}
+
+Network rules are relatively easy to write. However, we do not
+assume developers to be necessarily aware of every network connection
+needed by the native code. So, we automate the generation of the
+policy by observing the execution of the binary with eBPF programs.
+In fact, these provide a list of the domain names resolved, their IPs,
+and those hardcoded IPs the utility connects to without performing
+name resolution. To track domain name resolutions we attach a {\tt 
+  uprobe} to the {\tt getaddrinfo} function of the libc library,
+for IPs we observe network socket connections using {\tt kprobes} on
+{\tt socket\_bind} and {\tt socket\_connect} LSM hooks.
+%
+ To handle IP address migrations that may occur at runtime,
+  we similarly propose to capture the list of IPs returned by the {\tt
+    getaddrinfo} with a dedicated eBPF program, which also updates the
+  eBPF map of allowed hosts accordingly. By doing so we make sure that
+  the security checks reflect the policy. This approach can also be
+  extended monitorng DNS traffic on port 53, hence providing support
+  for native components that do not rely on libc functions.  
+
+\vspace{2 mm}
+\noindent Policy generation is subject to limitations: (i) policy
+generation for malicious code 
+produces overly permissive policy and obviously cannot be trusted,
+(ii) test suite with limited coverage might provide overly strict
+policies not allowing the execution of legitimate code.
+Overall, the correctness of the policy depends on the test suite used
+to collect the permissions. The closer the tests align with the use of
+the native utility in production, the more the developer can consider
+the policy generated effective. Nonetheless, to have complete
+assurance that the policy generated is correct, an auditing process
+may be required.
+
+%%% Local Variables:
+%%% mode: latex
+%%% TeX-master: "../main.tex"
+%%% End:
