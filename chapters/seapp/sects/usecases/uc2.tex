@@ -41,7 +41,7 @@ We show that when the policy module is enforced by \seapp, the malicious
 component cannot access the GPS coordinates. This is because the
 component is executed in the same process of the library, which is
 labeled with {\tt ads\textunderscore d}. If we look at the \sepolicy
-(lines 43-50), {\tt ads\_d} is not granted access to the \sel type
+(lines 48-54), {\tt ads\_d} is not granted access to the \sel type
 {\tt location\textunderscore service}, so the malicious routine cannot
 retrieve and therefore connect to the {\em location\textunderscore
   service}.  The following denial is written to the system log: {\em

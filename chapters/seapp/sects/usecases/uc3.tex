@@ -23,7 +23,7 @@ The native library is invoked by {\em UseCase3Activity}
 by {\em Zygote}.  The call to the library is performed via JNI. Its
 job is to connect to the {\em camera\textunderscore service} and take
 a picture.  Since the app is granted the {\em CAMERA} permission, the
-native library code (legitimately, line 53 in the \sepolicy) connects
+native library code (legitimately, line 60 in the \sepolicy) connects
 to the {\tt CameraManager}.
 
 Since the native library performs image processing, we do not want it
