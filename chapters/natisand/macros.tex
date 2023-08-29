@@ -114,24 +114,6 @@
 
 \newcommand{\generation}{\color{blue}\input{src/proposal/generation}\color{black}}
 
-% do not count empty lines in listings
-\makeatletter
-%
-\lst@Key{countblanklines}{true}[t]%
-    {\lstKV@SetIf{#1}\lst@ifcountblanklines}
-%
-\lst@AddToHook{OnEmptyLine}{%
-    \lst@ifnumberblanklines\else%
-       \lst@ifcountblanklines\else%
-         \advance\c@lstnumber-\@ne\relax%
-       \fi%
-       \fi}
-%    
-\lst@AddToHook{OnEmptyLine}{\addtocounter{lstnumber}{-1}}% Remove line number increment from listings
-%    
-\makeatother
-
-
 
 % DESIGN OBJECTIVES
 \newcommand{\objintegration}{\textbf{O1}\xspace}
