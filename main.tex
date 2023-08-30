@@ -26,7 +26,13 @@
 % set spacing between lines
 \linespread{1.2}
 
+% redefine chapter title
 \titleformat{\chapter}[hang]{\vspace*{-6em}\Huge\bfseries}{\thechapter.{ }}{1pt}{\Huge\bfseries}
+
+% use numbers to represent subsections and add them to the table of
+% contents
+\maxsecnumdepth{subsection}
+\maxtocdepth{subsection}
 
 \begin{document}
 \sloppy
