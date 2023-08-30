@@ -74,8 +74,8 @@ etc.
 
 We see a security gap in the way modern JS runtimes execute native
 code, as neither Node.js, nor Deno, nor Bun sandbox it.  In this work
-we propose \pap, a framework to provide strong isolation guarantees
-against the execution of native code. In detail, \pap allows the
+we propose \natisand, a framework to provide strong isolation guarantees
+against the execution of native code. In detail, \natisand allows the
 developer to control on a native-component basis, access to filesystem, Inter-Process
 Communication, and network, effectively reducing the risks coming from
 the execution of binary programs and shared libraries. Our solution is
@@ -99,14 +99,14 @@ backward compatibility, namely it does not require to change existing
 modules (including third-party dependencies) to leverage the new
 security features.
 
-We implemented \pap and integrated it into Deno. We demonstrate the
+We implemented \natisand and integrated it into Deno. We demonstrate the
 security benefits showing how our solution mitigates a number of
 recent, high-severity vulnerabilities. We performed an extensive
 experimental evaluation to assess its performance. We compare the
 overhead introduced by our solution to scenarios in which no native
 code sandboxing is performed, and when sandboxing is achieved through
 other general purpose, state of the art solutions. The experiments
-show that, compared to the alternatives, \pap exhibits substantial
+show that, compared to the alternatives, \natisand exhibits substantial
 performance improvements. In addition it also provides an easier
 interface that does not require any specific security expertise to be
 correctly configured.

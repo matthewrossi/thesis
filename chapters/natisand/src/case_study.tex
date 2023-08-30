@@ -7,7 +7,7 @@ Section~\ref{sect:background-js-runtime}, their architectures have
 strong similarities, and NatiSand is designed to be compatible with
 all of them (since no assumption is made on specific runtime
 components). Nevertheless the integration is not trivial, and it requires
-significant engineering effort, therefore we integrated \pap into only
+significant engineering effort, therefore we integrated \natisand into only
 one of them to demonstrate the achievement of the set objectives
 (Section~\ref{subsect:objectives}). In this section we explain our
 decision, then we highlight the main architectural changes.
@@ -43,7 +43,7 @@ security oriented-features, leading us to choose Deno.
 \label{subsect:deno-integration}
 
 Deno has a modular architecture organized into components. Three of
-them are particularly important for \pap: (i) {\em
+them are particularly important for \natisand: (i) {\em
   rusty\textunderscore v8}, the package that bridges Deno and the V8
 engine implementing the set of bindings to the V8's C++ API, (ii) {\em
   deno\textunderscore core}, which leverages {\em rusty\textunderscore
@@ -74,7 +74,7 @@ requests, it checks the permissions available from the global state,
 and serves them accordingly. We identified requests that
 require to execute native code (e.g., {\tt command}, {\tt dlopen},
 {\tt run}), and modified {\em deno\textunderscore core} so that they
-are restricted by \pap. The {\em op\textunderscore code} along
+are restricted by \natisand. The {\em op\textunderscore code} along
 with the arguments are used to select the proper security context.
 
 
@@ -102,11 +102,11 @@ invalidating the security reference monitor of Deno.
 In our prototype we address this Deno security issue offering
 developers two alternatives: (i) turn off
 the fast call support and safely rely on the execution of sandboxed
-native functions with \pap without any code change, and (ii) enable insecure fast calls but
+native functions with \natisand without any code change, and (ii) enable insecure fast calls but
 allow to select the JS functions that need to be isolated with minimal code changes. The second
 option permits to take advantage of fast calls when performance is
 critical and risks are limited (e.g., arithmetic operations), and at
-the same time benefit from the security features \pap provides. To
+the same time benefit from the security features \natisand provides. To
 this end, we introduced a new API named {\tt Deno.nativeCall()}. The API receives, as first argument, the name of the function
 to be sandboxed, along with the list of its arguments.
 Listing~\ref{lst:sqlite3_example} shows how to sandbox the functions

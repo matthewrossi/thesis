@@ -1,7 +1,7 @@
 \section{Design and implementation}
 \label{sect:design-and-implementation}
 
-In this section we present \pap, our proposal to enable the isolation
+In this section we present \natisand, our proposal to enable the isolation
 of native code for JS runtimes.
 
 \subsection{Objectives}
@@ -10,13 +10,13 @@ of native code for JS runtimes.
 We start with the definition of the design objectives.
 
 \paragraph{Security}
-As a secure sandbox, \pap must provide protection against recent,
+As a secure sandbox, \natisand must provide protection against recent,
 high-severity vulnerabilities affecting native components used by web
 applications. Furthermore, the additional protection must not result
 in a loss of functionality. The goal is to enable the developer to
 follow the least privilege principle when designing its application,
 reducing the attack surface in the presence of vulnerabilities.  To do
-so, \pap must be able to execute distinct native code in separate lightweight
+so, \natisand must be able to execute distinct native code in separate lightweight
 compartments isolated from the rest of the application, and
 characterized by policy-based ambient rights. The security
 restrictions must be enforced independently of the method leveraged by
@@ -32,7 +32,7 @@ just to use the sandbox. At the same time, we cannot expect them to be
 aware of the internal structure of the third-party native code used by
 the application, nor to fully understand the advanced security
 mechanisms that can be leveraged to securely sandbox a program. The
-effort required to take advantage of \pap should be extremely
+effort required to take advantage of \natisand should be extremely
 low. Ideally, a single configuration file specifying the ambient
 rights associated with each compartment should be enough to
 successfully configure it. To facilitate the transition from no
@@ -54,20 +54,20 @@ by other software.
 \paragraph{Performance}
 Latency and throughput are critical metrics for web applications,
 therefore it is important to reduce their degradation to a
-minimum. \pap aims to introduce lower overhead compared to current
+minimum. \natisand aims to introduce lower overhead compared to current
 state of the art sandboxing and isolation frameworks.
 
 
 \subsection{High level architecture}
 \label{sect:sandbox-overview}
 
-\pap permits to transparently execute code in ad hoc {\em contexts},
+\natisand permits to transparently execute code in ad hoc {\em contexts},
 isolated compartments that are characterized by policy-based ambient
 rights. This allows the developer to configure fine-grained access to
 confidential or privileged system resources, such as files, message
 queues, shared memory areas, sockets, and other resources.
 
-\pap separates system resources into three categories: filesystem,
+\natisand separates system resources into three categories: filesystem,
 IPC, and network. By default, native code sandboxed by our solution
 cannot access any privileged resource in each category. Indeed, the
 developer must explicitly grant access to resources using a
@@ -78,7 +78,7 @@ activity. No specific knowledge is required to configure the policy,
 and no effort needs to be spent by the developer to understand how
 permissions are enforced.
 
-Internally, \pap leverages dedicated Linux Security Modules to
+Internally, \natisand leverages dedicated Linux Security Modules to
 restrict access to each resource category.  Filesystem-related
 permissions are enforced using Landlock, while the availability of IPC
 channels to interact with other processes or services already running
@@ -98,8 +98,8 @@ in the target directory.
 
 \begin{figure}[t]
   \includegraphics[width=\columnwidth]{chapters/natisand/fig/overview_sandbox}
-  \caption[Integration of \pap in JS runtimes]{
-    Integration of \pap in the JS runtime. Bootstrap: import
+  \caption[Integration of \natisand in JS runtimes]{
+    Integration of \natisand in the JS runtime. Bootstrap: import
     security contexts ($\alpha$,~$\beta$), creation of the context
     pool ($a$,~$b$,~$c$). Application runtime: isolated execution of
     binary programs and shared library functions
@@ -110,20 +110,20 @@ in the target directory.
       
 The architecture of our solution is shown in
 Figure~\ref{fig:overview_sandbox}. Shortly after the JS runtime is
-executed, \pap parses the policy file input by the developer. Based on
+executed, \natisand parses the policy file input by the developer. Based on
 the policy, a set of sandboxing and tracing programs
 %
 along with maps
 %
 are initialized and loaded into the kernel. A pool of isolated
-contexts is also prepared by the sandbox. At runtime, \pap intercepts
+contexts is also prepared by the sandbox. At runtime, \natisand intercepts
 all the calls to native code performed by the application and executes
 them safely in the proper isolated context.
 %
 A technical description of how our proposal is integrated into a
 modern JS runtime is given in Section~\ref{subsect:arch}, while
 details about its isolation features are reported in
-Section~\ref{subsect:isolation}. The policy syntax used by \pap to
+Section~\ref{subsect:isolation}. The policy syntax used by \natisand to
 configure permissions, along with the support to policy
 generation, are described in Section~\ref{natisand:sect:policy}.
 
@@ -131,7 +131,7 @@ generation, are described in Section~\ref{natisand:sect:policy}.
 \subsection{Integration with JS runtimes}
 \label{subsect:arch}
 
-\pap complements the architecture of the JS runtime with the addition
+\natisand complements the architecture of the JS runtime with the addition
 of the {\em sandboxer}, a component that parses the policy and
 enforces the isolation of native code accordingly. In the following we
 explain the operations performed by the runtime to use it, referring to Figure~\ref{fig:overview_sandbox}.
@@ -195,7 +195,7 @@ applications.
 \paragraph{Application runtime}
 After the web application is started, two operations can lead to the
 execution of native code: (i) the execution of a binary program in a
-subprocess, and (ii) the invocation of a shared library. \pap
+subprocess, and (ii) the invocation of a shared library. \natisand
 intercepts all the requests originating from the web application that
 require to execute native code~\whitecircle{1}, and leverages the
 sandboxer to assign them to the proper pre-allocated isolated
@@ -208,7 +208,7 @@ library should be loaded, a thread is spawned. The consequence is
 that any request to access filesystem, IPC, and network resources will
 be subject to the restrictions imposed by the LSMs
 (\whitecircle{4a},~\whitecircle{4b},~\whitecircle{4c}). The approach
-implemented by \pap ensures that native code is never loaded nor
+implemented by \natisand ensures that native code is never loaded nor
 executed in a task running unconstrained, thus strengthening the
 boundary between the web application and the OS.
 
@@ -216,13 +216,13 @@ boundary between the web application and the OS.
 \label{subsect:isolation}
 
 Native code executed in isolated contexts can vary from library
-functions to entire programs. In the following we detail how \pap
+functions to entire programs. In the following we detail how \natisand
 enforces isolation and summarize the sandboxing features.
 
 \paragraph{Policy inheritance}
 While Landlock and Seccomp guarantee policy inheritance after a {\tt
   clone} syscall is performed, the eBPF map that tracks the
-restricted contexts must be updated explicitly. To this end, \pap
+restricted contexts must be updated explicitly. To this end, \natisand
 relies on the eBPF tracing programs that are loaded into the
 kernel during the bootstrap phase and are attached to the {\tt fork}
 and {\tt exit} tracepoints reported in
@@ -236,7 +236,7 @@ a new entry into the map of restricted contexts. The entry
 inheritance is transparently handled by our solution.
 
 \paragraph{Filesystem}
-\pap restricts access to the filesystem using Landlock. The sandbox
+\natisand restricts access to the filesystem using Landlock. The sandbox
 enforces a straightforward {\tt read}, {\tt write}, {\tt exec} (RWX)
 permission model, specified with three allow-list vectors (e.g., lines
 5, 6, and 7 in Listing~\ref{natisand:lst:policy_file}). After the security
@@ -274,11 +274,11 @@ further restricted.
 	  {\small\bf (a)} & {\small\bf (b)}
 	\end{tabular}
 	\caption{\label{table:hooks} Hooks and tracepoints monitored by
-	  \pap}
+	  \natisand}
       \end{table}
 
 \paragraph{IPC}
-To explain the isolation features \pap provides, we start with a
+To explain the isolation features \natisand provides, we start with a
 description of how programs and libraries generally use IPC.
 Native programs often rely on parallelism and concurrency to achieve
 high resource utilization. Parallel execution typically requires to
@@ -301,7 +301,7 @@ channels used by other services can lead to concrete security
 problems.
 
 To block the communication between components associated with
-incompatible security contexts, \pap by default denies IPC over
+incompatible security contexts, \natisand by default denies IPC over
 globally visible communication mechanisms. In this category there are
 fifo (i.e., named pipes), message queues, named semaphores,
 non-private shared memory, signals, and UNIX named sockets.  Many of
@@ -313,7 +313,7 @@ syscall is invoked with {\tt MAP\_ANONYMOUS} or {\tt
   MAP\_PRIVATE}. Similarly, the creation of named special files is
 allowed only when the {\tt mknod} and {\tt mknodat} syscalls are not
 invoked with {\tt S\_IFIFO} and {\tt S\_IFSOCK}. Syscall filtering
-based on configuration flags is performed efficiently by \pap using
+based on configuration flags is performed efficiently by \natisand using
 Seccomp.
 However, the information available to Seccomp is not always sufficient
 to make the access decision. This is the case for the {\tt bind}, {\tt
@@ -324,19 +324,19 @@ Seccomp cannot safely dereference it (due to
 TOCTOU risks~\cite{seccomp-toctou}). Likewise, the {\tt open} and {\tt openat} syscalls do
 not represent the type of file to be opened through configuration
 flags, so Seccomp cannot handle the specific case properly. To solve
-these problems \pap relies on the eBPF programs attached to the hooks
+these problems \natisand relies on the eBPF programs attached to the hooks
 reported in Table~\ref{table:hooks}b (which are not affected by TOCTOU
 issues, since they operate on arguments that were previously deep
   copied by the kernel). In particular, in the case of UNIX sockets the programs are
 attached to the {\tt lsm/socket\_bind} and {\tt lsm/socket\_connect}
 hooks, while for fifo files the kernel function {\tt fifo\_open} is
-used. A summary of the IPC mechanisms controlled by \pap, along with
+used. A summary of the IPC mechanisms controlled by \natisand, along with
 the LSMs leveraged to perform the security checks, is reported in
 Table~\ref{table:ipc}.
 
 \paragraph{Network}
 %
-\pap permits to control how each isolated context connects to network
+\natisand permits to control how each isolated context connects to network
 resources. In detail, it permits to completely revoke access to the
 network, to connect only to a restricted list of hosts, and when
 needed, to use the network without restrictions. The sandboxer relies
@@ -402,8 +402,8 @@ connections~\cite{doc-accept}.
             & Real-time & rt\_sigqueueinfo, rt\_tgsigqueueinfo      & \cmark                  & \\ \hline
   UNIX socket    & Named                      & bind, connect, mknod, mknodat             & \cmark*                 & \cmark \\ \hline
 \end{tabular}
-\caption[LSMs used by \pap to restrict Linux IPC]{
-  LSMs used by \pap to restrict Linux IPC. The checkmark
+\caption[LSMs used by \natisand to restrict Linux IPC]{
+  LSMs used by \natisand to restrict Linux IPC. The checkmark
   \cmark* indicates when Seccomp needs to evaluate the syscall
   configuration flags to make the access decision
 }
@@ -412,7 +412,7 @@ connections~\cite{doc-accept}.
 
   \paragraph{Limitations}
   %
-  While \pap significantly restricts the set of permissions and system
+  While \natisand significantly restricts the set of permissions and system
   resources associated with subprocesses and shared libraries, it
   provides strong memory isolation guarantees only when executables
   are run, as each subprocess is executed within its own address
@@ -423,7 +423,7 @@ connections~\cite{doc-accept}.
     kirth2022pkru, wu2012codejail, cali, vasilakis2018breakapp,
     binwrap}. In general, these works are compatible with the design
   of our solution, therefore they could be used in conjuction with
-  \pap to improve isolation of shared libraries. Among them,
+  \natisand to improve isolation of shared libraries. Among them,
   BreakApp~\cite{vasilakis2018breakapp} and BinWrap~\cite{binwrap}
   propose approaches tailored for interpreted languages, but they
   require either the introduction of wrappers or the execution of
@@ -436,7 +436,7 @@ connections~\cite{doc-accept}.
   but as demonstrated by PKU Pitfalls~\cite{pku-pitfalls} these
   solutions can be bypassed using kernel functions that are agnostic
   of intra-process isolation (i.e., the attacks use the kernel as a
-  confused deputy). Since \pap is completely aligned with the memory
+  confused deputy). Since \natisand is completely aligned with the memory
   isolation assumptions made by the kernel, our solution is not
   affected by this issue.  
 

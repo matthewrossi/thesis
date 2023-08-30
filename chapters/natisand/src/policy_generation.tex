@@ -7,7 +7,7 @@ explain how to generate the permission rules.
 \subsection{Policy structure}
 \label{sect:sci-ffi-policy-structure}
 
-JS applications executed by \pap are associated with a policy
+JS applications executed by \natisand are associated with a policy
 file. The policy must be provided by the developer before the
 application is run, and to this end, a CLI flag (e.g., {\tt
   native-sandbox}) needs to be added to the JS runtime. The policy
@@ -28,10 +28,10 @@ next.
 
 \subsubsection*{Name, Type}
 
-The name and type elements are used by \pap to determine which policy
+The name and type elements are used by \natisand to determine which policy
 context must be enforced. The type element can be set to {\tt
   executable} (the default value), {\tt library} or {\tt function}.
-At runtime \pap extracts the absolute path of the native program and function
+At runtime \natisand extracts the absolute path of the native program and function
 name, and based on the information available, it identifies the most
 selective entry in the policy. This gives the developer the
 flexibility to use different policies in case binaries and libraries
@@ -120,7 +120,7 @@ port 443.
 \subsection{Policy generation}
 \label{sect:sci-ffi-policy-generation}
 
-While designing \pap we opted for a minimal and easy to understand
+While designing \natisand we opted for a minimal and easy to understand
 policy syntax to target a broad spectrum of users. However, writing a
 policy for large components may be a tedious and tricky task, since we
 do not expect all the developers to be aware of how binaries and
@@ -151,7 +151,7 @@ filesystem permissions.
 
 \subsubsection*{IPC}
 
-\pap adopts a policy language that abstracts away IPC complexity.  Our
+\natisand adopts a policy language that abstracts away IPC complexity.  Our
 utility supports policy generation by analyzing the results of
 multiple test cases where the Seccomp filter and eBPF
 programs of the sandboxer are set to {\em auditing mode}.  These

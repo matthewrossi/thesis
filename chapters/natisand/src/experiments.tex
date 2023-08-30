@@ -1,7 +1,7 @@
 \section{Experiments}
 \label{natisand:sect:exp}
 
-\pap must satisfy two properties to be practical: (i) it must mitigate
+\natisand must satisfy two properties to be practical: (i) it must mitigate
 real-world vulnerabilities by blocking the associated exploits, and
 (ii) it must introduce a limited overhead compared to a scenario where
 no protection is applied. In the experimental evaluation, we first
@@ -73,7 +73,7 @@ sharp and fluent-ffmpeg from npm, or flat and sqlite from {\tt
 						    & CVE-2019-12921   & GraphicsMagick & bin & Image processing    \\
 	  \bottomrule
 	\end{tabular*}
-	\caption{\label{table-cve} Sample of CVEs mitigated by \pap}
+	\caption{\label{table-cve} Sample of CVEs mitigated by \natisand}
 \end{table}
 
 
@@ -84,7 +84,7 @@ exploitable sending the malicious payload through the JS module
 interface, and confirmed the feasibility of the attack. The {\em Node
   compatibility mode} was leveraged to execute in Deno the modules
 downloaded from npm. We finally repeated the experiment activating the
-security functions provided by \pap, and verified that the attack was
+security functions provided by \natisand, and verified that the attack was
 no longer successful, while the application was still able to serve
 benign requests (i.e., no functionality loss). The only change we
 introduced in the experiment was the specification of a security
@@ -95,11 +95,11 @@ web application, nor its dependencies, was required to benefit from
 the new sandboxing capabilities.
 
 
-From a security perspective it is worth mentioning that \pap can
+From a security perspective it is worth mentioning that \natisand can
 mitigate attacks at multiple levels. For instance, in CVE-2022-2566 a
 heap out-of-bound memory bug exists in FFmpeg. The goal of the
 attacker is to achieve Arbitrary Code Execution sending to the web
-application a malicious {\tt MP4} payload. \pap denies the compromised
+application a malicious {\tt MP4} payload. \natisand denies the compromised
 component attempts to access confidential files, open reverse shells,
 interact with privileged services through IPC, and transfer data to
 unauthorized network hosts. We point out that, while sandboxing limits
@@ -111,12 +111,12 @@ make infeasible to use them in an exploit chain.
 \subsection{Performance evaluation}
 \label{subsect:performance-eval}
 
-To assess the performance of \pap we considered a broad set of
+To assess the performance of \natisand we considered a broad set of
 programs, including several GNU Core Utilities, executables to process
 multimedia, database drivers, and Object Character Recognition
 engines. The goal is twofold: (i) evaluate the slowdown compared to a
 scenario where no protection is available (i.e., regular Deno), and
-(ii) compare \pap with well known sandboxing and isolation frameworks.
+(ii) compare \natisand with well known sandboxing and isolation frameworks.
 In the following we first investigate the impact on executables, then
 we analyze libraries.
 
@@ -124,7 +124,7 @@ we analyze libraries.
 
 In the first batch of experiments we analyze the overhead associated
 with executables. Compared to the default scenario where no protection
-is available, \pap spawns each program in a dedicated subprocess with
+is available, \natisand spawns each program in a dedicated subprocess with
 its own set of constrained ambient rights. A handful of
 general purpose sandboxers can be adopted to achieve a comparable
 degree of protection by wrapping the execution of each subprocess with the chosen sandboxing utility. In our evaluation, we considered {\em
@@ -141,7 +141,7 @@ policy-based Seccomp filters, and isolation based on Linux namespaces.
 %
 In the first benchmark we implemented a JS application to test the
 execution of 17 common Linux utilities with
-four configurations: Deno, \pap, Minijail, and Sandbox2. The
+four configurations: Deno, \natisand, Minijail, and Sandbox2. The
 application uses {\tt Deno.run()} to spawn each utility in a
 subprocess, and it leverages {\tt Deno.bench()} to determine the duration of each request. The
 function ensures that each measure is statistically robust, as it
@@ -151,7 +151,7 @@ the number of repetitions). The results are shown in
 Table~\ref{table:common-linux-utils} (tests are ordered by increasing
 execution time). As expected, the cost of activating the sandbox is
 amortized with the increase in the test duration. The tests also show
-that \pap suffers from a smaller performance degradation compared to
+that \natisand suffers from a smaller performance degradation compared to
 Minijail and Sandbox2. This aspect is particularly evident for
 short-lived utilities. The reason is that our approach is integrated
 by design and, contrary to the other solutions, leverages lightweight
@@ -162,7 +162,7 @@ technologies that introduce a smaller performance footprint.
     \setlength{\tabcolsep}{3mm}
 	\begin{tabular*}{0.8\columnwidth}{l r r r r r}
 		\toprule
-		{\bf Utility} & {\bf Deno \scriptsize{[ms]}} & {\bf Minijail} & {\bf Sandbox2} & {\bf \pap}\\
+		{\bf Utility} & {\bf Deno \scriptsize{[ms]}} & {\bf Minijail} & {\bf Sandbox2} & {\bf \natisand}\\
 		\midrule
 		b2sum   & 2.37      & 7.19x     & 9.37x & \bf{2.88x}    \\
 		cut     & 2.52      & 7.11x     & 8.97x & \bf{2.86x}    \\
@@ -215,7 +215,7 @@ perform a {\em sharpen} operation on images input by the client, while
 the third microservice relies on Tesseract to perform Optical
 Character Recognition on a second sequence of images input by the
 client. Similarly to the previous case, the test was repeated for each
-of the four configurations: Deno, \pap, Minijail, and Sandbox2. This
+of the four configurations: Deno, \natisand, Minijail, and Sandbox2. This
 time the HTTP benchmarking tool {\em wrk} was used to measure the
 performance of each microservice.  Network bandwidth and latency are 1
 Gbps and 10 ms, respectively, while 100 warmup requests were carried
@@ -223,7 +223,7 @@ out. Figure~\ref{fig:subprocess-lat-through} shows the average latency
 and the throughput observed over a period of 30 seconds. The results
 once again confirm the previous analysis, as longer durations make the
 cost to setup the native sandbox less relevant. It is worth to mention
-that \pap exhibits lower overhead compared to Minijail and Sandbox2,
+that \natisand exhibits lower overhead compared to Minijail and Sandbox2,
 with approximately 5 to 10 ms less latency for each microservice.
 
 
@@ -231,20 +231,20 @@ with approximately 5 to 10 ms less latency for each microservice.
 %
 Although general purpose sandboxers can be used to restrict the
 permissions associated with executables, to provide a protection
-comparable to \pap: (i) they force the developer to introduce changes in
+comparable to \natisand: (i) they force the developer to introduce changes in
 the web application, and (ii) they require to understand in depth the
 techniques used by the kernel to restrict ambient rights (e.g.,
 capabilities, namespaces, Seccomp filters). Another problem is that to
 restrict IPC and network with Minijail and Sandbox2 it is necessary to
 leverage namespaces, which are characterized by coarser granularity
-than \pap policies.
+than \natisand policies.
 
 
 
 \subsubsection{Libraries}
 
 In the second batch of experiments we analyze the overhead associated
-with libraries. Contrary to the default JS runtime behavior, \pap
+with libraries. Contrary to the default JS runtime behavior, \natisand
 transparently executes native library functions in dedicated contexts
 with limited ambient rights. A modern, valuable alternative approach
 to isolate libraries is to compile them to WebAssembly (Wasm), a
@@ -258,7 +258,7 @@ libraries~\cite{RLBox}.
 %
 Similarly to Benchmark I, we implemented a JS application to highlight
 the overhead experienced on the server when native libraries are
-executed. In this case three configurations are evaluated: Deno, \pap,
+executed. In this case three configurations are evaluated: Deno, \natisand,
 and Wasm. The application tests the operations provided by four
 popular libraries: (i) libxml2, to open and query XML data, (ii) libpng, to read metadata information and verify the
 signature of a png image, (iii) opus to encode and create an audio
@@ -267,7 +267,7 @@ database. Test durations were again measured with {\tt Deno.bench()},
 and the results are reported in
 Table~\ref{table:native-lib-overhead}. Deno
 exhibits a consistent performance advantage for operations that
-require up to 30 microseconds. However, \pap proves to be more
+require up to 30 microseconds. However, \natisand proves to be more
 efficient than Wasm, which in turn is affected by a substantial
 overhead in almost every test. This difference is due to the nature of
 Wasm; while there have been improvements, the just-in-time
@@ -285,7 +285,7 @@ input to the server, and measured the latency and throughput using
 {\em wrk} (as explained in Benchmark II setup). The results are
 visualized in Figure~\ref{fig:native-lib-latecy-throughput}. Once
 again the client observes a small degradation of
-latency and throughput when using \pap instead of Deno, but the
+latency and throughput when using \natisand instead of Deno, but the
 overhead is far less noticeable compared to the results discussed in
 Benchmark III. Conversely, Wasm is affected by a significant
 degradation of latency. This is due to the just-in-time compilation of Wasm, and the additional memory
@@ -297,7 +297,7 @@ Wasm.
 	\setlength{\tabcolsep}{3.2mm}
 	\begin{tabular*}{0.7\columnwidth}{l r r r r}
 		\toprule
-		{\bf Test} & {\bf Deno \scriptsize{[$\mu$s]}} & {\bf Wasm} & {\bf \pap}\\
+		{\bf Test} & {\bf Deno \scriptsize{[$\mu$s]}} & {\bf Wasm} & {\bf \natisand}\\
 		\midrule
 		libxml2 (open)  & 9.33      & 8.96x     & \bf{2.51x}    \\
 		libxml2 (query)	& 11.53     & 4.35x     & \bf{1.63x}    \\
@@ -334,7 +334,7 @@ Wasm.
 
 \paragraph{Usability}
 %
-While Wasm offers strong isolation guarantees, it also comes with drawbacks compared to \pap. First of all it requires the developer
+While Wasm offers strong isolation guarantees, it also comes with drawbacks compared to \natisand. First of all it requires the developer
 to use a Wasm-compatible version of the library. In our evaluation we
 used a precompiled version of sqlite3, but we had to manually compile
 opus and libpng using the Emscripten toolchain~\cite{emscripten} and

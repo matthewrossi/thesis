@@ -91,12 +91,12 @@ third-party components from the rest of the application using distinct
 execution threads for different domains of trust. The main focus
 of the proposal is prohibiting arbitrary accesses to sensitive data
 stored in the memory of the JS runtime by leveraging Intel's MPK/PKU.
-\pap is complementary to the above solutions since our goal
+\natisand is complementary to the above solutions since our goal
 is to specify and enforce permissions on native code dependencies of
 web applications, rather than providing memory isolation for
 untrusted components.
 
-Protecting JS code from being compromised is out of the scope of \pap,
+Protecting JS code from being compromised is out of the scope of \natisand,
 nonetheless, since proposals in this domain and ours both target the
 web development audience, our proposal shares some ideas with previous
 works in this domain~\cite{vasilakis2021preventing, sandtrap,
@@ -105,12 +105,12 @@ works in this domain~\cite{vasilakis2021preventing, sandtrap,
 per-package on/off switches that limit access to Node.js core modules
 (e.g., child\_process, fs, http). By doing so, it can prohibit access
 to subprocess, filesystem, and network resources for the JS
-code. Similarly, \pap takes care of protecting filesystem, IPC, and
+code. Similarly, \natisand takes care of protecting filesystem, IPC, and
 network resources, targeting native code. {\em Mir}~\cite{
   vasilakis2021preventing} is a system preventing the compromise of
 the application by third-party modules with the enforcement of
 fine-grained RWX permissions on every field of every variable in the
-JS context. \pap adopts an equivalent permission model to contain
+JS context. \natisand adopts an equivalent permission model to contain
 native code when accessing filesystem resources. Another research work
 enforcing security boundaries stated in a policy is {\em
   SandTrap}~\cite{sandtrap}. The approach enforces fine-grained
@@ -119,7 +119,7 @@ application code and the third-party modules. The creation of policy
 files described by the authors consists in running test suites to
 create a policy with acceptable static cross-domain interaction
 coverage. We adopt a similar approach in the policy generation of
-\pap. Note that, differently from our proposal, solutions protecting
+\natisand. Note that, differently from our proposal, solutions protecting
 JS code can run in user space, thus they do not limit the portability
 of the JS runtime to Linux systems.
 

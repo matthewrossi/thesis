@@ -4,18 +4,18 @@ libraries, no isolation guarantees are provided. This is an important
 limitation, and it affects many popular runtimes including Node.js,
 Deno, and Bun~\cite{node-permissions,deno-permissions}.
 
-In this chapter we propose \pap, a component for JavaScript runtimes
+In this chapter we propose \natisand, a component for JavaScript runtimes
 that leverages {\em Landlock}, {\em eBPF}, and {\em Seccomp} to
 control the filesystem, Inter-Process Communication (IPC), and network
-resources available to binary programs and shared libraries.  \pap
+resources available to binary programs and shared libraries.  \natisand
 does not require changes to the application code and offers to the
 user an easy interface.
 %
 To demonstrate the effectiveness and efficiency of our approach we
-implemented \pap and integrated it into Deno, a modern,
+implemented \natisand and integrated it into Deno, a modern,
 security-oriented JavaScript runtime. We reproduced a number of
 vulnerabilities affecting third-party code, showing how they are
-mitigated by \pap. We also conducted an extensive experimental
+mitigated by \natisand. We also conducted an extensive experimental
 evaluation to assess the performance, proving that our approach is
 competitive with state of the art code sandboxing solutions. The
 implementation is available open source.
