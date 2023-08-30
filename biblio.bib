@@ -1,13 +1,23 @@
 @Comment{SEApp}
 
 @article{seapp_tapsm_m,
-	title={The {Android} Platform Security Model},
-	author={R. Mayrhofer and J. Vander Stoep and C. Brubaker and N. Kralevich},
-	year=2019,
-	journal={arXiv},
-	eprint={1904.05572},
-	archivePrefix={arXiv},
-	primaryClass={cs.CR}
+	author = {Mayrhofer, Ren\'{e} and Stoep, Jeffrey Vander and Brubaker, Chad and Kralevich, Nick},
+	title = {The {Android} Platform Security Model},
+	year = {2021},
+	issue_date = {August 2021},
+	publisher = {Association for Computing Machinery},
+	address = {New York, NY, USA},
+	volume = {24},
+	number = {3},
+	issn = {2471-2566},
+	url = {https://doi.org/10.1145/3448609},
+	doi = {10.1145/3448609},
+	abstract = {Android is the most widely deployed end-user focused operating system. With its growing set of use cases encompassing communication, navigation, media consumption, entertainment, finance, health, and access to sensors, actuators, cameras, or microphones, its underlying security model needs to address a host of practical threats in a wide variety of scenarios while being useful to non-security experts. The model needs to strike a difficult balance between security, privacy, and usability for end users, assurances for app developers, and system performance under tight hardware constraints. While many of the underlying design principles have implicitly informed the overall system architecture, access control mechanisms, and mitigation techniques, the Android security model has previously not been formally published. This article aims to both document the abstract model and discuss its implications. Based on a definition of the threat model and Android ecosystem context in which it operates, we analyze how the different security measures in past and current Android implementations work together to mitigate these threats. There are some special cases in applying the security model, and we discuss such deliberate deviations from the abstract model.},
+	journal = {ACM Transactions on Privacy and Security (TOPS)},
+	month = {April},
+	articleno = {19},
+	numpages = {35},
+	keywords = {security, operating system, informal model, Android}
 }
 
 @misc{seapp_sign_scheme,
@@ -81,10 +91,20 @@
 }
 
 @article{seapp_dacmac,
-	author = {R. Sandhu and P. Samarati},
+	author = {Sandhu, Ravi and Samarati, Pierangela},
 	title = {Authentication, Access Control, and Audit},
-	journal={CSUR},
 	year = {1996},
+	issue_date = {March 1996},
+	publisher = {Association for Computing Machinery},
+	address = {New York, NY, USA},
+	volume = {28},
+	number = {1},
+	issn = {0360-0300},
+	url = {https://doi.org/10.1145/234313.234412},
+	doi = {10.1145/234313.234412},
+	journal = {ACM Computing Surveys (CSUR)},
+	month = {March},
+	numpages = {3}
 }
 
 @misc{seapp_andro_man,
@@ -111,15 +131,15 @@
 @inproceedings{seapp_seandroid,
 	author    = {S. Smalley and R. Craig},
 	title     = {{Security Enhanced (SE) Android}: Bringing Flexible {MAC} to {Android}},
-	booktitle = {NDSS},
+	booktitle = {Proceedings of the Network and Distributed System Security Symposium (NDSS)},
 	year      = {2013}
 }
 
 @misc{seapp_cil,
-author = {K. MacMillan and C. Case and J. Brindle and C. Sellers},
-title = {{SELinux Common Intermediate Language motivation and design}},
-howpublished = {\url{https://github.com/SELinuxProject/cil/wiki}},
-year = {2020}
+	author = {K. MacMillan and C. Case and J. Brindle and C. Sellers},
+	title = {{SELinux Common Intermediate Language motivation and design}},
+	howpublished = {\url{https://github.com/SELinuxProject/cil/wiki}},
+	year = {2020}
 }
 
 @misc{seapp_sea_files,
@@ -144,11 +164,11 @@ year = {2020}
 }
 
 @inproceedings{seapp_apm,
-author = {E. Bacis and S. Mutti and S. Paraboschi},
-year = {2015},
-title = {{AppPolicyModules}: Mandatory Access Control for Third-Party Apps},
-booktitle = {ASIACCS},
-doi = {10.1145/2714576.2714626}
+	author = {E. Bacis and S. Mutti and S. Paraboschi},
+	year = {2015},
+	title = {{AppPolicyModules}: Mandatory Access Control for Third-Party Apps},
+	booktitle = {Proceedings of the ACM Asia Conference on Computer and Communications Security (ASIACCS)},
+	doi = {10.1145/2714576.2714626}
 } 
 
 @misc{seapp_libte_rules,
@@ -161,7 +181,7 @@ doi = {10.1145/2714576.2714626}
 @InProceedings{seapp_fratantonio17:cloakdagger,
     author = {Y. Fratantonio and C. Qian and S. Chung and W. Lee},
     title = {{Cloak and Dagger}: From Two Permissions to Complete Control of the {UI} Feedback Loop},
-    booktitle = {IEEE S\&P},
+    booktitle = {Proceedings of the IEEE Symposium on Security and Privacy (IEEE S\&P)},
     year = {2017},
 }
 
@@ -224,13 +244,13 @@ doi = {10.1145/2714576.2714626}
 @inproceedings{seapp_typebounds,
 	author = {E. Bacis and S. Mutti and S. Paraboschi},
 	title = {Policy Specialization to Support Domain Isolation},
-	booktitle = {SafeConfig},
+	booktitle = {Proceedings of the Workshop on Automated Decision Making for Active Cyber Defense (SafeConfig)},
 	year = {2015},
 }
 
 @INPROCEEDINGS{seapp_sok_android,
 	author={Y. Acar and M. Backes and S. Bugiel and S. Fahl and P. McDaniel and M. Smith},
-	booktitle={IEEE S\&P},
+	booktitle={Proceedings of the IEEE Symposium on Security and Privacy (IEEE S\&P)},
 	title={{SoK}: Lessons Learned from {Android} Security Research for Appified Software Platforms},
 	year={2016},
 	volume={},
@@ -244,13 +264,13 @@ doi = {10.1145/2714576.2714626}
 	title = {{Boxify}: Full-Fledged App Sandboxing for Stock {Android}},
 	year = {2015},
 	isbn = {9781931971232},
-	booktitle = {USENIX Security},
+	booktitle = {Proceedings of the USENIX Security Symposium (USENIX Security)},
 }
 
 @inproceedings{seapp_droidcap,
 	title = {{DroidCap}: {OS} Support for Capability-based Permissions in {Android}},
 	year = {2019},
-	booktitle = {NDSS},
+	booktitle = {Proceedings of the Network and Distributed System Security Symposium (NDSS)},
 	author = {A. Dawoud and S. Bugiel},
 	howpublished = {\url{https://publications.cispa.saarland/2818/}}
 }
@@ -262,7 +282,7 @@ doi = {10.1145/2714576.2714626}
 	isbn = {9780769539195},
 	howpublished = {\url{https://doi.org/10.1109/ACSAC.2009.39}},
 	doi = {10.1109/ACSAC.2009.39},
-	booktitle = {ACSAC},
+	booktitle = {Proceedings of the Annual Computer Security Applications Conference (ACSAC)},
 	keywords = {application interactions, mediation, mobile phone security, Android},
 }
 
@@ -387,10 +407,10 @@ doi = {10.1145/2714576.2714626}
 }
 
 @misc{seapp_restrioctly,
-        author = {{J. Vander Stoep}},
-        title = {ioctl command whitelisting in {SELinux}},
-        howpublished = {\url{http://kernsec.org/files/lss2015/vanderstoep.pdf}},
-        year = {2015}
+	author = {{J. Vander Stoep}},
+	title = {ioctl command whitelisting in {SELinux}},
+	howpublished = {\url{http://kernsec.org/files/lss2015/vanderstoep.pdf}},
+	year = {2015}
 }
 
 @inproceedings{seapp_flaskdroid,
@@ -398,7 +418,7 @@ doi = {10.1145/2714576.2714626}
 	title = {Flexible and Fine-Grained Mandatory Access Control on {Android} for Diverse Security and Privacy Policies},
 	year = {2013},
 	isbn = {9781931971034},
-	booktitle = {USENIX Security},
+	booktitle = {Proceedings of the USENIX Security Symposium (USENIX Security)},
 }
 
 @inproceedings{seapp_flaskdroid2,
@@ -408,13 +428,13 @@ doi = {10.1145/2714576.2714626}
 	isbn = {9781450330053},
 	howpublished = {\url{https://doi.org/10.1145/2664243.2664265}},
 	doi = {10.1145/2664243.2664265},
-	booktitle = {ACSAC},
+	booktitle = {Proceedings of the Annual Computer Security Applications Conference (ACSAC)},
 }
 
 @InProceedings{seapp_10.1007/978-3-319-20550-2_15,
 	author={Y. Fratantonio and A. Bianchi and W. Robertson and M. Egele and C. Kruegel and E. Kirda and G. Vigna},
 	title={On the Security and Engineering Implications of Finer-Grained Access Controls for {Android} Developers and Users},
-	booktitle={DIMVA},
+	booktitle={Proceedings of the Detection of Intrusions and Malware, and Vulnerability Assessment (DIMVA)},
 	year={2015},
 	abstract={One of the main security mechanisms in Android is the permission system. Previous research has pointed out that this system is too coarse-grained. Hence, several mechanisms have been proposed to address this issue. However, to date, the impact of changes in the current permission system on both end users and software developers has not been studied, and no significant work has been done to determine whether adopting a finer-grained permission system would be feasible in practice.},
 	isbn={978-3-319-20550-2}
@@ -422,19 +442,22 @@ doi = {10.1145/2714576.2714626}
 
 @article{seapp_4768655,
 	author={W. Enck and M. Ongtang and P. McDaniel},
-	journal={IEEE S\&P Magazine},
+	journal={IEEE Security \& Privacy Magazine (IEEE S\&P Magazine)},
 	title={Understanding {Android} Security},
 	year={2009},
+	volume={7},
+  	number={1},
 	keywords={operating systems (computers);security of data;Web services;android security;open source operating system;mobile phones;Application software;Operating systems;Data security;Cellular phones;Middleware;Java;Social network services;Programming;Manufacturing industries;Shipbuilding industry;Android;mobile phones;Smartphones;security},
 	doi={10.1109/MSP.2009.26},
 	ISSN={1558-4046},
+	month={February},
 }
 
 @inproceedings{seapp_10.5555/2028067.2028088,
 	author = {W. Enck and D. Octeau and P. McDaniel and S. Chaudhuri},
 	title = {A Study of {Android} Application Security},
 	year = {2011},
-	booktitle = {USENIX Security},
+	booktitle = {Proceedings of the USENIX Security Symposium (USENIX Security)},
 }
 
 @inproceedings{seapp_asm,
@@ -442,7 +465,7 @@ doi = {10.1145/2714576.2714626}
 	title = {{ASM}: A Programmable Interface for Extending {Android} Security},
 	year = {2014},
 	isbn = {9781931971157},
-	booktitle = {USENIX Security},
+	booktitle = {Proceedings of the USENIX Security Symposium (USENIX Security)},
 }
 
 @inproceedings{seapp_10.1145/2046707.2046779,
@@ -452,20 +475,20 @@ doi = {10.1145/2714576.2714626}
 	isbn = {9781450309486},
 	howpublished = {\url{https://doi.org/10.1145/2046707.2046779}},
 	doi = {10.1145/2046707.2046779},
-	booktitle = {CCS},
+	booktitle = {Proceedings of the ACM SIGSAC Conference on Computer and Communications Security (CCS)},
 	keywords = {android, least privilege, permissions},
 }
 
 @inproceedings{seapp_10.1145/2335356.2335360,
-author = {A.P. Felt and E. Ha and S. Egelman and A. Haney and E. Chin and D. Wagner},
-title = {{Android Permissions}: User Attention, Comprehension, and Behavior},
-year = {2012},
-isbn = {9781450315326},
-howpublished = {\url{https://doi.org/10.1145/2335356.2335360}},
-doi = {10.1145/2335356.2335360},
-booktitle = {SOUPS},
-articleno = {Article 3},
-keywords = {mobile phones, usable security, Android, smartphones},
+	author = {A.P. Felt and E. Ha and S. Egelman and A. Haney and E. Chin and D. Wagner},
+	title = {{Android Permissions}: User Attention, Comprehension, and Behavior},
+	year = {2012},
+	isbn = {9781450315326},
+	howpublished = {\url{https://doi.org/10.1145/2335356.2335360}},
+	doi = {10.1145/2335356.2335360},
+	booktitle = {Proceedings of the Symposium on Usable Privacy and Security (SOUPS)},
+	articleno = {Article 3},
+	keywords = {mobile phones, usable security, Android, smartphones},
 }
 
 
@@ -476,14 +499,14 @@ keywords = {mobile phones, usable security, Android, smartphones},
 	isbn = {9781450353458},
 	howpublished = {\url{https://doi.org/10.1145/3134600.3134638}},
 	doi = {10.1145/3134600.3134638},
-	booktitle = {ACSAC},
+	booktitle = {Proceedings of the Annual Computer Security Applications Conference (ACSAC)},
 	keywords = {MAC, Android, SEAndroid, DAC, Policy Analysis},
 }
 
 @INPROCEEDINGS{seapp_7958574,
 	author={F. Fischer and K. B{\"o}ttinger and H. Xiao and C. Stransky and Y. Acar and M. Backes and S. Fahl},
-	booktitle={IEEE S\&P},
-	title={Stack Overflow Considered Harmful? {The} Impact of Copy Paste on {Android} Application Security},
+	booktitle={Proceedings of the IEEE Symposium on Security and Privacy (IEEE S\&P)},
+	title={{Stack Overflow} Considered Harmful? {The} Impact of Copy Paste on {Android} Application Security},
 	year={2017},
 	volume={},
 	number={},
@@ -498,7 +521,7 @@ keywords = {mobile phones, usable security, Android, smartphones},
 	isbn = {9781450316484},
 	howpublished = {\url{https://doi.org/10.1145/2414456.2414498}},
 	doi = {10.1145/2414456.2414498},
-	booktitle = {ASIACCS},
+	booktitle = {Proceedings of the ACM Asia Conference on Computer and Communications Security (ASIACCS)},
 }
 
 @inproceedings{seapp_10.1145/3292006.3300027,
@@ -508,7 +531,7 @@ keywords = {mobile phones, usable security, Android, smartphones},
 	isbn = {9781450360999},
 	howpublished = {\url{https://doi.org/10.1145/3292006.3300027}},
 	doi = {10.1145/3292006.3300027},
-	booktitle = {CODASPY},
+	booktitle = {Proceedings of the ACM Conference on Data and Application Security and Privacy (CODASPY)},
 	keywords = {android, personally identifiable information, third-party libraries, permission origin, dynamic analysis},
 }
 
@@ -519,7 +542,7 @@ keywords = {mobile phones, usable security, Android, smartphones},
 	isbn = {9781450341394},
 	howpublished = {\url{https://doi.org/10.1145/2976749.2978333}},
 	doi = {10.1145/2976749.2978333},
-	booktitle = {CCS},
+	booktitle = {Proceedings of the ACM SIGSAC Conference on Computer and Communications Security (CCS)},
 	keywords = {third-party library detection, android},
 }
 
@@ -530,7 +553,7 @@ keywords = {mobile phones, usable security, Android, smartphones},
 	isbn = {9781450349468},
 	howpublished = {\url{https://doi.org/10.1145/3133956.3134064}},
 	doi = {10.1145/3133956.3134064},
-	booktitle = {CCS},
+	booktitle = {Proceedings of the ACM SIGSAC Conference on Computer and Communications Security (CCS)},
 	keywords = {android runtime, app compartmentalization, third-party libraries},
 }
 
@@ -539,7 +562,7 @@ keywords = {mobile phones, usable security, Android, smartphones},
 	title = {{EASEAndroid}: Automatic Policy Analysis and Refinement for {Security Enhanced Android} via Large-Scale Semi-Supervised Learning},
 	year = {2015},
 	isbn = {9781931971232},
-	booktitle = {USENIX Security},
+	booktitle = {Proceedings of the USENIX Security Symposium (USENIX Security)},
 }
 
 @inproceedings{seapp_10.1145/3052973.3052991,
@@ -549,29 +572,28 @@ keywords = {mobile phones, usable security, Android, smartphones},
 	isbn = {9781450349444},
 	howpublished = {\url{https://doi.org/10.1145/3052973.3052991}},
 	doi = {10.1145/3052973.3052991},
-	booktitle = {ASIACCS},
+	booktitle = {Proceedings of the ACM Asia Conference on Computer and Communications Security (ASIACCS)},
 	keywords = {android, selinux, seandroid, mandatory access control},
 }
 
 @inproceedings{seapp_demetriou2016free,
 	title={Free for All! {Assessing} User Data Exposure to Advertising Libraries on {Android}},
 	author={S. Demetriou and W. Merrill and W. Yang and A. Zhang and C.A. Gunter},
-	booktitle={NDSS},
+	booktitle={Proceedings of the Network and Distributed System Security Symposium (NDSS)},
 	year={2016}
 }
 
 @inproceedings{seapp_jaeger_flow,
 	author = {U. Shankar and T. Jaeger and R. Sailer},
-	title = {Toward Automated Information-Flow Integrity Verification for
-	Security-Critical Applications},
-	booktitle = {NDSS},
+	title = {Toward Automated Information-Flow Integrity Verification for Security-Critical Applications},
+	booktitle = {Proceedings of the Network and Distributed System Security Symposium (NDSS)},
 	year = {2006}
 }
 
 @inproceedings{seapp_jaeger_retro,
 	author = {V. Ganapathy and T. Jaeger and S. Jha},
 	title = {Retrofitting legacy code for authorization policy enforcement},
-	booktitle={IEEE S\&P}, 
+	booktitle={Proceedings of the IEEE Symposium on Security and Privacy (IEEE S\&P)}, 
 	year = {2006},
 	isbn = {0-7695-2574-1},
 	doi = {10.1109/SP.2006.34}
@@ -584,7 +606,7 @@ keywords = {mobile phones, usable security, Android, smartphones},
 	isbn = {9781450300490},
 	howpublished = {\url{https://doi.org/10.1145/1809842.1809870}},
 	doi = {10.1145/1809842.1809870},
-	booktitle = {SACMAT},
+	booktitle = {Proceedings of the ACM Symposium on Access Control Models and Technologies (SACMAT)},
 	keywords = {policy compliance, access control},
 }
 
@@ -595,7 +617,7 @@ keywords = {mobile phones, usable security, Android, smartphones},
 	isbn = {9781450316514},
 	howpublished = {\url{https://doi.org/10.1145/2382196.2382215}},
 	doi = {10.1145/2382196.2382215},
-	booktitle = {CCS},
+	booktitle = {Proceedings of the ACM SIGSAC Conference on Computer and Communications Security (CCS)},
 	keywords = {static taint analysis, authorization hooks},
 }
 
@@ -603,7 +625,7 @@ keywords = {mobile phones, usable security, Android, smartphones},
 	author = {S. Bugiel and L. Davi and A. Dmitrienko and T. Fischer and A.R. Sadeghi and B. Shastry},
 	title = {Towards Taming Privilege-Escalation Attacks on {Android}},
 	year = 2012,
-	booktitle = {NDSS},
+	booktitle = {Proceedings of the Network and Distributed System Security Symposium (NDSS)},
 }
 
 @misc{seapp_common_play_protect_vulnerabilites,
@@ -636,7 +658,7 @@ keywords = {mobile phones, usable security, Android, smartphones},
 	howpublished = {\url{https://doi.org/10.1145/2523649.2523652}},
 	doi = {10.1145/2523649.2523652},
 	abstract = {Android uses a permission-based security model to restrict applications from accessing private data and privileged resources. However, the permissions are assigned at the application level, so even untrusted third-party libraries, such as advertisement, once incorporated, can share the same privileges as the entire application, leading to over-privileged problems.We present AFrame, a developer friendly method to isolate untrusted third-party code from the host applications. The isolation achieved by AFrame covers not only the process/permission isolation, but also the display and input isolation. Our AFrame framework is implemented through a minimal change to the existing Android code base; our evaluation results demonstrate that it is effective in isolating the privileges of untrusted third-party code from applications with reasonable performance overhead.},
-	booktitle = {ACSAC},
+	booktitle = {Proceedings of the Annual Computer Security Applications Conference (ACSAC)},
 }
 
 @Comment{Dmng}
@@ -644,33 +666,33 @@ keywords = {mobile phones, usable security, Android, smartphones},
 @inproceedings{seapp,
 	author = {Rossi, Matthew and Facchinetti, Dario and Bacis, Enrico and Rosa,
 	          Marco and Paraboschi, Stefano},
-	title = {{SEApp: Bringing Mandatory Access Control to Android Apps}},
-	booktitle = {{USENIX} Security Symposium},
+	title = {{SEApp}: Bringing Mandatory Access Control to {Android} Apps},
+	booktitle = {Proceedings of the USENIX Security Symposium (USENIX Security)},
 	year = {2021},
 }
 
 @inproceedings{RLBox,
-	title = {{Retrofitting Fine Grain Isolation in the Firefox Renderer}},
+	title = {Retrofitting Fine Grain Isolation in the {Firefox} Renderer},
 	author = {Shravan Narayan and Craig Disselkoen and Tal Garfinkel and Nathan
 	          Froyd and Eric Rahm and Sorin Lerner and Hovav Shacham and Deian
 	          Stefan},
-	booktitle = {{USENIX} Security Symposium},
+	booktitle = {Proceedings of the USENIX Security Symposium (USENIX Security)},
 	year = {2020},
 }
 
 @inproceedings{enhance-wasm-sandbox,
 	author = {Marco Abbadini and Michele Beretta and Dario Facchinetti and
 	          Gianluca Oldani and Matthew Rossi and Stefano Paraboschi},
-	booktitle = {ACM ASIACCS},
-	title = {{POSTER: Leveraging eBPF to enhance sandboxing of WebAssembly runtimes}},
+	booktitle = {Proceedings of the ACM Asia Conference on Computer and Communications Security (ASIACCS)},
+	title = {POSTER: Leveraging {eBPF} to enhance sandboxing of {WebAssembly} runtimes},
 	year = {2023},
 }
 
 @inproceedings{cage4deno,
 	author = {Marco Abbadini and Dario Facchinetti and Gianluca Oldani and
 	          Matthew Rossi and Stefano Paraboschi},
-	booktitle = {ACM ASIACCS},
-	title = {{Cage4Deno: A Fine-Grained Sandbox for Deno Subprocesses}},
+	booktitle = {Proceedings of the ACM Asia Conference on Computer and Communications Security (ASIACCS)},
+	title = {{Cage4Deno}: A Fine-Grained Sandbox for {Deno} Subprocesses},
 	year = {2023},
 }
 
@@ -704,9 +726,9 @@ keywords = {mobile phones, usable security, Android, smartphones},
 }
 
 @inproceedings{sanddriller-staicu,
-	title = {{SandDriller: A fully-automated approach for testing language-based JavaScript sandboxes}},
+	title = {{SandDriller}: A fully-automated approach for testing language-based {JavaScript} sandboxes},
 	author = {A. AlHamdan and C.A. Staicu},
-	booktitle = {{USENIX} Security Symposium},
+	booktitle = {Proceedings of the USENIX Security Symposium (USENIX Security)},
 	year = {2023},
 }
 
@@ -760,39 +782,39 @@ keywords = {mobile phones, usable security, Android, smartphones},
 }
 
 @inproceedings{staicu2021bilingual,
-	title={{Bilingual Problems: Studying the Security Risks Incurred by Native Extensions in Scripting Languages}},
+	title={Bilingual Problems: Studying the Security Risks Incurred by Native Extensions in Scripting Languages},
 	author={Staicu, Cristian-Alexandru and Rahaman, Sazzadur and Kiss, {\'A}gnes and Backes, Michael},
-	booktitle = {{USENIX} Security Symposium},
+	booktitle = {Proceedings of the USENIX Security Symposium (USENIX Security)},
 	year={2023}
 }
 
 @inproceedings{binwrap,
 	author = {Christou, George and Ntousakis, Grigoris and Lahtinen, Eric and Ioannidis, Sotiris and Kemerlis, Vasileios P. and Vasilakis, Nikos},
-	title = {{BinWrap: Hybrid Protection Against Native Node.js Add-ons}},
+	title = {{BinWrap}: Hybrid Protection Against Native {Node.js} Add-ons},
 	year = {2023},
-	booktitle = {ACM ASIACCS},
+	booktitle = {Proceedings of the ACM Asia Conference on Computer and Communications Security (ASIACCS)},
 }
 
 @inproceedings{zimmermann-risks,
 	author = {Zimmermann, Markus and Staicu, Cristian-Alexandru and Tenny, Cam and Pradel, Michael},
-	title = {{Smallworld with High Risks: A Study of Security Threats in the Npm Ecosystem}},
+	title = {Smallworld with High Risks: A Study of Security Threats in the Npm Ecosystem},
 	year = {2019},
-	booktitle = {{USENIX} Security Symposium},
+	booktitle = {Proceedings of the USENIX Security Symposium (USENIX Security)},
 }
 
 @inproceedings{natisand,
     author = {Marco Abbadini and Dario Facchinetti and Gianluca Oldani and Matthew Rossi and Stefano Paraboschi},
-    booktitle = {RAID},
-    title = {{NatiSand: Native Code Sandboxing for JavaScript Runtimes}},
+    booktitle = {Proceedings of the Symposium on Research in Attacks, Intrusions and Defenses (RAID)},
+    title = {{NatiSand}: Native Code Sandboxing for {JavaScript} Runtimes},
     year = {2023}
 }
 
 
 @inproceedings{npm-malicious-update,
-  title={{Containing malicious package updates in npm with a lightweight permission system}},
-  author={Ferreira, Gabriel and Jia, Limin and Sunshine, Joshua and K{\"a}stner, Christian},
-  booktitle={ICSE},
-  year={2021}
+	title={Containing malicious package updates in npm with a lightweight permission system},
+	author={Ferreira, Gabriel and Jia, Limin and Sunshine, Joshua and K{\"a}stner, Christian},
+	booktitle={Proceedings of the International Conference on Software Engineering (ICSE)},
+	year={2021}
 }
 
 @misc{slimtoolkit,
@@ -817,30 +839,30 @@ keywords = {mobile phones, usable security, Android, smartphones},
 }
 
 @misc{jia2023programmable,
-      title={Programmable System Call Security with eBPF}, 
-      author={J. Jia and Y. Zhu and D. Williams and A. Arcangeli and C. Canella and H. Franke and T. Feldman-Fitzthum and D. Skarlatos and D. Gruss and T. Xu},
-      year={2023},
-      archivePrefix={arXiv}
+	title={Programmable System Call Security with eBPF}, 
+	author={J. Jia and Y. Zhu and D. Williams and A. Arcangeli and C. Canella and H. Franke and T. Feldman-Fitzthum and D. Skarlatos and D. Gruss and T. Xu},
+	year={2023},
+	archivePrefix={arXiv}
 }
 
 @inproceedings{kim2013practical,
-  title={{Practical and Effective Sandboxing for Non-root Users}},
-  author={Kim, T. and Zeldovich, N.},
-  booktitle={USENIX ATC},
-  year={2013}
+	title={Practical and Effective Sandboxing for Non-root Users},
+	author={Kim, T. and Zeldovich, N.},
+	booktitle={Proceedings of the USENIX Annual Technical Conference (USENIX ATC)},
+	year={2013}
 }
 
 @inproceedings{lsm_fra,
-  title={Linux {S}ecurity {M}odule framework},
-  author={C. Wright and C. Cowan and J. Morris and  James and S. Smalley and G. Kroah-Hartman},
-  booktitle={Ottawa Linux Symposium},
-  year={2002}
+	title={Linux {S}ecurity {M}odule framework},
+	author={C. Wright and C. Cowan and J. Morris and  James and S. Smalley and G. Kroah-Hartman},
+	booktitle={Ottawa Linux Symposium},
+	year={2002}
 }
 
 @inproceedings{berman1995tron,
-  title={{TRON: Process-Specific File Protection for the UNIX Operating System}},
+  title={{TRON}: Process-Specific File Protection for the {UNIX} Operating System},
   author={Berman, A. and Bourassa, V. and Selberg, E.},
-  booktitle={USENIX ATC},
+  booktitle={Proceedings of the USENIX Annual Technical Conference (USENIX ATC)},
   year={1995}
 }
 
@@ -852,32 +874,39 @@ keywords = {mobile phones, usable security, Android, smartphones},
 }
 
 @article{sandboxed-containers,
-  title={{Orchestrated sandboxed containers, unikernels, and virtual machines for isolation-enhanced multitenant workloads and serverless computing in cloud}},
-  author={I. Mavridis and H. Karatza},
-  journal={Concurrency and Computation: Practice and Experience},
-  year={2023}
+  title={Orchestrated sandboxed containers, unikernels, and virtual machines for isolation-enhanced multitenant workloads and serverless computing in cloud},
+  author={Ilias Mavridis and Helen D. Karatza},
+  journal={Concurrency and Computation: Practice and Experience (CCPE)},
+  volume={35},
+  number={11},
+  year={2023},
+  month={May},
 }
 
 @article{casola-optimization,
-title = {{Security-by-design in multi-cloud applications: An optimization approach}},
-journal = {Information Sciences},
-year = {2018},
-author = {V. Casola and A. {De Benedictis} and M. Rak and U. Villano}
+	title = {Security-by-design in multi-cloud applications: An optimization approach},
+	journal = {Information Sciences},
+	volume = {454-455},
+	year = {2018},
+	month = {July},
+	author = {V. Casola and A. {De Benedictis} and M. Rak and U. Villano}
 }
 
 @incollection{CASOLA2018235,
-title = {Monitoring Data Security in the Cloud: A Security SLA-Based Approach},
-booktitle = {Security and Resilience in Intelligent Data-Centric Systems and Communication Networks},
-year = {2018},
-series = {Intelligent Data-Centric Systems},
-author = {V. Casola and A. {De Benedictis} and M. Rak and U. Villano}
+	title = {Monitoring Data Security in the Cloud: A Security SLA-Based Approach},
+	booktitle = {Security and Resilience in Intelligent Data-Centric Systems and Communication Networks},
+	year = {2018},
+	series = {Intelligent Data-Centric Systems},
+	author = {V. Casola and A. {De Benedictis} and M. Rak and U. Villano}
 }
 
 @article{ALBANESE2020934,
-title = {{Security and trust in cloud application life-cycle management}},
-journal = {Future Generation Computer Systems},
-year = {2020},
-author = {M. Albanese and A. {De Benedictis} and D. D.J. {de Macedo} and F. Messina}
+	title = {Security and trust in cloud application life-cycle management},
+	journal = {Future Generation Computer Systems (FGCS)},
+	volume = {111},
+	year = {2020},
+	month = {October},
+	author = {M. Albanese and A. {De Benedictis} and D. D.J. {de Macedo} and F. Messina}
 }
 
 @misc{chromium-sandbox,
@@ -911,19 +940,19 @@ author = {M. Albanese and A. {De Benedictis} and D. D.J. {de Macedo} and F. Mess
 @Comment{Wasm}
 
 @inproceedings{duan2020towards,
-	title = {{Towards Measuring Supply Chain Attacks on Package Managers for
-	         Interpreted Languages}},
+	title = {Towards Measuring Supply Chain Attacks on Package Managers for
+	         Interpreted Languages},
 	author = {Duan, R. and Alrawi, O. and Kasturi, R. P. and Elder, R. and
 	          Saltaformaggio, B. and Lee, W.},
-	booktitle = {NDSS},
+	booktitle = {Proceedings of the Network and Distributed System Security Symposium (NDSS)},
 	year = {2021},
 }
 
 @inproceedings{wyss2022wolf,
-	title = {{Wolf at the Door: Preventing Install-Time Attacks in npm with
-	         Latch}},
+	title = {Wolf at the Door: Preventing Install-Time Attacks in npm with
+	         Latch},
 	author = {Wyss, E. and Wittman, A. and Davidson, D. and De Carli, L.},
-	booktitle = {ASIACCS},
+	booktitle = {Proceedings of the ACM Asia Conference on Computer and Communications Security (ASIACCS)},
 	year = {2022},
 }
 
@@ -931,7 +960,7 @@ author = {M. Albanese and A. {De Benedictis} and D. D.J. {de Macedo} and F. Mess
 	title = {The Packer Filter: An Efficient Mechanism for User-Level Network
 	         Code},
 	author = {Mogul, J. and Rashid, R. and Accetta, M.},
-	booktitle = {SOSP},
+	booktitle = {Proceedings of the ACM Symposium on Operating Systems Principles (SOSP)},
 	year = {1987},
 }
 
@@ -1000,9 +1029,9 @@ author = {M. Albanese and A. {De Benedictis} and D. D.J. {de Macedo} and F. Mess
 
 @inproceedings{seccompbpf,
 	author = {Canella, C. and Werner, M. and Gruss, D. and Schwarz, M.},
-	title = {{Automating Seccomp Filter Generation for Linux Applications}},
+	title = {Automating Seccomp Filter Generation for {Linux} Applications},
 	year = {2021},
-	booktitle = {CCSW},
+	booktitle = {Proceedings of the ACM Cloud Computing Security Workshop (CCSW)},
 }
 
 @misc{edge2015seccomp,
@@ -1041,9 +1070,10 @@ author = {M. Albanese and A. {De Benedictis} and D. D.J. {de Macedo} and F. Mess
 }
 
 @article{xnu-sandbox,
-	title = {The {A}pple {S}andbox},
+	title = {The {A}pple Sandbox},
 	author = {Blazakis, D.},
 	year = {2011},
+	month = {January},
 }
 
 @misc{taks-local-storage,
@@ -1071,74 +1101,81 @@ author = {M. Albanese and A. {De Benedictis} and D. D.J. {de Macedo} and F. Mess
 	title = {Evaluation of Virtualization and Traffic Filtering Methods for
 	         Container Networks},
 	author = {Makowski, {\L}. and Grosso, P.},
-	journal = {FGCS},
+	journal = {Future Generation Computer Systems (FGCS)},
+	volume = {93},
 	year = {2019},
+	month = {April},
 }
 
 @article{bai2018bridgetaint,
-	title = {BridgeTaint: A Bi-Directional Dynamic Taint Tracking Method for
-	         JavaScript Bridges in Android Hybrid Applications},
+	title = {{BridgeTaint}: A Bi-Directional Dynamic Taint Tracking Method for
+	         {JavaScript} Bridges in {Android} Hybrid Applications},
 	author = {Bai, J. and Wang, W. and Qin, Y. and Zhang, S. and Wang, J. and
 	          Pan, Y.},
-	journal = {TIFS},
-	year = {2018},
+	volume={14},
+  	number={3},
+	journal = {IEEE Transactions on Information Forensics and Security (TIFS)},
+	year = {2019},
+	month = {March}
 }
 
 @inproceedings{wei2018jn,
-	title = {JN-SAF: Precise and Efficient NDK/JNI-aware Inter-language Static
-	         Analysis Framework for Security Vetting of Android Applications with
+	title = {{JN-SAF}: Precise and Efficient {NDK/JNI}-aware Inter-language Static
+	         Analysis Framework for Security Vetting of {Android} Applications with
 	         Native Code},
 	author = {Wei, F. and Lin, X. and Ou, X. and Chen, T. and Zhang, X.},
-	booktitle = {CCS},
+	booktitle = {Proceedings of the ACM SIGSAC Conference on Computer and Communications Security (CCS)},
 	year = {2018},
 }
 
 @inproceedings{belair2021snappy,
-	title = {SNAPPY: Programmable Kernel-Level Policies for Containers},
+	title = {{SNAPPY}: Programmable Kernel-Level Policies for Containers},
 	author = {B\'{e}lair, M. and Laniepce, S. and Menaud, J.},
-	booktitle = {SAC},
+	booktitle = {Proceedings of the ACM Symposium on Applied Computing (SAC)},
 	year = {2021},
 }
 
 @inproceedings{afonso2016going,
-	title = {Going Native: Using a Large-Scale Analysis of Android Apps to
+	title = {Going Native: Using a Large-Scale Analysis of {Android} Apps to
 	         Create a Practical Native-Code Sandboxing Policy},
 	author = {Afonso, V. and Bianchi, A. and Fratantonio, Y. and Doupé, A. and
 	          Polino, M. and De Geus, P. and Kruegel, C. and Vigna, G.},
-	booktitle = {NDSS},
+	booktitle = {Proceedings of the Network and Distributed System Security Symposium (NDSS)},
 	year = {2016},
 }
 
 @article{alam2017droidnative,
-	title = {DroidNative: Automating and optimizing detection of Android native
+	title = {{DroidNative}: Automating and optimizing detection of {Android} native
 	         code malware variants},
 	author = {Alam, S. and Qu, Z. and Riley, R. and Chen, Y. and Rastogi, V.},
-	journal = {Computers \& Security},
+	volume = {65},
+	journal = {Computers \& Security (C\&S)},
 	year = {2017},
+	month = {March}
 }
 
 @inproceedings{sun2014nativeguard,
-	title = {NativeGuard: Protecting Android Applications from Third-Party
+	title = {{NativeGuard}: Protecting {Android} Applications from Third-Party
 	         Native Libraries},
 	author = {Sun, M. and Tan, G.},
-	booktitle = {WiSec},
+	booktitle = {Proceedings of the ACM Conference on Wireless Network Security (WiSec)},
 	year = {2014},
 }
 
 @inproceedings{staicu2018synode,
 	title = {Synode: Understanding and Automatically Preventing Injection
-	         Attacks on Node.js},
+	         Attacks on {Node.js}},
 	author = {Staicu, C. and Pradel, M. and Livshits, B.},
-	booktitle = {NDSS},
+	booktitle = {Proceedings of the Network and Distributed System Security Symposium (NDSS)},
 	year = {2018},
 }
 
 @inproceedings{vasilakis2021preventing,
-	title = {Preventing Dynamic Library Compromise on Node.js via RWX-Based
+	title = {Preventing Dynamic Library Compromise on {Node.js} via {RWX}-Based
 	         Privilege Reduction},
 	author = {Vasilakis, N. and Staicu, C. and Ntousakis, G. and Kallas, K. and
 	          Karel, B. and DeHon, A. and Pradel, M.},
-	booktitle = {CCS},
+	booktitle = {Proceedings of the ACM SIGSAC Conference on Computer and Communications Security (CCS)},
 	year = {2021},
 }
 
@@ -1146,22 +1183,21 @@ author = {M. Albanese and A. {De Benedictis} and D. D.J. {de Macedo} and F. Mess
 	title = {sysfilter: Automated System Call Filtering for Commodity Software},
 	author = {Nicholas DeMarinis and Kent Williams-King and Di Jin and Rodrigo
 	          Fonseca and Vasileios P. Kemerlis},
-	booktitle = {Research in Attacks, Intrusions and Defenses},
+	booktitle = {Proceedings of the Symposium on Research in Attacks, Intrusions and Defenses (RAID)},
 	year = {2020},
 }
 
 @inproceedings{zhang2021analyzing,
-	title = {Analyzing the Overhead of File Protection by Linux Security Modules
-	         },
+	title = {Analyzing the Overhead of File Protection by {Linux Security Modules}},
 	author = {Zhang, W. and Liu, P. and Jaeger, T.},
-	booktitle = {ASIACCS},
+	booktitle = {Proceedings of the Annual Computer Security Applications Conference (ACSAC)},
 	year = {2021},
 }
 
 @conference{greggebpf,
 	author = {Brendan Gregg},
 	title = {{BPF} Internals},
-	note = {{USENIX LISA}},
+	note = {{USENIX Large Installation System Administration Conference (USENIX LISA)}},
 	howpublished = {\url{https://www.usenix.org/conference/lisa21/presentation/gregg-bpf}},
 	year = {2021},
 }
@@ -1184,9 +1220,8 @@ author = {M. Albanese and A. {De Benedictis} and D. D.J. {de Macedo} and F. Mess
 @inproceedings{sandtrap,
 	author = {Ahmadpanah, M. M. and Hedin, D. and Balliu, M. and Olsson, L. E.
 	          and Sabelfeld, A.},
-	title = {{SandTrap}: Securing {JavaScript-driven} {Trigger-Action} Platforms
-	         },
-	booktitle = {USENIX Security},
+	title = {{SandTrap}: Securing {JavaScript-driven} Trigger-Action Platforms},
+	booktitle = {Proceedings of the USENIX Security Symposium (USENIX Security)},
 	year = 2021,
 }
 
@@ -1327,25 +1362,25 @@ author = {M. Albanese and A. {De Benedictis} and D. D.J. {de Macedo} and F. Mess
 	title = {Detecting Third-Party Library Problems with Combined Program
 	         Analysis},
 	author = {Ntousakis, G. and Ioannidis, S. and Vasilakis, N.},
-	booktitle = {CCS},
+	booktitle = {Proceedings of the ACM SIGSAC Conference on Computer and Communications Security (CCS)},
 	year = {2021},
 }
 
 
 @inproceedings{vasilakis2018breakapp,
-	title = {BreakApp: Automated, Flexible Application Compartmentalization},
+	title = {{BreakApp}: Automated, Flexible Application Compartmentalization},
 	author = {Vasilakis, N. and Karel, B. and Roessler, N. and Dautenhahn, N.
 	          and DeHon, A. and Smith, J. M.},
-	booktitle = {NDSS},
+	booktitle = {Proceedings of the Network and Distributed System Security Symposium (NDSS)},
 	year = {2018},
 }
 
 @inproceedings{Vigna2012Include,
 	title = {You Are What You Include: Large-scale Evaluation of Remote
-	         JavaScript Inclusions},
+	         {JavaScript} Inclusions},
 	author = {Nikiforakis, N. and Invernizzi, L. and Kapravelos, A. and Acker,
 	          S. and Joosen, W. and Kruegel, C. and Piessens, F. and Vigna, G.},
-	booktitle = {CCS},
+	booktitle = {Proceedings of the ACM SIGSAC Conference on Computer and Communications Security (CCS)},
 	year = {2012},
 }
 
@@ -1354,45 +1389,8 @@ author = {M. Albanese and A. {De Benedictis} and D. D.J. {de Macedo} and F. Mess
 	author = {Smilkov, D. and Thorat, N. and Assogba, Y. and Nicholson, C. and
 	          Kreeger, N. and Yu, P. and Cai, S. and Nielsen, E. and Soegel, D
 	          and Bileschi, S. and others},
-	journal = {MLSys},
+	booktitle = {Proceedings of the Conference on Machine Learning and Systems (MLSys)},
 	year = {2019},
-}
-
-@book{zhu2013data,
-	title = {Data visualization with D3.js cookbook},
-	author = {Zhu, N. Q.},
-	year = {2013},
-}
-
-@article{dodda2017ligpargen,
-	title = {LigParGen web server: an automatic OPLS-AA parameter generator for
-	         organic ligands},
-	author = {Dodda, L. S. and Cabeza de Vaca, I. and Tirado-Rives, J. and
-	          Jorgensen, W. L.},
-	journal = {Nucleic Acids Research},
-	year = {2017},
-}
-
-@article{bienfait2013jsme,
-	title = {JSME: a free molecule editor in JavaScript},
-	author = {Bienfait, B. and Ertl, P.},
-	journal = {Cheminformatics},
-	year = {2013},
-}
-
-@article{probst2018smilesdrawer,
-	title = {SmilesDrawer: parsing and drawing SMILES-encoded molecular
-	         structures using client-side JavaScript},
-	author = {Probst, D. and Reymond, J.},
-	journal = {Chemical Information and Modeling},
-	year = {2018},
-}
-
-@article{djb22007Roussev,
-	title = {Multi-resolution similarity hashing},
-	author = {Roussev, V. and Richard III, G. G. and Marziale, L.},
-	journal = {Digital Investigation},
-	year = {2007},
 }
 
 @misc{djb2,
@@ -1407,7 +1405,7 @@ author = {M. Albanese and A. {De Benedictis} and D. D.J. {de Macedo} and F. Mess
 	author = {Junyuan, Z. and Guo, R.},
 	howpublished = {\url{https://defcon.org/html/defcon-29/dc-29-speakers.html#guo}},
 	year = {2021},
-	note = {{DEFCON}},
+	note = {{DEF CON}},
 }
 
 @misc{minijail,
@@ -1446,14 +1444,14 @@ author = {M. Albanese and A. {De Benedictis} and D. D.J. {de Macedo} and F. Mess
 }
 
 @inproceedings{findlay2020bpfbox,
-	title = {bpfbox: Simple Precise Process Confinement with eBPF},
+	title = {bpfbox: Simple Precise Process Confinement with {eBPF}},
 	author = {Findlay, W. and Somayaji, A. and Barrera, D.},
-	booktitle = {Cloud Computing Security Workshop},
+	booktitle = {Proceedings of the ACM Cloud Computing Security Workshop (CCSW)},
 	year = {2020},
 }
 
 @article{findlay2021bpfcontain,
-	title = {BPFContain: Fixing the Soft Underbelly of Container Security},
+	title = {{BPFContain}: Fixing the Soft Underbelly of Container Security},
 	author = {Findlay, W. and Barrera, D. and Somayaji, A.},
 	journal = {{arXiv}},
 	year = {2021},
@@ -1463,30 +1461,30 @@ author = {M. Albanese and A. {De Benedictis} and D. D.J. {de Macedo} and F. Mess
 	title = {On the Impact of Security Vulnerabilities in the npm Package
 	         Dependency Network},
 	author = {Decan, A. and Mens, T. and Constantinou, E.},
-	booktitle = {MSR},
+	booktitle = {Proceedings of the Mining Software Repositories Conference (MSR)},
 	year = {2018},
 }
 
 
 @inproceedings{grieco2016quickfuzz,
-	title = {QuickFuzz: An Automatic Random Fuzzer for Common File Formats},
+	title = {{QuickFuzz}: An Automatic Random Fuzzer for Common File Formats},
 	author = {Grieco, G. and Ceresa, M. and Buiras, P.},
-	booktitle = {Haskell},
+	booktitle = {Proceedings of the Symposium on Haskell},
 	year = {2016},
 }
 
 @article{10.1145/2814270.2814313,
-	title = {Use at Your Own Risk: The Java Unsafe API in the Wild},
+	title = {Use at Your Own Risk: The {Java} Unsafe {API} in the Wild},
 	author = {Mastrangelo, L. and Ponzanelli, L. and Mocci, A. and Lanza, M. and
 	          Hauswirth, M. and Nystrom, N.},
-	journal = {SIGPLAN},
+	journal = {Proceedings of the ACM Special Interest Group on Programming Languages (SIGPLAN)},
 	year = {2015},
 }
 
 @inproceedings{10.1145/3377811.3380413,
 	author = {Evans, A. N. and Campbell, B. and Soffa, M. L.},
-	title = {Is Rust Used Safely by Software Developers?},
-	booktitle = {ICSE},
+	title = {Is {Rust} Used Safely by Software Developers?},
+	booktitle = {Proceedings of the International Conference on Software Engineering (ICSE)},
 	year = {2020},
 }
 
@@ -1512,7 +1510,7 @@ author = {M. Albanese and A. {De Benedictis} and D. D.J. {de Macedo} and F. Mess
 }
 
 @conference{nodejs-regret,
-	title = {{10 Things I Regret About Node.js}},
+	title = {10 Things I Regret About {Node.js}},
 	author = {{R. Dahl}},
 	howpublished = {\url{https://youtu.be/M3BM9TB-8yA}},
 	year = {2018},
@@ -1606,10 +1604,10 @@ author = {M. Albanese and A. {De Benedictis} and D. D.J. {de Macedo} and F. Mess
 
 @inproceedings{linux-cgroup,
 	author = {Gao, X. and Gu, Z. and Li, Z. and Jamjoom, H. and Wang, C.},
-	title = {Houdini's Escape: Breaking the Resource Rein of Linux Control
+	title = {Houdini's Escape: Breaking the Resource Rein of {Linux} Control
 	         Groups},
 	year = {2019},
-	booktitle = {CCS},
+	booktitle = {Proceedings of the ACM SIGSAC Conference on Computer and Communications Security (CCS)},
 }
 
 @misc{map-in-map-support,
@@ -1674,13 +1672,6 @@ author = {M. Albanese and A. {De Benedictis} and D. D.J. {de Macedo} and F. Mess
 	year = 1999,
 }
 
-@article{peyravian-hash,
-	title = {On probabilities of hash value matches},
-	author = {M. Peyravian and A. Roginsky and A. Kshemkalyani},
-	journal = {Computers \& Security},
-	year = {1998},
-}
-
 @misc{bpf-str-key-support,
 	title = {{BPF: Support for string key in hash-table}},
 	howpublished = {\url{https://lore.kernel.org/bpf/20211219052245.791605-1-houtao1@huawei.com}},
@@ -1700,13 +1691,6 @@ author = {M. Albanese and A. {De Benedictis} and D. D.J. {de Macedo} and F. Mess
 	howpublished = {\url{https://deno.land/manual/node/compatibility_mode}},
 	author = {{{Deno Land}}},
 	year = {2022},
-}
-
-@inproceedings{djb2-coll-work,
-	title = {Towards an Automatic Design of Non-Cryptographic Hash Function},
-	author = {Karásek, J. and Burget, R. and Morský, O.},
-	booktitle = {TSP},
-	year = {2011},
 }
 
 @misc{sane-npm,
@@ -1739,43 +1723,34 @@ author = {M. Albanese and A. {De Benedictis} and D. D.J. {de Macedo} and F. Mess
 
 
 @inproceedings{kirth2022pkru,
-	title = {PKRU-safe: automatically locking down the heap between safe and
+	title = {{PKRU}-safe: automatically locking down the heap between safe and
 	         unsafe languages},
 	author = {Kirth, P. and Dickerson, M. and Crane, S. and Larsen, P. and
 	          Dabrowski, A. and Gens, D. and Na, Y. and Volckaert, S. and Franz,
 	          M.},
-	booktitle = {EuroSys},
+	booktitle = {Proceedings of the European Conference on Computer Systems (EuroSys)},
 	year = {2022},
 }
 
 @inproceedings{terrace2012javascript,
-	title = {{JavaScript in JavaScript(js.js): Sandboxing Third-Party Scripts}},
+	title = {{JavaScript} in {JavaScript}(js.js): Sandboxing Third-Party Scripts},
 	author = {Terrace, J. and Beard, S. R. and Katta, N. P. K.},
-	booktitle = {WebApps},
+	booktitle = {Proceedings of the USENIX Conference on Web Application Development (USENIX WebApps)},
 	year = {2012},
-}
-
-@inproceedings{stefan2014protecting,
-	title = {Protecting Users by Confining $\{$JavaScript$\}$ with $\{$COWL$\}$},
-	author = {Stefan, D. and Yang, E. Z. and Marchenko, P. and Russo, A. and
-	          Herman, D. and Karp, B. and Mazieres, D.},
-	booktitle = {11th USENIX Symposium on Operating Systems Design and
-	             Implementation (OSDI 14)},
-	year = {2014},
 }
 
 @inproceedings{santos2014information,
 	title = {An information flow monitor-inlining compiler for securing a core
-	         of javascript},
+	         of {JavaScript}},
 	author = {Santos, J. Fragoso and Rezk, T.},
-	booktitle = {IFIP SEC},
+	booktitle = {Proceedings of the ICT Systems Security and Privacy Protection (IFIP SEC)},
 	year = {2014},
 }
 
 @inproceedings{hedin2014jsflow,
-	title = {JSFlow: Tracking information flow in JavaScript and its APIs},
+	title = {{JSFlow}: Tracking information flow in {JavaScript} and its {APIs}},
 	author = {Hedin, D. and Birgisson, A. and Bello, L. and Sabelfeld, A.},
-	booktitle = {SAC},
+	booktitle = {Proceedings of the ACM Symposium on Applied Computing (SAC)},
 	year = {2014},
 }
 
@@ -1789,10 +1764,10 @@ author = {M. Albanese and A. {De Benedictis} and D. D.J. {de Macedo} and F. Mess
 }
 
 @inproceedings{wu2012codejail,
-	title = {{Codejail: Application-transparent isolation of libraries with
-	         tight program interactions}},
+	title = {Codejail: Application-transparent isolation of libraries with
+	         tight program interactions},
 	author = {Wu, Y. and Sathyanarayan, S. and Yap, R. H. C. and Liang, Z.},
-	booktitle = {European Symposium on Research in Computer Security (ESORICS)},
+	booktitle = {Proceedings of the European Symposium on Research in Computer Security (ESORICS)},
 	year = {2012},
 }
 
@@ -1813,24 +1788,24 @@ author = {M. Albanese and A. {De Benedictis} and D. D.J. {de Macedo} and F. Mess
 
 
 @inproceedings{johnson2022wave,
-	title = {WaVe: A Verifiably Secure WebAssembly Sandboxing Runtime},
+	title = {{WaVe}: A Verifiably Secure {WebAssembly} Sandboxing Runtime},
 	author = {Johnson, E. and Laufer, E. and Zhao, Z. and Gohman, D. and Narayan
 	          , S. and Savage, S. and Stefan, D. and Brown, F.},
-	booktitle = {IEEE Security and Privacy},
+	booktitle = {Proceedings of the IEEE Symposium on Security and Privacy (IEEE S\&P)},
 	year = {2022},
 }
 
 @inproceedings{bosamiya2022provably,
-	title = {{Provably-Safe Multilingual Software Sandboxing using WebAssembly}},
+	title = {{Provably-Safe Multilingual Software Sandboxing using {WebAssembly}}},
 	author = {Bosamiya, J. and Lim, W. S. and Parno, B.},
-	booktitle = {USENIX Security},
+	booktitle = {Proceedings of the USENIX Security Symposium (USENIX Security)},
 	year = {2022},
 }
 
 @inproceedings{lehmann2020everything,
-	title = {Everything old is new again: Binary security of webassembly},
+	title = {Everything old is new again: Binary security of {WebAssembly}},
 	author = {Lehmann, D. and Kinder, J. and Pradel, M.},
-	booktitle = {USENIX Security},
+	booktitle = {Proceedings of the USENIX Security Symposium (USENIX Security)},
 	year = {2020},
 }
 
@@ -1866,8 +1841,11 @@ author = {M. Albanese and A. {De Benedictis} and D. D.J. {de Macedo} and F. Mess
 	title = {A lightweight design for serverless function as a service},
 	author = {Long, Ju and Tai, Hung-Ying and Hsieh, Shen-Ta and Yuan, Michael
 	          Juntao},
-	journal = {IEEE Software},
+	volume={38},
+  	number={1},
+	journal = {IEEE Software (IEEE SW)},
 	year = {2020},
+	month = {October}
 }
 
 @misc{removedirfix,
@@ -1886,11 +1864,11 @@ author = {M. Albanese and A. {De Benedictis} and D. D.J. {de Macedo} and F. Mess
 }
 
 @inproceedings{haas2017bringing,
-	title = {Bringing the web up to speed with WebAssembly},
+	title = {Bringing the web up to speed with {WebAssembly}},
 	author = {Haas, A. and Rossberg, A. and Schuff, D. L. and Titzer, B. L. and
 	          Holman, M. and Gohman, D. and Wagner, L. and Zakai, A. and Bastien,
 	          JF},
-	booktitle = {Programming Language Design and Implementation},
+	booktitle = {Proceedings of the ACM SIGPLAN Conference on Programming Language Design and Implementation (PLDI)},
 	year = {2017},
 }
 
@@ -1912,25 +1890,28 @@ author = {M. Albanese and A. {De Benedictis} and D. D.J. {de Macedo} and F. Mess
 	author = {Peach, G. and Pan, R. and Wu, Z. and Parmer, G. and Haster, C. and
 	          Cherkasova, L.},
 	journal = {IEEE Transactions on Computer-Aided Design of Integrated Circuits
-	           and Systems},
-	title = {eWASM: Practical Software Fault Isolation for Reliable Embedded
+	           and Systems (TCAD)},
+	title = {{eWASM}: Practical Software Fault Isolation for Reliable Embedded
 	         Devices},
+	volume = {39},
+	number = {11},
 	year = {2020},
+	month = {October}
 }
 
 @inproceedings{sledge,
 	author = {Gadepalli, P. K. and McBride, S. and Peach, G. and Cherkasova, L.
 	          and Parmer, G.},
-	title = {Sledge: A Serverless-First, Light-Weight Wasm Runtime for the Edge},
+	title = {Sledge: A Serverless-First, Light-Weight {Wasm} Runtime for the Edge},
 	year = {2020},
-	booktitle = {International Middleware Conference},
+	booktitle = {Proceedings of the International Middleware Conference (MIDDLEWARE)},
 }
 
 @inproceedings{ghavamnia2020temporal,
 	author = {Seyedhamed Ghavamnia and Tapti Palit and Shachee Mishra and
 	          Michalis Polychronakis},
 	title = {Temporal System Call Specialization for Attack Surface Reduction},
-	booktitle = {USENIX Security Symposium},
+	booktitle = {Proceedings of the USENIX Security Symposium (USENIX Security)},
 	year = {2020},
 }
 
@@ -2143,73 +2124,73 @@ author = {M. Albanese and A. {De Benedictis} and D. D.J. {de Macedo} and F. Mess
 }
 
 @inproceedings{zhang2021analyzing,
-  title={Analyzing the Overhead of File Protection by Linux Security Modules},
-  author={Zhang, Wenhui and Liu, Peng and Jaeger, Trent},
-  booktitle={Proceedings of the ACM Asia Conference on Computer and Communications Security (ASIACCS)},
-  year={2021}
+	title={Analyzing the Overhead of File Protection by {Linux Security Modules}},
+	author={Zhang, Wenhui and Liu, Peng and Jaeger, Trent},
+	booktitle={Proceedings of the ACM Asia Conference on Computer and Communications Security (ASIACCS)},
+	year={2021}
 }
 
 @misc{andrii2020bpfCORE,
-   title={{BPF} Portability and {CO}-{RE}},
-   author={Andrii, Nakryiko},
-   year={2020},
-   howpublished = {\url{https://facebookmicrosites.github.io/bpf/blog/2020/02/19/bpf-portability-and-co-re.html}}
+	title={{BPF} Portability and {CO}-{RE}},
+	author={Andrii, Nakryiko},
+	year={2020},
+	howpublished = {\url{https://facebookmicrosites.github.io/bpf/blog/2020/02/19/bpf-portability-and-co-re.html}}
 }
 
 @inproceedings{bulekov2021saphire,
 	title={Saphire: Sandboxing {PHP} Applications with Tailored System Call Allowlists},
 	author={Bulekov, Alexander and Jahanshahi, Rasoul and Egele, Manuel},
-	booktitle={Proceeding of the USENIX Security Symposium (USENIX Security)},
+	booktitle={Proceedings of the USENIX Security Symposium (USENIX Security)},
 	year={2021}
 }
 
 @inproceedings{shao2016misuse,
-	title={The misuse of android unix domain sockets and security implications},
+	title={The misuse of {Android Unix} domain sockets and security implications},
 	author={Shao, Yuru and Ott, Jason and Jia, Yunhan Jack and Qian, Zhiyun and Mao, Z. Morley},
-	booktitle={Proceedings of the 2016 ACM SIGSAC Conference on Computer and Communications Security},
+	booktitle={Proceedings of the 2016 ACM SIGSAC Conference on Computer and Communications Security (CCS)},
 	year={2016}
 }
 
 @inproceedings{brown2017finding,
-  title={Finding and preventing bugs in javascript bindings},
-  author={Brown, Fraser and Narayan, Shravan and Wahby, Riad S and Engler, Dawson and Jhala, Ranjit and Stefan, Deian},
-  booktitle={Proceeding of the IEEE Symposium on Security and Privacy (IEEE S\&P)},
-  year={2017}
+	title={Finding and preventing bugs in {JavaScript} bindings},
+	author={Brown, Fraser and Narayan, Shravan and Wahby, Riad S and Engler, Dawson and Jhala, Ranjit and Stefan, Deian},
+	booktitle={Proceedings of the IEEE Symposium on Security and Privacy (IEEE S\&P)},
+	year={2017}
 }
 
 @inproceedings{dinh2021favocado,
-  title={Favocado: Fuzzing the Binding Code of JavaScript Engines Using Semantically Correct Test Cases},
-  author={Dinh, Sung Ta and Cho, Haehyun and Martin, Kyle and Oest, Adam and Zeng, Kyle and Kapravelos, Alexandros and Ahn, Gail-Joon and Bao, Tiffany and Wang, Ruoyu and Doup{\'e}, Adam and Shoshitaishvili, Yan},
-  booktitle={Proceedings of the Network and Distributed System Security Symposium (NDSS)},
-  year={2021}
+	title={Favocado: Fuzzing the Binding Code of {JavaScript} Engines Using Semantically Correct Test Cases},
+	author={Dinh, Sung Ta and Cho, Haehyun and Martin, Kyle and Oest, Adam and Zeng, Kyle and Kapravelos, Alexandros and Ahn, Gail-Joon and Bao, Tiffany and Wang, Ruoyu and Doup{\'e}, Adam and Shoshitaishvili, Yan},
+	booktitle={Proceedings of the Network and Distributed System Security Symposium (NDSS)},
+	year={2021}
 }
 
 @misc{seccomp-toctou,
-        title = {{Seccomp and deep argument inspection}},
-        author = {Jake Edge},
-        year = {2020},
-        howpublished = {\url{https://lwn.net/Articles/822256/}}
+	title = {{Seccomp and deep argument inspection}},
+	author = {Jake Edge},
+	year = {2020},
+	howpublished = {\url{https://lwn.net/Articles/822256/}}
 }
 
 @inproceedings{bui2018man,
-  title={{Man-in-the-Machine}: Exploiting {Ill-Secured} Communication Inside the Computer},
-  author={Bui, Thanh and Rao, Siddharth Prakash and Antikainen, Markku and Bojan, Viswanathan Manihatty and Aura, Tuomas},
-  booktitle={Proceeding of the USENIX Security Symposium (USENIX Security)},
-  year={2018}
+	title={{Man-in-the-Machine}: Exploiting Ill-Secured Communication Inside the Computer},
+	author={Bui, Thanh and Rao, Siddharth Prakash and Antikainen, Markku and Bojan, Viswanathan Manihatty and Aura, Tuomas},
+	booktitle={Proceedings of the USENIX Security Symposium (USENIX Security)},
+	year={2018}
 }
 
 @inproceedings{schwarz2020seng,
   title={{SENG}, the {SGX-Enforcing} Network Gateway: Authorizing Communication from Shielded Clients},
   author={Schwarz, Fabian and Rossow, Christian},
-  booktitle={Proceeding of the USENIX Security Symposium (USENIX Security)},
+  booktitle={Proceedings of the USENIX Security Symposium (USENIX Security)},
   year={2020}
 }
 
 @article{smalley2001implementing,
-  title={Implementing SELinux as a Linux security module},
-  author={Smalley, Stephen and Vance, Chris and Salamon, Wayne},
-  journal={NAI Labs Report},
-  year={2001}
+	title={Implementing {SELinux} as a {Linux Security Module}},
+	author={Smalley, Stephen and Vance, Chris and Salamon, Wayne},
+	journal={NAI Labs Report},
+	year={2001}
 }
 
 @misc{doc-pipe,
