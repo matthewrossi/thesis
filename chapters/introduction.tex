@@ -1,5 +1,137 @@
 \section{Document structure}
 
+The thesis is organized in six chapters.
+
+\paragraph*{Chapter~\ref{chap:intro}} illustrates the document
+structure and the publications that set the basis for this thesis.
+
+\paragraph*{Chapter~\ref{chap:seapp}} describes \seapp~\cite{seapp}, a
+proposal that provides developers with a mechanism to isolate the
+internal components of Android apps and regulate their permissions on
+a per-component basis. This is achieved by first executing components
+in dedicated processes, and then restricting access to the app and
+system resources with ad hoc \sel policies. Specifically, it is
+possible to declare rules to regulate access to both the internal app
+storage and system services, which are otherwise shared between all
+the application components, including third-party libraries the app
+depends upon. This is a crucial step to provide strong user privacy
+guarantees despite relying on third-party code to achieve monetization
+and fast-paced development of Android applications. The prototype
+implements a patch to the Android Open Source Platform (AOSP) to
+demonstrate the feasibility, effectiveness and efficiency of the novel
+approach.
+
+\smallskip
+\noindent The chapter is organized as follows.
+
+\begin{compactitem}
+    \item Section~\ref{sect:seapp_introduction} provides an overview
+     of how the security architecture of mobile systems evolved with
+     the maturity of the ecosystem.
+    \item Section~\ref{sect:seapp_andro_sec} introduces the techniques
+     currently enforcing access control in Android.
+    \item Section~\ref{sect:seapp_motiv} presents the motivation for
+     the introduction of intra-app isolation in Android. Specifically,
+     a set of use cases is used to showcase the security measures
+     introduced by \seapp.
+    \item Section~\ref{sect:seapp_lang} details the \seapp policy
+     module syntax, and its constraints to ensure proper integration
+     of app and system policies.
+    \item Section~\ref{sect:seapp_config} illustrates the policy 
+     configuration files of \sea and how to use them in \seapp.
+    \item Section~\ref{sect:seapp_implementation} discusses the
+     changes the \seapp implementation introduced in Android platform.
+    \item Section~\ref{sect:seapp_performance} presents the
+     experimental evaluation, in which we measure both the
+     installation time and runtime overhead introduced by \seapp.
+    \item Section~\ref{sect:seapp_relwork} discusses the major
+     differences between \seapp and other literature proposals.
+    \item Section~\ref{sect:seapp_conclusions} concludes the chapter.
+\end{compactitem}
+\medskip
+
+% TODO: add summary of dmng
+\smallskip
+\noindent The chapter is organized as follows.
+\begin{compactitem}
+    \item Section~\ref{dmng:sect:introduction} presents the challeges
+     of securing cloud applications and briefly discusses the state of
+     the art to identify opportunities for improvement.
+    \item Section~\ref{sect:motivation} discusses the objectives of
+     the solution together with its requirements and trust
+     assumptions.
+    \item Section~\ref{sect:overview} illustrates an overview of the
+     approach by highlighting its integration with both staging and
+     production environments.
+    \item Section~\ref{sect:cloud-instrum} presents two different
+     techniques to instrument cloud applications and trace their
+     activity.
+    \item Section~\ref{dmng:sect:policy} discusses the generation of
+     access control policies from activity traces.
+    \item Section~\ref{sect:sandbox} details how we implement the
+     lightweight enforcement of the policies.
+    \item Section~\ref{dmng:sect:exp} presents an empirical
+     evaluation of the mitigation capabilities of our approach and
+     its performance.
+    \item Section~\ref{dmng:sect:related-work} discuss proposals from
+     the literature and how they compare to ours.
+    \item Section~\ref{dmng:sect:conclusions} concludes the chapter.
+\end{compactitem}
+\medskip
+
+% TODO: add summary of wasm
+\smallskip
+\noindent The chapter is organized as follows.
+\begin{compactitem}
+    \item Section~\ref{intro} introduces WebAssembly and the
+     challenges WebAssembly runtimes are facing with restricting
+     access to system resources.
+    \item Section~\ref{sect:wasm:threat-model} models the threat
+     an attacker can pose to the implementations of WASI in
+     WebAssembly runtimes.
+    \item Section~\ref{design} details the design of current
+     WASI implementations and proposes an alternative approach.
+    \item Section~\ref{sec:exp} evaluates the overhead introduced by
+     our novel approach in two different WebAssembly runtimes.
+    \item Section~\ref{wasm:rel_works} discusses the related work.
+    \item Section~\ref{sect:wasm:conclusions} concludes the chapter.
+\end{compactitem}
+\medskip
+
+% TODO: add summary of natisand
+\smallskip
+\noindent The chapter is organized as follows.
+\begin{compactitem}
+    \item Section~\ref{sect:introduction} presents the development of
+     web applications with the use of JavaScript runtimes and their
+     limitations with regard to controlling native code access to
+     system resources.
+    \item Section~\ref{sectbackground} overviews the structure of
+     moderm JS runtimes and provides background on the components
+     used by \natisand to build the sandbox. 
+    \item Section~\ref{sect:sci-ffi} motivates the need of
+     ad hoc access restrictions for native code highlighting the
+     security implications of an otherwise overpermissive behavior.
+    \item Section~\ref{sect:design-and-implementation} presents
+     \natisand objectives and architecture.
+    \item Section~\ref{natisand:sect:policy} details the policy
+     structure and explains how to generate its permission rules.
+    \item Section~\ref{sect:case-study-deno} showcases the achievement
+     of the aforementioned objectives by integrating \natisand into
+     the Deno runtime. 
+    \item Section~\ref{natisand:sect:exp} presents the ability of
+     \natisand to mitigate real-world vulnerabilities while
+     introducing only a negligible overhead compared to a permissive
+     scenario.
+    \item Section~\ref{natisand:rel_works} discusses the major
+     differences between \natisand and other literature proposals.
+    \item Section~\ref{natisand:sect:conclusions} concludes the chapter.
+\end{compactitem}
+\medskip
+
+\paragraph*{Chapter~\ref{chap:conclusions}} draws the conclusions of
+the thesis and discusses future work.
+
 \section{Publications}
 
 This section presents the list of publications authored during the
