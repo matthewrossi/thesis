@@ -37,7 +37,7 @@ approach.
     \item Section~\ref{sect:seapp_lang} details the \seapp policy
      module syntax, and its constraints to ensure proper integration
      of app and system policies.
-    \item Section~\ref{sect:seapp_config} illustrates the policy 
+    \item Section~\ref{sect:seapp_config} illustrates the policy
      configuration files of \sea and how to use them in \seapp.
     \item Section~\ref{sect:seapp_implementation} discusses the
      changes the \seapp implementation introduced in Android platform.
@@ -122,7 +122,22 @@ fine-grained per-module policies.
 \end{compactitem}
 \medskip
 
-% TODO: add summary of natisand
+\paragraph*{Chapter~\ref{chap:natisand}} considers the use of
+JavaScript (JS) and TypeScript (TS) for implementing the backend of
+cloud applications. In this setting, the execution of JS code on the
+server-side is enabled by JS runtimes (i.e., Node.js, Deno and Bun).
+These sophisticated software securely renders JS code in an isolated
+sandbox, however access to system resources and the execution of
+native code raise security concerns, since they effectively break the
+isolation between the JS application and the host OS. Identifying the
+clear security issus, this chapter proposes \natisand, a component for
+JavaScript runtimes that leverages {\em Landlock}, {\em eBPF}, and
+{\em Seccomp} to control the filesystem, Inter-Process Communication
+(IPC), and network resources available to binary programs and shared
+libraries. We demonstrate the effectiveness and efficiency of our
+approach by implementing and integrating it into Deno, a modern,
+security-oriented JavaScript runtime.
+
 \smallskip
 \noindent The chapter is organized as follows.
 \begin{compactitem}
@@ -132,7 +147,7 @@ fine-grained per-module policies.
      system resources.
     \item Section~\ref{sectbackground} overviews the structure of
      moderm JS runtimes and provides background on the components
-     used by \natisand to build the sandbox. 
+     used by \natisand to build the sandbox.
     \item Section~\ref{sect:sci-ffi} motivates the need of
      ad hoc access restrictions for native code highlighting the
      security implications of an otherwise overpermissive behavior.
@@ -142,7 +157,7 @@ fine-grained per-module policies.
      structure and explains how to generate its permission rules.
     \item Section~\ref{sect:case-study-deno} showcases the achievement
      of the aforementioned objectives by integrating \natisand into
-     the Deno runtime. 
+     the Deno runtime.
     \item Section~\ref{natisand:sect:exp} presents the ability of
      \natisand to mitigate real-world vulnerabilities while
      introducing only a negligible overhead compared to a permissive
