@@ -1,0 +1,45 @@
+Over the years operating systems security has greatly evolved and has
+been able to address many of the threats originating by an extensive
+and varied set of adversaries.
+
+The mitigation of security threats is particularly important for
+mobile operating systems, due to their wide deployment and the
+confidential information they hold. Focusing on Android, we notice
+that components belonging to the same application share access to the
+app internal storage and system services. While this may not be an
+issue when the developer trusts all the code belonging to their
+application, it clearly becomes one when third-party code is included
+to achieve monetization and fast-paced development. Thus, we propose
+\seapp, a mechanism allowing developers to isolate the internal
+components of Android apps and regulate their permissions on a
+per-component basis. This is a crucial step to provide strong user
+privacy guarantees and meeting data privacy regulations despite the
+use of third-party code.
+
+With the research conducted on Android it soon became clear that,
+while securing Android apps on the user device was very important,
+it was as much important to secure the cloud applications those
+applications interact with. Indeed, modern cloud applications can
+quickly grow to an intricate tangle of services, and unfortunately
+current technologies prove to be overly coarse to effectively restrict
+access control of system resources. To address this problem, we propose
+an approach that restricts access to file system resources with a
+resource-based granularity. Then, we further explore the topic in the
+context of WebAssembly runtimes (e.g., Wasmtime and WasmEdge).
+Specifically, we highlight the security implications of enabling
+access to system resources through the WebAssembly System Interface
+(WASI), and identify opportunities for improvement.
+Finally, we consider the use of JavaScript (JS) and TypeScript (TS)
+for the implementation of cloud applications thanks to JS runtimes
+(i.e., Node.js, Deno and Bun). These software securely renders JS code
+in an isolated sandbox, however access to system resources and the
+execution of native code raise security concerns, since they break the
+JS application isolation. To address these security issues, we propose
+\natisand, a component for JavaScript runtimes to control the
+filesystem, Inter-Process Communication (IPC), and network resources
+available to binary programs and shared libraries.
+
+The technologies described in this thesis advance the state of the art
+in fine-grained resource protection in mobile and cloud applications.
+The implementations have been released under open-source licenses and
+can be easily integrated with existing real systems.

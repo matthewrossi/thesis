@@ -129,8 +129,8 @@ server-side is enabled by JS runtimes (i.e., Node.js, Deno and Bun).
 These sophisticated software securely renders JS code in an isolated
 sandbox, however access to system resources and the execution of
 native code raise security concerns, since they effectively break the
-isolation between the JS application and the host OS. Identifying the
-clear security issus, this chapter proposes \natisand, a component for
+isolation between the JS application and the host OS. Identifying these
+clear security issues, this chapter proposes \natisand, a component for
 JavaScript runtimes that leverages {\em Landlock}, {\em eBPF}, and
 {\em Seccomp} to control the filesystem, Inter-Process Communication
 (IPC), and network resources available to binary programs and shared
