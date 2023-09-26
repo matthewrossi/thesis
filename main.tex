@@ -43,14 +43,6 @@
 \includepdf[fitpaper=true, pages=-]{chapters/frontpage/frontpage.pdf}
 \cleardoublepage
 
-% -------------- ACKNOWLEDGMENTS ------------ %
-
-\section*{{\em Acknowledgments}}
-\label{chap:acknowledgments}
-\input{chapters/acks.tex}
-\thispagestyle{empty}
-\cleardoublepage
-
 % -------------------- DEDICATION ------------------- %
 
 \thispagestyle{empty}
@@ -137,6 +129,15 @@
 \chapter[Conclusions and future work]{Conclusions and future work}
 \label{chap:conclusions}
 \input{chapters/conclusions.tex}
+
+% -------------- ACKNOWLEDGMENTS ------------ %
+
+\chapter*{Acknowledgments}
+\addcontentsline{toc}{chapter}{Acknowledgments}
+\label{chap:acknowledgments}
+\input{chapters/acks.tex}
+\thispagestyle{empty}
+\cleardoublepage
 
 % -------------------- APPENDIX ------------------- %
 
