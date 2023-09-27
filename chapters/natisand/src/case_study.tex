@@ -17,9 +17,8 @@ decision, then we highlight the main architectural changes.
 
 Considering (i)~popularity among web developers, (ii)~availability and
 support of third-party modules, and (iii)~security-oriented features
-provided by the runtime, we selected Deno. Bun is still in beta
-version (v0.5.8), so it is the least used by developers.
-Node.js is nowadays the most
+provided by the runtime, we selected Deno. Bun is the latest runtime
+released, and thus currently the least used by developers. Node.js is nowadays the most
 widely used platform, and it offers developers the largest collection
 of open source packages. However, Node.js by default does not prevent
 JS applications to access system resources, and although it
@@ -34,7 +33,7 @@ code and libraries originally built for Node.js. The availability of
 this function permits to
 import packages hosted by Deno on {\tt deno.land/x}, as well as
 modules published to npm. To conclude, Node.js and Deno prevail
-over Bun on all three dimensions. Node.js wins over Deno on
+over Bun on popularity and security-oriented features. Node.js wins over Deno on
 popularity (but Deno is quickly growing), they are comparable in terms
 of third-party modules, and Deno significantly outperforms Node.js on
 security oriented-features, leading us to choose Deno.
