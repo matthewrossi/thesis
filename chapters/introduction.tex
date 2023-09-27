@@ -1,3 +1,102 @@
+Over the years operating systems security has greatly evolved and has
+been able to address many of the threats originating by an extensive
+and varied set of adversaries.
+
+The mitigation of security threats is particularly important for
+mobile operating systems, due to their wide deployment and the
+confidential information they hold. Focusing on Android, which is open
+source and more accessible to researchers, we notice that components
+belonging to the same application share access to the app internal
+storage and system services. So, third-party code included by
+developers in their applications for monetization and
+fast-paced-development purposes have the same access to internal data
+and system services as the rest of the application. This represents a
+threat to the security of applications and the privacy of users. Thus,
+we propose \seapp, a mechanism allowing developers to isolate the
+internal components of Android apps and regulate their permissions on
+a per-component basis. As a natural evolution of the security
+mechanisms already available in Android, \seapp design requires to
+(i) preserve the security of system components, (ii) limit how it
+may affect the development of applications, and (iii) minimize the
+performance impact. Our evaluations show our proposal meet these
+requirements, and \seapp is a crucial step to provide strong user
+privacy guarantees and comply to data privacy regulations despite the
+use of third-party code. This claim is supported by the current
+direction Google is following for the development of its Privacy
+Sandbox on Android~\cite{android-privacy-sandbox}.
+
+With the research conducted on Android it soon became clear that,
+while securing Android apps on the user device was very important,
+it was as much important to secure the cloud applications those
+applications interact with. Indeed, modern cloud applications can
+quickly grow to an elaborate and intricate tangle of services, and
+keeping track of all the moving parts and their security boundaries
+can be very challenging. Nevertheless, in order to mitigate the
+impact of security incidents companies need to pay close attention
+to the security of their cloud applications. Several research works
+and industrial standards recommend the integration of least
+privilege policies to prevent disruptions such as file system
+tampering. Unfortunately current technologies prove to be overly
+coarse to effectively restrict access control of system resources.
+To address this problem, we propose an approach that restricts access
+to file system resources with a resource-based granularity.
+Specifically, we provide an instrumentation solution to retrieve all
+the file system resources required by an application component. Then,
+we demonstrate how this information can be used to create fine-grained
+access policies, and introduce sandboxing using recent kernel security
+modules, thus strengthening the security boundary of the whole
+application.
+
+Even though effective in restricting access to an entire microservice,
+the approach above can be further improved by considering the
+specifics of emerging technologies that enable finer-grined
+compartmentalization of cloud applications. In the context of
+WebAssembly runtimes (e.g., Wasmtime and WasmEdge), we highlight the
+security implications of enabling access to system resources through
+the WebAssembly System Interface (WASI), and identify opportunities
+for improvement. Here, not only our approach permits to introduce
+fine-grained policies to restrict file system access, it also replaces
+error-prone userspace implementations of the security checks (and the
+security issues stemming from them) with a unified eBPF
+implementation.
+
+In the context of using JavaScript and TypeScript for the development
+of cloud applications, we investigate how JS runtimes secure the
+applications they host, and identify a few limitations. Modern
+runtimes (i.e., Node.js, Deno and Bun) render JavaScript code in a
+secure and isolated environment, however access to system resources
+and the execution of native code raise security concerns, since they
+break the JS application isolation. Developers commonly rely on native
+code to speed up the development and execution of their applications
+and, despite that, JS runtimes do not provide built-in solutions for
+the isolation of native code, so we propose the introduction of
+\natisand; a component for JavaScript runtimes to control the
+filesystem, Inter-Process Communication (IPC), and network resources
+available to binary programs and shared libraries. Our solution is
+characterized by a compact, generic architecture that fits nicely with
+modern runtimes. Internally, it leverages {\em
+  Seccomp}~\cite{seccompbpf} and Linux Security Modules (LSMs), such
+as {\em Landlock}~\cite{landlock} and {\em eBPF}~\cite{corbet2014eBPF}
+to restrict access to protected resources.
+
+During the research work, considerable attention was dedicated to the
+usability, effectiveness, and performance of our proposals. Indeed, in
+most of our proposals, we allow developers to take full advantage of
+the high level security mechanisms without requiring them to fully
+comprehend the advanced security features employed underneath. The
+developer is only required to provide a concise and readable policy
+file, which details the access privileges available to the components
+of their application and may be automatically generated. Moreover, we
+provide extensive evaluations showcasing the mitigation capabilities
+of our proposals with respect to common use cases and severe CVEs.
+Alongside the security guarantees introduced, we evaluate also their
+performance footprint, and can confirm the introduction of very
+limited overhead with respect to the original unsecure systems and
+significant improvements with respect to alternative approaches. To
+promote the reproducibility of our experimental evaluations, and
+facilitate the integration of our solutions with existing real systems
+our prototype implementations are all available open source.
+
 \section{Document structure}
 
 The thesis is organized in six chapters.
