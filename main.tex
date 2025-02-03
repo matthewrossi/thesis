@@ -1,57 +1,136 @@
-\documentclass[12pt,a4paper,oldfontcommands,openright]{memoir}
+% This should produce something similar to what is shown in the DocX file at:
+% https://aisberg.unibg.it/sr/docs/CollanaSAFD/CollanaDottorato_presentazione.html
+
+\documentclass[12pt,a4paper,twoside,openright,oldfontcommands]{memoir}
+
+% Set page dimension and line spacing. 
+\usepackage[top=2.5cm, bottom=2.0cm, left=2.0cm, right=2.0cm, a4paper]{geometry}
+\linespread{1.5}
+
+% Do not reset figures/tables counter per chapter
+\counterwithout{figure}{chapter}
+\counterwithout{table}{chapter}
+
+% Fix font sizes / spaces of titles and other elements.
+\renewcommand*{\chapnumfont}{\Large\bfseries}
+\renewcommand*{\chaptitlefont}{\Large\bfseries}
+\setsecheadstyle{\large\bfseries}
+\setsubsecheadstyle{\normalsize\bfseries}
+% \renewcommand{\chaptername}{{\Large\bfseries Chapter}}
+% \renewcommand{\afterchapternum}{.\space\space}
+\setlength{\beforechapskip}{-2em}
+\addtolength{\afterchapskip}{-1.5em}
+\setlength{\parindent}{0pt}
+\setaftersecskip{0.5em}
+\setaftersubsecskip{0.5em}
+
+% Fix footnotes
+\setlength{\footmarkwidth}{0em}
+\setlength{\footmarksep}{0em}
+\setlength{\footnotesep}{1em}
+\setlength{\footparindent}{0em}
+
+% Punish offending text
+\clubpenalty=10000
+\widowpenalty=10000
+\tolerance=999
+
+% Hide warning for conflicting package
+\usepackage{silence}
+\WarningsOff[fmtcount]
+
+% Import all packages
+\usepackage{array}
+\usepackage{caption}
+\usepackage{cite}
+\usepackage{color}
+\usepackage{comment}
+\usepackage{graphicx}
+\usepackage{listings}
+\usepackage{makecell}
+\usepackage[hyphens]{url}
+\usepackage{xcolor}
+\usepackage{xspace}
+\usepackage[export]{adjustbox}
+%packages to insert pseudocode
+% \usepackage[caption=false,font=small]{subfig}
+\usepackage[normalem]{ulem}
+\usepackage[breaklinks=true,colorlinks=true,linkcolor=black,urlcolor=black,citecolor=black,bookmarks=true,bookmarksopenlevel=2]{hyperref}
+
+% Fix table of contents / list of figures / list of tables.
+\addtodef*{\cftsectionfont}{}{\bfseries}
+\addtodef*{\cftsubsectionfont}{}{\bfseries}
+\addtodef*{\cftparagraphfont}{}{\bfseries}
+\addtodef*{\cftsubparagraphfont}{}{\bfseries}
+\addtodef*{\cftsectionpagefont}{}{\bfseries}
+\addtodef*{\cftsubsectionpagefont}{}{\bfseries}
+\addtodef*{\cftparagraphpagefont}{}{\bfseries}
+\addtodef*{\cftsubparagraphpagefont}{}{\bfseries}
+\renewcommand*{\cftchapterleader}{\normalfont\cftdotfill{\cftsectiondotsep}}
+\maxsecnumdepth{subsection}
+\maxtocdepth{subsection}
+\renewcommand{\cftchapteraftersnum}{.}
+\renewcommand{\cftfigureaftersnum}{:}
+\renewcommand{\cfttableaftersnum}{:}
+\newcommand{\nocontentsline}[3]{}
+\newcommand{\tocless}[2]{\bgroup\let\addcontentsline=\nocontentsline#1{#2}\egroup}
+\renewcommand*{\cftchaptername}{Chapter\space}
+\renewcommand*{\cftappendixname}{\hspace{1.5em}Appendix\space}
+\renewcommand*\contentsname{{\Large \textit{Table of Contents}}}
+\renewcommand*{\cftfigurename}{Figure \space}
+\renewcommand{\listfigurename}{List of Figures}
+\renewcommand*{\cfttablename}{Table \space}
+\renewcommand{\listtablename}{List of Tables}
+
+% Fix captions.
+\captionsetup{font={bf,small}}
+\captionsetup{labelfont={bf,small}}
+
+% Fix footers / headers.
+\nouppercaseheads
+\createmark{chapter}{left}{nonumber}{}{}
+\definecolor{light-gray}{gray}{0.5}
+\makepagestyle{preintro}
+\makeevenfoot{preintro}{}{}{}
+\makeoddfoot{preintro}{}{}{}
+\makeevenhead{preintro}{}{{\color{light-gray} Matthew Rossi}}{}
+%
+\copypagestyle{intro}{preintro}
+\makeoddhead{intro}{}{{\color{light-gray} Introduction}}{}
+\makeevenfoot{intro}{}{{\color{light-gray} \thepage}}{}
+\makeoddfoot{intro}{}{{\color{light-gray} \thepage}}{}
+%
+\copypagestyle{afterintro}{intro}
+\makeoddhead{afterintro}{}{{\color{light-gray} \leftmark}}{}
+%
+\copypagestyle{appendices}{intro}
+\makeoddhead{appendices}{}{{\color{light-gray} Appendices}}{}
+%
+\copypagestyle{conclusions}{intro}
+\makeoddhead{conclusions}{}{{\color{light-gray} Conclusions}}{}
+%
+\renewcommand{\bibname}{References}
+\createplainmark{bib}{left}{References}
+\createplainmark{lof}{left}{List of Figures}
+\createplainmark{lot}{left}{List of Tables}
+
+% Use Times New Roman.
+\usepackage{newtxtext,newtxmath}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+% --------------- PACKAGES ---------------- %
 
 \usepackage{amsmath}
-\usepackage[font=bf]{caption}
 \usepackage{fancyhdr}
-\usepackage[hidelinks]{hyperref}
-\usepackage[left=30mm,right=30mm,top=30mm,bottom=30mm]{geometry}
-\usepackage{listings}
 \usepackage{multirow}
 \usepackage{paralist}
 \usepackage{pdfpages}
 \usepackage{pifont}
-\usepackage{subcaption}
+\usepackage[font=small]{subcaption}
 \usepackage{tikz}
 \usepackage{titlesec}
-\usepackage{url}
 \usepackage{wrapfig}
-\usepackage{xspace}
-
-% configure header and footer
-\pagestyle{fancy}
-\fancyhead[LE,CE,RE,RO,CO,LO]{} % remove everything
-\fancyhead[RO]{\scriptsize\rightmark} % section name
-\fancyhead[LE]{\scriptsize\leftmark} % chapter name
-\fancyfoot[C]{\thepage} % page number
-
-% set spacing between lines
-\linespread{1.2}
-
-% redefine chapter title
-\titleformat{\chapter}[hang]{\vspace*{-6em}\Huge\bfseries}{\thechapter.{ }}{1pt}{\Huge\bfseries}
-
-% use numbers to represent subsections and add them to the table of
-% contents
-\maxsecnumdepth{subsection}
-\maxtocdepth{subsection}
-
-\begin{document}
-\sloppy
-
-% ------------------- FRONT PAGE ------------------ %
-
-\includepdf[fitpaper=true, pages=-]{chapters/frontpage/frontpage.pdf}
-\cleardoublepage
-
-% -------------------- DEDICATION ------------------- %
-
-\thispagestyle{empty}
-\vspace*{\stretch{1}}
-\begin{flushleft}
-	\itshape To my family and the friends that supported me\\
-\end{flushleft}
-\vspace{\stretch{2}}
-\cleardoublepage
 
 % --------------- GENERAL MACROS ---------------- %
 
@@ -74,88 +153,132 @@
 \hyphenation{Web-Ass-em-bly}
 \hyphenation{stand-a-lone}
 
-% ------------------- ABSTRACT ------------------ %
+\begin{document}
 
-\pagenumbering{arabic}
+% Fix page styles and numbering.
+\makeevenfoot{plain}{}{{\color{light-gray} \thepage}}{}
+\makeoddfoot{plain}{}{{\color{light-gray} \thepage}}{}
+\makeevenfoot{empty}{}{}{}
+\makeoddfoot{empty}{}{}{}
+\aliaspagestyle{cleared}{empty}
 
-\chapter*[Abstract]{Abstract}
-\addcontentsline{toc}{chapter}{Abstract}
+\pagenumbering{gobble}
 
-\input{chapters/abstract.tex}
-\thispagestyle{empty}
+% ------------------ ACKNOWLEDGMENTS ---------------- %
+
+\pagestyle{empty}
+% Acknowledgements has to be in a different style.
+\section*{{\normalsize \textit{Acknowledgments}}}
+\label{chap:acknowledgments}
+\input{chapters/acks}
+\cleardoublepage
+
+% -------------------- DEDICATION ------------------- %
+
+\pagestyle{empty}
+\input{chapters/dedication}
 \cleardoublepage
 
 % --------------- TABLE OF CONTENTS --------------- %
 
-\renewcommand{\contentsname}{\vspace*{-3em} Table of Contents}
-\renewcommand{\listfigurename}{\vspace*{-3em} List of Figures}
-\renewcommand{\listtablename}{\vspace*{-3em} List of Tables}
-
+\pagestyle{preintro}
 % The asterisk prevents these from showing up in the ToC
 \tableofcontents*
-\thispagestyle{empty}
-\cleardoublepage
-
-\listoffigures*
-\thispagestyle{empty}
-\cleardoublepage
-
-\listoftables*
-\thispagestyle{empty}
 \cleardoublepage
 
 % -------------------- CONTENTS ------------------- %
 
-\chapter[Introduction]{Introduction}
+\pagenumbering{arabic}
+\setcounter{page}{1}
+\pagestyle{intro}
+
+\chapter*{Introduction}
+\label{chap:abstract}
+\addcontentsline{toc}{chapter}{Introduction}
+\input{chapters/abstract.tex}
+
+\chapter[Presentation]{Presentation}
 \label{chap:intro}
+\pagestyle{afterintro}
 \input{chapters/introduction.tex}
 
 \chapter[Methodology]{Methodology}
 \label{chap:methodology}
+\pagestyle{afterintro}
 \input{chapters/methodology/methodology.tex}
 
 \chapter[Fine-grained Access Control in Android Applications]{Fine-grained Access Control in \\ Android Applications}
 \label{chap:seapp}
+\pagestyle{afterintro}
 \input{chapters/seapp.tex}
 
 \chapter[Lightweight Cloud Application Sandboxing]{Lightweight Cloud Application \\ Sandboxing}
 \label{chap:dmng}
+\pagestyle{afterintro}
 \input{chapters/dmng.tex}
 
 \chapter[Enhancing the Sandbox of WebAssembly Runtimes]{Enhancing the Sandbox of \\ WebAssembly Runtimes}
 \label{chap:wasm}
+\pagestyle{afterintro}
 \input{chapters/wasm.tex}
 
 \chapter[Native Code Sandboxing for JavaScript Runtimes]{Native Code Sandboxing for \\ JavaScript Runtimes}
 \label{chap:natisand}
+\pagestyle{afterintro}
 \input{chapters/natisand.tex}
 
-\chapter[Conclusions and future work]{Conclusions and future work}
+\chapter*{Conclusions} % and future work
+\pagestyle{conclusions}
 \label{chap:conclusions}
+\addcontentsline{toc}{chapter}{Conclusions} % and future work
 \input{chapters/conclusions.tex}
-
-% -------------- ACKNOWLEDGMENTS ------------ %
-
-\chapter*{Acknowledgments}
-\addcontentsline{toc}{chapter}{Acknowledgments}
-\label{chap:acknowledgments}
-\input{chapters/acks.tex}
-\thispagestyle{empty}
 \cleardoublepage
 
 % -------------------- APPENDIX ------------------- %
 
-\appendix
+% Fix style in appendices.
+\thispagestyle{empty}
+\addcontentsline{toc}{chapter}{Appendices}
+\renewcommand*{\thechapter}{\arabic{chapter}}
+\renewcommand{\appendixname}{{\Large\bfseries Appendix}}
+\renewcommand*{\chapnumfont}{\Large\bfseries}
+\renewcommand*{\chaptitlefont}{\large\bfseries}
+\renewcommand{\afterchapternum}{\\\medskip}
 
+% Add Appendices page.
+\vspace*{\stretch{1}}
+\begin{center}
+  \bfseries
+  \Large
+  Appendices
+\end{center}
+\vspace{\stretch{2}}
+\cleardoublepage
+
+\appendix
+\pagestyle{appendices}
+\addtocontents{toc}{\protect\vskip -1em}
 % seapp appendix
 \input{chapters/seapp/sects/appendix.tex}
 % natisand appendix
 \input{chapters/natisand/src/appendix.tex}
+\cleardoublepage
+
+% --------------------- LISTS -------------------- %
+
+\pagestyle{afterintro}
+\listoffigures*
+\addcontentsline{toc}{chapter}{List of Figures}
+\cleardoublepage
+
+\listoftables*
+\addcontentsline{toc}{chapter}{List of Tables}
+\cleardoublepage
 
 % ------------------ BIBLIOGRAPHY ----------------- %
 
+\pagestyle{afterintro}
 \bibliographystyle{abbrv}
-\renewcommand\bibname{References}
 \bibliography{biblio.bib}
 
 \end{document}
