@@ -143,7 +143,7 @@ The developer states the \sel security contexts of internal files in
 the local \filecontexts.  Each of its entries presents three syntactic
 elements, \texttt{pathname\textunderscore regexp},
 \texttt{file\textunderscore type} and \texttt{security\textunderscore
-  context}: \texttt{pathname\textunderscore re}- \newline {\tt gexp}
+  context}: \texttt{pathname\textunderscore regexp}
 defines the directory the entry is referred to (it can be a specific
 path or a regular expression); \texttt{file\textunderscore type}
 describes the class of filesystem resource (i.e., directory, file,
@@ -174,10 +174,9 @@ its creation, transparently handling the call to our service.
 To support any third-party app, the \untrustedapp domain grants to a
 process the permissions to access all system services an app could
 require in the \manifest.  As an example, in Android 11, the
-\texttt{untrusted\textunderscore ap}- \newline {\tt p\textunderscore
+\texttt{untrusted\textunderscore app\textunderscore
   all.te} platform policy file~\cite{seapp_untrustedappte} permits to
-a process labeled with {\tt untrusted}- \newline {\tt \textunderscore
-  app} to access \texttt{audioserver}, \texttt{camera},
+a process labeled with \untrustedapp to access \texttt{audioserver}, \texttt{camera},
 \texttt{location}, \texttt{mediaserver}, \texttt{nfc} services and
 many more.
 
@@ -187,7 +186,7 @@ with a subset of the \untrustedapp privileges (in the local \sepolicy
 file), and then she ensures the components are executed in the process
 labeled with it.  Listing~\ref{seapp_lstdomains} shows an example in
 which the {\tt cameraserver} service is made accessible to the {\em
-  secret} process.  \newline
+  secret} process.
 \begin{lstlisting}[language=policyfile, caption=\seappcontexts
 example, label=seapp_lstseapp, numbersep=2pt,resetmargins=false]
  user=_app seinfo=cert_id domain=package_name.unclassified name=package.name:unclassified

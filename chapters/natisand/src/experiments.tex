@@ -32,8 +32,9 @@ sharp and fluent-ffmpeg from npm, or flat and sqlite from {\tt
   deno.land/x}.
 
 \begin{table}[!t]
+	\centering
 	\setlength{\tabcolsep}{3mm}
-	\begin{tabular*}{\columnwidth}{ l l l l l}
+	\begin{tabular*}{0.85\columnwidth}{ l l l l l}
 	  \toprule
 	  {\bf Class} & {\bf CVE Id} & {\bf Utility} & {\bf Type} & {\bf Use case}\\
           \midrule
@@ -160,7 +161,7 @@ technologies that introduce a smaller performance footprint.
 \begin{table}[!t]
 	\centering
     \setlength{\tabcolsep}{3mm}
-	\begin{tabular*}{0.8\columnwidth}{l r r r r r}
+	\begin{tabular*}{0.63\columnwidth}{l r r r r r}
 		\toprule
 		{\bf Utility} & {\bf Deno \scriptsize{[ms]}} & {\bf Minijail} & {\bf Sandbox2} & {\bf \natisand}\\
 		\midrule
@@ -188,11 +189,12 @@ technologies that introduce a smaller performance footprint.
 \end{table}
 %
 \begin{figure}[!t]
-	\begin{subfigure}{0.48\columnwidth}
+	\centering
+	\begin{subfigure}{0.46\columnwidth}
 		\includegraphics[width=\columnwidth]{chapters/natisand/fig/cropped-summary-subprocess-latency}
 	\end{subfigure}%
-	\hspace{0.5em}
-	\begin{subfigure}{0.48\columnwidth}
+	\hspace{1.5em}
+	\begin{subfigure}{0.46\columnwidth}
 		\includegraphics[width=\columnwidth]{chapters/natisand/fig/cropped-summary-subprocess-throughput}
 	\end{subfigure}
 	\caption[{Average latency and throughput of subprocess-based
@@ -295,7 +297,7 @@ Wasm.
 \begin{table}[!t]
 	\centering
 	\setlength{\tabcolsep}{3.2mm}
-	\begin{tabular*}{0.7\columnwidth}{l r r r r}
+	\begin{tabular*}{0.57\columnwidth}{l r r r r}
 		\toprule
 		{\bf Test} & {\bf Deno \scriptsize{[$\mu$s]}} & {\bf Wasm} & {\bf \natisand}\\
 		\midrule
@@ -317,11 +319,11 @@ Wasm.
 \end{table}
 %
 \begin{figure}[t!]
-	\begin{subfigure}{0.47\columnwidth}
+	\begin{subfigure}{0.46\columnwidth}
 		\includegraphics[width=\columnwidth]{chapters/natisand/fig/cropped-summary-ffi-latency.pdf}
 	\end{subfigure}%
-	\hspace{1em}
-	\begin{subfigure}{0.47\columnwidth}
+	\hspace{1.5em}
+	\begin{subfigure}{0.46\columnwidth}
 		\includegraphics[width=\columnwidth]{chapters/natisand/fig/cropped-summary-ffi-throughput.pdf}
 	\end{subfigure}
 	\caption[Average latency and throughput of native-functions-based
