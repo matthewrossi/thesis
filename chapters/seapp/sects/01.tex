@@ -18,12 +18,12 @@ associated with working exploits in markets like
 Zerodium~\cite{seapp_zerodium}, where the payouts for mobile operating
 systems are the highest\footnote{At the time of writing, US\$2.5M and
   US\$2M are paid for a zero click solution able to subvert the
-  security of Androd and iOS, respectively. }.
+  security of Android and iOS, respectively. }.
 
 A peculiar threat that characterizes mobile operating systems is the
 need to balance on one side the high sensitivity of the information,
-and on the other hand the need for users to install into the system a
-large number of applications (called simply {\em apps} in this domain)
+and on the other hand the need for users to install into the system
+numerous applications (called simply {\em apps} in this domain)
 often produced by unknown developers, which may hide malicious
 functions.  A first level of protection is offered, both in iOS and
 Android, by a preliminary screening of apps before they are made
@@ -48,7 +48,7 @@ associated with them.  Compared to classical {\em Discretionary Access
 more rigid and provides stronger guarantees against unwanted
 behaviors.  When SELinux was introduced into Android 4.3 in 2013 (see
 Figure~\ref{fig:seapp_mac_evolution}), it used a limited set of system
-domains and it was mainly aimed at separating system resources from
+domains, and it was mainly aimed at separating system resources from
 user apps.  In the next releases, the configuration of SELinux has
 progressively become more complex, with a growing set of domains
 isolating different services and resources, so that a bug or

@@ -12,42 +12,6 @@ with distinct privileges so that the app, according to the task it has
 to do, may switch to the least privileged domain needed to accomplish
 the job.
 
-\begin{table*}[h!]
-	\centering
-        \small
-	\begin{tabularx}{\textwidth}{|p{5.8em}p{0.15em}X|}
-	\hline
-	\multicolumn{3}{|l|}{\textbf{Policy module syntax}} \\ \hline
-	\textit{blockStmt} & $\to$& $($\texttt{block} \textit{blockId} \textit{cilStmt}$*$$)$ \\
-
-	\textit{cilStmt} & $\to$&  \textit{ typeStmt} $|$
-                                  \textit{typeAttrStmt} $|$
-                                  \textit{typeAttrSetStmt} $|$
-                                  \textit{typeBoundsStmt} $|$
-                                  \textit{typeTransStmt} $|$
-                                  \textit{macroStmt} $|$
-                                  \textit{allowStmt} \\
-
-	\textit{typeStmt} & $\to$ & $($\texttt{type} \textit{typeId}$)$ \\
-
-	\textit{typeAttrStmt} & $\to$& $($\texttt{typeattribute} \textit{typeAttrId}$)$ \\
-
-	\textit{typeAttrSetStmt} & $\to$ & $($\texttt{typeattributeset} \textit{typeAttrId} $($$\langle$\textit{typeId} $|$ \textit{typaAttrId$\rangle$}$+$$)$$)$ \\
-
-	\textit{typeBoundsStmt} & $\to$& $($\texttt{typebounds} \textit{parentTypeId} \textit{childTypeId}$)$ \\
-
-	\textit{typeTransStmt} & $\to$ &  $($\texttt{typetransition} \textit{sourceTypeId} \textit{targetTypeId} \textit{classId} $[$\textit{objectName}$]$ \textit{defaultTypeId}$)$ \\
-
-	\textit{macroStmt} &$\to$ &$($\texttt{call} \textit{macroId} $($\textit{typeId}$)$$)$ \\
-
-	\textit{allowStmt} & $\to$& $($\texttt{allow} $\langle$\textit{sourceTypeId} $|$ \textit{sourceTypeAttrId}$\rangle$  $\langle$\textit{targetTypeId} $|$ \textit{targetTypeAttrId} $|$ \texttt{self}$\rangle$  \textit{classPermissionId}$+$$)$ \\ \hline
-
-      \end{tabularx}
-        \caption{Application policy module CIL syntax}      
-  \label{tab:seapp_syntax}
-\end{table*}
-
-
 The app policy is specified in a module, provided by the app to
 describe its own types.  The policy module is processed at app
 installation time by a component of the system, called {\em \seapp
@@ -79,9 +43,41 @@ over TE.
 
 \subsection{Definition of types and type-attributes}
 
+\begin{table*}[t]
+	\centering
+	\begin{tabularx}{\textwidth}{p{5.8em}p{0.15em}X}
+	\textit{blockStmt} & $\to$& $($\texttt{block} \textit{blockId} \textit{cilStmt}$*$$)$ \\
+
+	\textit{cilStmt} & $\to$&  \textit{ typeStmt} $|$
+                                  \textit{typeAttrStmt} $|$
+                                  \textit{typeAttrSetStmt} $|$
+                                  \textit{typeBoundsStmt} $|$
+                                  \textit{typeTransStmt} $|$
+                                  \textit{macroStmt} $|$
+                                  \textit{allowStmt} \\
+
+	\textit{typeStmt} & $\to$ & $($\texttt{type} \textit{typeId}$)$ \\
+
+	\textit{typeAttrStmt} & $\to$& $($\texttt{typeattribute} \textit{typeAttrId}$)$ \\
+
+	\textit{typeAttrSetStmt} & $\to$ & $($\texttt{typeattributeset} \textit{typeAttrId} $($$\langle$\textit{typeId} $|$ \textit{typaAttrId$\rangle$}$+$$)$$)$ \\
+
+	\textit{typeBoundsStmt} & $\to$& $($\texttt{typebounds} \textit{parentTypeId} \textit{childTypeId}$)$ \\
+
+	\textit{typeTransStmt} & $\to$ &  $($\texttt{typetransition} \textit{sourceTypeId} \textit{targetTypeId} \textit{classId} $[$\textit{objectName}$]$ \textit{defaultTypeId}$)$ \\
+
+	\textit{macroStmt} &$\to$ &$($\texttt{call} \textit{macroId} $($\textit{typeId}$)$$)$ \\
+
+	\textit{allowStmt} & $\to$& $($\texttt{allow} $\langle$\textit{sourceTypeId} $|$ \textit{sourceTypeAttrId}$\rangle$  $\langle$\textit{targetTypeId} $|$ \textit{targetTypeAttrId} $|$ \texttt{self}$\rangle$  \textit{classPermissionId}$+$$)$ \\
+
+      \end{tabularx}
+        \caption{Application policy module CIL syntax}
+  \label{tab:seapp_syntax}
+\end{table*}
+
 CIL offers a multitude of commands to define a policy, but only a
 subset has been selected for the definition of an app policy module.
-This was done to control the impact of the policy module on the system
+This was done to control the impact of the policy module on the system,
 and it may, as a side effect, facilitate the work of the app developer
 writing the policy.
 
@@ -98,7 +94,7 @@ types using a single entity, the {\em type-attribute}.  Using the
 \typeattributeset statement we associate with a \typeattribute a set
 of types and type-attributes.  Each type-attribute essentially
 represents the set of types that is produced by the (possibly
-multi-step) expansion of its definition.  The semantics is that each
+multistep) expansion of its definition.  The semantics is that each
 of the types that directly or indirectly (using type-attributes)
 appears as the source of an allow rule will be authorized to operate
 with the specified permission on each of the types directly or
@@ -135,8 +131,8 @@ wrapped in a unique namespace obtained from the package name.  This is
 done through the {\tt block} CIL statement, which prevents the
 definition of the same \sel type twice, as the resulting global
 identifier is formed by the concatenation of the namespace and the
-local type identifier.  Also, the use of a namespace specific for the
-policy module permits to discriminate between local types or
+local type identifier.  Also, the use of a namespace specific to the
+policy module permits the differentiation between local types or
 type-attributes $T_A$ (namespace equal to the current app package
 name), types or type-attributes of other modules $T_{A'\neq A}$
 (namespace equal to some other app package), and system types or
@@ -195,7 +191,7 @@ their explicit use.  To limit system types to only those already
 dealing with untrusted content and simplifying the policy, we rely on
 CIL macros, a set of function-like statements that, when invoked by
 the \seapp policy module, produce a predefined list of policy
-statements.  This approach permits to retain control on the rules
+statements.  This approach retains control on the rules
 produced, ensuring no violation of the default system policy. Also, it
 makes the work of the developer easier, by abstracting away system
 policy internal details.  To preserve the interoperability with system
@@ -209,11 +205,9 @@ macros), and then add to it fine-grained authorizations with {\em
 %
 \begin{table}[t!]
 	\centering
-        \small
-
 	\begin{tabular}{|l|l|}
 		\hline
-                {\bf Macro}           & {\bf Usage}    \\ \hline
+                {\bf Macro}           & {\bf Usage}    \\ \hline \hline
                 {\em md\textunderscore appdomain}       & to label app domains \\ \hline
                 {\em md\textunderscore netdomain}       & to access network    \\ \hline
                 {\em md\textunderscore bluetoothdomain} & to access bluetooth  \\ \hline

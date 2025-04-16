@@ -49,14 +49,14 @@ application.
 
 Even though effective in restricting access to an entire microservice,
 the approach above can be further improved by considering the
-specifics of emerging technologies that enable finer-grined
+specifics of emerging technologies that enable finer-grained
 compartmentalization of cloud applications. In the context of
 WebAssembly runtimes (e.g., Wasmtime and WasmEdge), we highlight the
 security implications of enabling access to system resources through
 the WebAssembly System Interface (WASI), and identify opportunities
-for improvement. Here, not only our approach permits to introduce
+for improvement. Here, not only our approach permits the introduction of
 fine-grained policies to restrict file system access, it also replaces
-error-prone userspace implementations of the security checks (and the
+error-prone user space implementations of the security checks (and the
 security issues stemming from them) with a unified eBPF
 implementation.
 
@@ -71,7 +71,7 @@ code to speed up the development and execution of their applications
 and, despite that, JS runtimes do not provide built-in solutions for
 the isolation of native code, so we propose the introduction of
 \natisand; a component for JavaScript runtimes to control the
-filesystem, Inter-Process Communication (IPC), and network resources
+file system, Inter-Process Communication (IPC), and network resources
 available to binary programs and shared libraries. Our solution is
 characterized by a compact, generic architecture that fits nicely with
 modern runtimes. Internally, it leverages {\em
@@ -101,15 +101,15 @@ our prototype implementations are all available open source.
 
 The book is organized in six chapters.
 
-\paragraph*{Chapter~\ref{chap:intro}} illustrates the document
+\textbf{Chapter~\ref{chap:intro}} illustrates the document
 structure and the publications that set the basis for this book.
 
-\paragraph*{Chapter~\ref{chap:methodology}} showcases the
+\textbf{Chapter~\ref{chap:methodology}} showcases the
 methodological approach employed to investigate the use of
 fine-grained access control technologies to protect resources in
 mobile and cloud applications.
 
-\paragraph*{Chapter~\ref{chap:seapp}} describes \seapp~\cite{seapp}, a
+\textbf{Chapter~\ref{chap:seapp}} describes \seapp~\cite{seapp}, a
 proposal that provides developers with a mechanism to isolate the
 internal components of Android apps and regulate their permissions on
 a per-component basis. This is achieved by first executing components
@@ -154,7 +154,7 @@ approach.
 \end{compactitem}
 \medskip
 
-\paragraph*{Chapter~\ref{chap:dmng}} highlights the limitations of
+\textbf{Chapter~\ref{chap:dmng}} highlights the limitations of
 the cloud technologies available at the time of writing with regard to
 fine-grained access control of system resources. Then, it addresses
 the problem proposing an approach that restrict application access to
@@ -168,7 +168,7 @@ security boundary of the cloud application.
 \smallskip
 \noindent The chapter is organized as follows.
 \begin{compactitem}
-    \item Section~\ref{dmng:sect:introduction} presents the challeges
+    \item Section~\ref{dmng:sect:introduction} presents the challenges
      of securing cloud applications and briefly discusses the state of
      the art to identify opportunities for improvement.
     \item Section~\ref{sect:motivation} discusses the objectives of
@@ -193,7 +193,7 @@ security boundary of the cloud application.
 \end{compactitem}
 \medskip
 
-\paragraph*{Chapter~\ref{chap:wasm}} explores the use of WebAssembly
+\textbf{Chapter~\ref{chap:wasm}} explores the use of WebAssembly
 outside of web browsers thanks to WebAssembly runtimes (e.g., Wasmtime
 and WasmEdge). Specifically, it highlights the security implications
 of enabling access to system resources through the WebAssembly System
@@ -226,7 +226,7 @@ fine-grained per-module policies.
 \end{compactitem}
 \medskip
 
-\paragraph*{Chapter~\ref{chap:natisand}} considers the use of
+\textbf{Chapter~\ref{chap:natisand}} considers the use of
 JavaScript (JS) and TypeScript (TS) for implementing the backend of
 cloud applications. In this setting, the execution of JS code on the
 server-side is enabled by JS runtimes (i.e., Node.js, Deno and Bun).
@@ -236,7 +236,7 @@ native code raise security concerns, since they effectively break the
 isolation between the JS application and the host OS. Identifying these
 clear security issues, this chapter proposes \natisand, a component for
 JavaScript runtimes that leverages {\em Landlock}, {\em eBPF}, and
-{\em Seccomp} to control the filesystem, Inter-Process Communication
+{\em Seccomp} to control the file system, Inter-Process Communication
 (IPC), and network resources available to binary programs and shared
 libraries. We demonstrate the effectiveness and efficiency of our
 approach by implementing and integrating it into Deno, a modern,
@@ -250,7 +250,7 @@ security-oriented JavaScript runtime.
      limitations with regard to controlling native code access to
      system resources.
     \item Section~\ref{sectbackground} overviews the structure of
-     moderm JS runtimes and provides background on the components
+     modern JS runtimes and provides background on the components
      used by \natisand to build the sandbox.
     \item Section~\ref{sect:sci-ffi} motivates the need of
      ad hoc access restrictions for native code highlighting the
@@ -272,13 +272,21 @@ security-oriented JavaScript runtime.
 \end{compactitem}
 \medskip
 
-\paragraph*{Chapter~\ref{chap:conclusions}} draws the conclusions and
+\textbf{Chapter~\ref{chap:conclusions}} draws the conclusions and
 discusses future work.
 
 \section{Publications}
 
-This section presents the list of publications authored during the
-Ph.D. course that set the basis for this book.
+This section presents the list of publications that set the basis for this book.
+
+\subsubsection*{Thesis}
+
+\begin{itemize}
+    \nocite{thesis}
+    \item Matthew Rossi, ``\textbf{Fine-grained Access Control
+        Technologies to Protect Resources in Mobile and Cloud
+        Applications}''. Università degli Studi di Bergamo. 2024.
+\end{itemize}
 
 \subsubsection*{Articles in journals}
 
@@ -295,7 +303,8 @@ Ph.D. course that set the basis for this book.
     \item Sabrina De Capitani di Vimercati, Dario Facchinetti, Sara
         Foresti, Gianluca Oldani, Stefano Paraboschi, Matthew Rossi,
         and Pierangela Samarati. ``\textbf{Multi-Dimensional Flat
-        Indexing for Encrypted Data}''. Under submission.
+        Indexing for Encrypted Data}''. IEEE Transactions on Cloud
+        Computing (TCC), Volume 12, Issue 3. IEEE 2024.
 \end{itemize}
 
 \subsubsection*{Papers in proceedings of international conferences}

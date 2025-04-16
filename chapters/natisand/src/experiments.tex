@@ -188,24 +188,6 @@ technologies that introduce a smaller performance footprint.
 	  for common Linux utilities}
 \end{table}
 %
-\begin{figure}[!t]
-	\centering
-	\begin{subfigure}{0.46\columnwidth}
-		\includegraphics[width=\columnwidth]{chapters/natisand/fig/cropped-summary-subprocess-latency}
-	\end{subfigure}%
-	\hspace{1.5em}
-	\begin{subfigure}{0.46\columnwidth}
-		\includegraphics[width=\columnwidth]{chapters/natisand/fig/cropped-summary-subprocess-throughput}
-	\end{subfigure}
-	\caption[{Average latency and throughput of subprocess-based
-	  microservices}]{
-	  Average latency and throughput for microservices that execute
-	  subprocesses
-	}
-	\label{fig:subprocess-lat-through}
-
-\end{figure}
-
 \paragraph{Benchmark II}
 %
 While the experiments part of Benchmark I focus on the server side
@@ -220,21 +202,38 @@ client. Similarly to the previous case, the test was repeated for each
 of the four configurations: Deno, \natisand, Minijail, and Sandbox2. This
 time the HTTP benchmarking tool {\em wrk} was used to measure the
 performance of each microservice.  Network bandwidth and latency are 1
-Gbps and 10 ms, respectively, while 100 warmup requests were carried
+Gbps and 10 ms, respectively, while 100 warm-up requests were carried
 out. Figure~\ref{fig:subprocess-lat-through} shows the average latency
 and the throughput observed over a period of 30 seconds. The results
 once again confirm the previous analysis, as longer durations make the
-cost to setup the native sandbox less relevant. It is worth to mention
+cost to set up the native sandbox less relevant. It is worth to mention
 that \natisand exhibits lower overhead compared to Minijail and Sandbox2,
 with approximately 5 to 10 ms less latency for each microservice.
 
+\begin{figure}[!t]
+	\centering
+	\begin{subfigure}{0.45\columnwidth}
+		\includegraphics[width=\columnwidth]{chapters/natisand/fig/cropped-summary-subprocess-latency}
+	\end{subfigure}%
+	\hspace{2em}
+	\begin{subfigure}{0.45\columnwidth}
+		\includegraphics[width=\columnwidth]{chapters/natisand/fig/cropped-summary-subprocess-throughput}
+	\end{subfigure}
+	\caption[{Average latency and throughput of subprocess-based
+	  microservices}]{
+	  Average latency and throughput for microservices that execute
+	  subprocesses
+	}
+	\label{fig:subprocess-lat-through}
+
+\end{figure}
 
 \paragraph{Usability}
 %
 Although general purpose sandboxers can be used to restrict the
 permissions associated with executables, to provide a protection
 comparable to \natisand: (i) they force the developer to introduce changes in
-the web application, and (ii) they require to understand in depth the
+the web application, and (ii) they require understanding in depth the
 techniques used by the kernel to restrict ambient rights (e.g.,
 capabilities, namespaces, Seccomp filters). Another problem is that to
 restrict IPC and network with Minijail and Sandbox2 it is necessary to
@@ -263,7 +262,7 @@ the overhead experienced on the server when native libraries are
 executed. In this case three configurations are evaluated: Deno, \natisand,
 and Wasm. The application tests the operations provided by four
 popular libraries: (i) libxml2, to open and query XML data, (ii) libpng, to read metadata information and verify the
-signature of a png image, (iii) opus to encode and create an audio
+signature of a PNG image, (iii) opus to encode and create an audio
 trace, and (iv) sqlite3, to open and query the Northwind
 database. Test durations were again measured with {\tt Deno.bench()},
 and the results are reported in
@@ -317,22 +316,6 @@ Wasm.
 		common native libraries (* marks the use of {\tt nativeCall})
 	}
 \end{table}
-%
-\begin{figure}[t!]
-	\begin{subfigure}{0.46\columnwidth}
-		\includegraphics[width=\columnwidth]{chapters/natisand/fig/cropped-summary-ffi-latency.pdf}
-	\end{subfigure}%
-	\hspace{1.5em}
-	\begin{subfigure}{0.46\columnwidth}
-		\includegraphics[width=\columnwidth]{chapters/natisand/fig/cropped-summary-ffi-throughput.pdf}
-	\end{subfigure}
-	\caption[Average latency and throughput of native-functions-based
-		microservices]{
-		Average latency and throughput for microservices that execute
-		native functions (* marks the use of {\tt nativeCall})
-	}
-	\label{fig:native-lib-latecy-throughput}
-\end{figure}
 
 \paragraph{Usability}
 %
@@ -342,10 +325,26 @@ used a precompiled version of sqlite3, but we had to manually compile
 opus and libpng using the Emscripten toolchain~\cite{emscripten} and
 the WASI Sdk~\cite{wasi-sdk}, respectively. Moreover, current implementations of the WebAssembly
 System Interface (WASI) can only restrict ambient rights
-programmatically, and filesystem privileges work at
+programmatically, and file system privileges work at
 directory granularity. Lastly, Wasm requires the developer to
 explicitly allocate, write, and read bytes from the Wasm module linear
 memory.
+
+\begin{figure}[t!]
+	\begin{subfigure}{0.45\columnwidth}
+		\includegraphics[width=\columnwidth]{chapters/natisand/fig/cropped-summary-ffi-latency.pdf}
+	\end{subfigure}%
+	\hspace{2em}
+	\begin{subfigure}{0.45\columnwidth}
+		\includegraphics[width=\columnwidth]{chapters/natisand/fig/cropped-summary-ffi-throughput.pdf}
+	\end{subfigure}
+	\caption[Average latency and throughput of native-functions-based
+		microservices]{
+		Average latency and throughput for microservices that execute
+		native functions (* marks the use of {\tt nativeCall})
+	}
+	\label{fig:native-lib-latecy-throughput}
+\end{figure}
 
 
 %%% Local Variables:

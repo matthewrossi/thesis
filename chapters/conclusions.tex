@@ -6,7 +6,7 @@ mitigating security threats in the Android mobile operating system.
 \seapp empowers developers with the capability of isolating the
 internal components of Android apps and regulate their permissions on
 a per-component basis. This crucial step not only limits the impact a
-vulnerability has on the app resources, but it also allows to provide
+vulnerability has on the app resources, but it also allows providing
 strong user privacy guarantees and meet data privacy regulations
 despite the use of third-party code.
 
@@ -18,26 +18,26 @@ technologies such as VMs and containers, which are associated with
 coarse granularity, we demonstrate that our proposal enables the
 introduction of fine-grained, per-resource access rules. Then, we
 further explore the topic in the context of WebAssembly runtimes.
-Here, not only the approach permits to introduce fine-grained
+Here, not only the approach permits the introduction of fine-grained
 policies to restrict file system access, it also replaces error-prone
-userspace implementations of the security checks (and the security
+user space implementations of the security checks (and the security
 issues stemming from them) with a unified eBPF implementation.
 Finally, we consider the specific use of JavaScript runtimes for the
 creation of cloud applications, and how developers commonly rely on
 native code to speed up development and execution of the application.
 Since JS runtimes do not provide solutions for the isolation of native
 code, we propose \natisand, a runtime-agnostic component to control
-the filesystem, Inter-Process Communication (IPC), and network
+the file system, Inter-Process Communication (IPC), and network
 resources available to binary programs and shared libraries.
 
 During our research work, considerable attention was dedicated to the
 performance and usability of our proposals. The work presented in this
 book represent the final result of multiple improving iterations to
 ensure small performance footprint and high usability by developers.
-Indeed, these are very important aspects since the lower the
-performance side-effects and the effort on behalf of the developer to
-integrate our solutions with existing applications, the broader will
-be the adoption of our security mechanisms. With this regard, to
+Indeed, these are very important aspects, as the lower the performance
+side effects and the effort for developers to integrate our solutions
+with existing applications, the broader the adoption of our security
+mechanisms will be. With this regard, to
 facilitate the integration of our solutions with existing real systems
 and foster the reproducibility of our experimental evaluations, our
 prototype implementations are all available open source.
@@ -52,7 +52,7 @@ This section concludes the book with a discussion on the future work
 that can be done in the area of fine-grained access control
 technologies to protect resources in mobile and cloud applications.
 
-\noindent{\bf Mobile applications} -- Chapter~\ref{chap:seapp}
+\paragraph*{Mobile applications} Chapter~\ref{chap:seapp}
 describes \seapp, a novel proposal that provides developers with a
 mechanism to isolate the internal components of Android apps and
 regulate their permissions on a per-component basis. This is
@@ -70,7 +70,7 @@ Security Modules and memory protection techniques an interesting and
 promising evolution of our work with the potential to solve both these
 limitations and, thus, further promote adoption.
 
-\noindent{\bf Cloud applications} -- Chapter~\ref{chap:dmng},
+\paragraph*{Cloud applications} -- Chapter~\ref{chap:dmng},
 ~\ref{chap:wasm}, and~\ref{chap:natisand} highlight limitations of the
 cloud technologies available at the time of writing with regard to
 fine-grained access control of system resources. Each chapter provides
@@ -84,7 +84,7 @@ enabling access to system resources through the WebAssembly System
 Interface (WASI), and proposes improvements in the controlling access
 to file system resources. Chapter~\ref{chap:natisand} considers the
 use of JS runtimes for the implementation of cloud applications, and
-proposes \natisand, a component to control the filesystem,
+proposes \natisand, a component to control the file system,
 Inter-Process Communication (IPC), and network resources available to
 binary programs and shared libraries. Interesting future work could
 extend the observability and protection to a wider set of system

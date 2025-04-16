@@ -11,7 +11,6 @@ were disabled.  The change in CPU configuration has been performed to
 reduce the variability of measures.  The confidence intervals provided
 have an associated confidence level of 99\%.
 
-
 \subsection{App installation}
 
 The introduction of dedicated app policies implies further steps to be
@@ -33,27 +32,25 @@ per policy module, (ii) \emph{ordinary}, 10 domains and 25 types, and
 larger apps can gain considerable benefit from the use of a large
 policy.  The \emph{basic} configuration mimics how third-party apps
 are currently handled, but with some key improvements, as it permits
-to define the subset of services the domain can use, and it permits to
+to define the subset of services the domain can use, and to
 enforce app isolation, not only based on MAC category, but also
 through the specification of its own type.  The \emph{ordinary} and
 \emph{huge} policy configurations are meant to take full advantage of
 intra-app isolation and flexibility via the definition of multiple
 domains.
-%
-\begin{figure}[t]
-	\centering
-	\includegraphics[width=0.6\columnwidth]{chapters/seapp/data/top100_cumulative}
-	\caption[Cumulative install time overhead of the top 100 free apps
-      with our policies]{
-        \label{fig:seapp_benchmark100} Cumulative install time
-        overhead when installing the top 100 free apps on Google Play
-        Store with our policies
-    }
-\end{figure}
-%
 Each test was repeated five times, measuring the time each package
 took to install.  The measurements were done with the *nix {\em date}
 utility.
+
+\begin{figure}[t]
+	\centering
+  \subfloat{\includegraphics[width=0.45\columnwidth]{chapters/seapp/data/three_kinds_basic}}
+  \hspace{2em}
+  \subfloat{\includegraphics[width=0.45\columnwidth]{chapters/seapp/data/three_kinds_ordinary}}
+  \\
+  \subfloat{\includegraphics[width=0.45\columnwidth]{chapters/seapp/data/three_kinds_huge}}
+	\caption{\label{fig:seapp_three_kinds} Installation time overhead for apps with different complexity}
+\end{figure}
 
 \noindent{\bf Test I.}
 To measure the overhead caused by the presence of the policy module,
@@ -101,14 +98,33 @@ Android 10.
 In Table~\ref{tab:seapp_policy} we report the sizes of the overall
 policies for the three scenarios considered in this experiment.  We
 report the number of MAC types, the number of produced AV rules, and
-the overall size in KBytes of the binary policy.
-%
+the overall size in kilobytes of the binary policy.
+
+\begin{figure}[t]
+  \centering
+  \begin{minipage}[t]{.48\textwidth}
+    \centering
+    \includegraphics[width=0.95\columnwidth]{chapters/seapp/data/top100_cumulative}
+    \caption[Cumulative install time overhead of the top 100 free apps
+      with our policies]{
+      \label{fig:seapp_benchmark100} Cumulative install time
+      overhead when installing the top 100 free apps on Google Play
+      Store with our policies
+    }
+  \end{minipage}
+  \hfill
+  \begin{minipage}[t]{.48\textwidth}
+    \centering
+    \includegraphics[width=0.95\columnwidth]{chapters/seapp/data/overheads}
+    \caption{\label{fig:seapp_install_time} Install time overhead for the three policy sizes}
+  \end{minipage}
+\end{figure}
+
 \begin{table}[h!]
 	\centering
-        \small
 	\begin{tabular}{|l|r|r|r|}
 		\hline
-		\textbf{policy} & \textbf{\#types} & \textbf{\#avrules} & \textbf{KB} \\ \hline
+		\textbf{Policy} & \textbf{\#types} & \textbf{\#avrules} & \textbf{size [KB]} \\ \hline \hline
 		system & 1536 & 29228 &  596 \\ \hline
 		system + 100 basic & 1836 & 47028 &  867 \\ \hline
 		system + 100 ordinary & 6036 & 213228 &  3512 \\ \hline
@@ -117,12 +133,6 @@ the overall size in KBytes of the binary policy.
 	\caption{Policy size}
 	\label{tab:seapp_policy}
 \end{table}
-%
-\begin{figure}[t]
-	\centering
-	\includegraphics[width=0.6\columnwidth]{chapters/seapp/data/overheads}
-	\caption{\label{fig:seapp_install_time} Install time overhead for the three policy sizes}
-\end{figure}
 
 
 \subsection{Runtime performance}
@@ -163,15 +173,14 @@ times the app reuses a previously instantiated one.
 
 \begin{table}[h]
   \centering
-  \small
-  \begin{tabular}{|l|c|c|c|c|c|c|c|c|} \cline{2-9}
-    \multicolumn{1}{c|}{}&\multicolumn{4}{c|}{\textbf{Cold start
-                           (ms)}}&\multicolumn{4}{c|}{\textbf{Warm start (ms)}} \\
+  \begin{tabular}{|l|c|c|c|c|c|c|c|c|}
     \cline{1-9}
+    \multicolumn{1}{|c|}{\multirow{3}{*}{\textbf{Component}}}&\multicolumn{4}{c|}{\textbf{Cold start
+                           [ms]}}&\multicolumn{4}{c|}{\textbf{Warm start [ms]}} \\
+    \cline{2-9}
+    &\multicolumn{2}{c|}{\textbf{\emph{Stock OS}}}&\multicolumn{2}{c|}{\textbf{\emph{\seapp}}}&\multicolumn{2}{c|}{\textbf{\emph{Stock OS}}}&\multicolumn{2}{c|}{\textbf{\emph{\seapp}}}  \\ \cline{2-9}
 
-    \multicolumn{1}{|c|}{\multirow{2}{*}{\textbf{\emph{Component}}}}&\multicolumn{2}{c|}{\textbf{\emph{Stock OS}}}&\multicolumn{2}{c|}{\textbf{\emph{\seapp}}}&\multicolumn{2}{c|}{\textbf{\emph{Stock OS}}}&\multicolumn{2}{c|}{\textbf{\emph{\seapp}}}  \\ \cline{2-9}
-
-    \multicolumn{1}{|c|}{}  & $\mu$ & $\sigma$ & $\mu$ & $\sigma$ & $\mu$ & $\sigma$ & $\mu$ & $\sigma$   \\ \hline
+    \multicolumn{1}{|c|}{}  & $\mu$ & $\sigma$ & $\mu$ & $\sigma$ & $\mu$ & $\sigma$ & $\mu$ & $\sigma$   \\ \hline \hline
 
         LocalActivity		& 39.102	& 1.094	& 38.689	& 0.980	& 21.052	& 6.046	& 18.685	& 5.001	\\ \cline{1-9}
         RemoteActivity	& 123.468	& 3.176	& 124.649	& 3.526	& 15.722	& 2.682	& 15.933	& 3.256	\\ \cline{1-9}
@@ -215,11 +224,10 @@ overhead only occurs at file creation and every subsequent operation
 on the file does not exhibit any performance degradation.
 
 \begin{table}[h]
-  \small \centering
+  \centering
   \begin{tabular}{|l|c|c|}
     \hline
-    \multicolumn{3}{|c|}{\textbf{File creation}}  \\ \hline \hline
-    \textbf{\textit{Test}} & \textbf{$\mu$ (\textmu s)} & \textbf{$\sigma$ (\textmu s)} \\ \hline
+    \textbf{Test} & \textbf{$\mu$ [\textmu s]} & \textbf{$\sigma$ [\textmu s]} \\ \hline \hline
         Stock OS			&  57.077	&  5.174		\\ \hline
         \seapp				&  60.696	&  6.782		\\ \hline
         \seapp +                          & \multirow{2}{*}{431.472} & \multirow{2}{*}{109.494} \\
@@ -228,7 +236,6 @@ on the file does not exhibit any performance degradation.
   \caption{File creation performance}
   \label{tab:seapp_file_creation}
 \end{table}
-
 
 %%% Local Variables: 
 %%% mode: latex

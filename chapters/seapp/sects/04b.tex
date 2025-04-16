@@ -45,14 +45,14 @@ not possible a priori, all third-party apps are labeled with the
 
 \sel splits the configuration of security contexts of files between
 \filecontexts and \genfscontexts, with the former used with
-filesystems that support extended file attributes (e.g., \data), while
+file systems that support extended file attributes (e.g., \data), while
 the latter with the ones that do not (e.g., \proc).  To apply
 \filecontexts updates, two approaches are available: either rebuild
-the filesystem image, or run \restorecon operation on the file or
+the file system image, or run \restorecon operation on the file or
 directory to be relabeled (this is the default method used by
 permissioned system processes).  Conversely, to apply \genfscontexts
-changes, a reboot of the device or a sequence of filesystem {\em
-  un-mount} and {\em mount} operations has to be performed.
+changes, a reboot of the device or a sequence of file system {\em
+  unmount} and {\em mount} operations has to be performed.
 
 \subsubsection{Services}
 
@@ -137,6 +137,14 @@ services, broadcast receivers and content providers, while avoiding
 changes to the \textit{PackageParser}~\cite{seapp_packparse}, as there
 are no modifications to the manifest schema.
 
+\begin{lstlisting}[language=policyfile, caption=\seappcontexts
+  example, label=seapp_lstseapp, numbersep=2pt,resetmargins=false,
+  breakatwhitespace=true,postbreak=\mbox{{$\hookrightarrow$}\space},
+  breakindent=1ex]
+user=_app seinfo=cert_id domain=package_name.unclassified name=package.name:unclassified
+user=_app seinfo=cert_id domain=package_name.secret name=package.name:secret
+\end{lstlisting}
+
 \subsubsection{Files}\label{subsub:seapp_files_control}
 
 The developer states the \sel security contexts of internal files in
@@ -146,7 +154,7 @@ elements, \texttt{pathname\textunderscore regexp},
   context}: \texttt{pathname\textunderscore regexp}
 defines the directory the entry is referred to (it can be a specific
 path or a regular expression); \texttt{file\textunderscore type}
-describes the class of filesystem resource (i.e., directory, file,
+describes the class of file system resource (i.e., directory, file,
 etc.); \texttt{security\textunderscore context} is the security
 context used to label the resource.  The admissible entries are those
 confined to the app dedicated directory and using types defined by the
@@ -168,6 +176,13 @@ alternative implementation of class \texttt{java.io.File}, named
 \texttt{android.os.File}, which sets file and directory context upon
 its creation, transparently handling the call to our service.
 
+\begin{lstlisting}[language=policyfile, caption=\filecontexts
+  example, label=seapp_lstfile, numbersep=2pt,resetmargins=false]
+.*                u:object_r:app_data_file:s0
+dir/unclassified  u:object_r:package_name.unclassified_file:s0
+dir/secret        u:object_r:package_name.secret_file:s0
+\end{lstlisting}
+
 
 \subsubsection{System services}\label{subsub:seapp_service_control}
 
@@ -187,19 +202,7 @@ file), and then she ensures the components are executed in the process
 labeled with it.  Listing~\ref{seapp_lstdomains} shows an example in
 which the {\tt cameraserver} service is made accessible to the {\em
   secret} process.
-\begin{lstlisting}[language=policyfile, caption=\seappcontexts
-example, label=seapp_lstseapp, numbersep=2pt,resetmargins=false]
- user=_app seinfo=cert_id domain=package_name.unclassified name=package.name:unclassified
- user=_app seinfo=cert_id domain=package_name.secret name=package.name:secret
-\end{lstlisting}
-%
-\begin{lstlisting}[language=policyfile, caption=\filecontexts
-example, label=seapp_lstfile, numbersep=2pt,resetmargins=false]
- .*                u:object_r:app_data_file:s0
- dir/unclassified  u:object_r:package_name.unclassified_file:s0
- dir/secret        u:object_r:package_name.secret_file:s0
-\end{lstlisting}
-%
+
 \begin{lstlisting}[language=policyfile, caption=Granting \texttt{cameraserver}
 access to secret domain, label=seapp_lstdomains, numbersep=2pt,resetmargins=false]
 (block package_name

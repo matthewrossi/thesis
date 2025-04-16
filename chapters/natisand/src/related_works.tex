@@ -6,8 +6,8 @@ and industrial communities~\cite{berman1995tron, kim2013practical,
   demarinis2020sysfilter, minijail, sandbox2, firejail,
   bubblewrap,seapp,enhance-wasm-sandbox}.  {\em MBOX}~\cite{
   kim2013practical} features an unprivileged sandboxing mechanism that
-prevents a process from modifying the host filesystem by layering the
-sandbox filesystem on top of it. The solution is implemented by
+prevents a process from modifying the host file system by layering the
+sandbox file system on top of it. The solution is implemented by
 interposing syscalls using Seccomp and {\em ptrace}. The use of {\em
   ptrace} required the authors careful attention to avoid the risk of
 TOCTOU attacks, moreover it suffers from non-negligible performance
@@ -24,12 +24,12 @@ resource used. {\em BPFBox}~\cite{ findlay2020bpfbox}, {\em
 confinement of processes and containers with the use of eBPF.  These
 solutions highlight the benefit of eBPF by providing simple, efficient,
 and flexible confinement of system resources, however these solutions
-either require a privileged daemon or require to load kernel modules
+either require a privileged daemon or require loading kernel modules
 to introduce a set of {\em dynamic helpers}.   Often,
 industrial sandboxing solutions take advantage of multiple protection
 techniques to support process containment. This is the case for {\em
   Minijail}~\cite{minijail}, and {\em Sandbox2}~\cite{ sandbox2}. Some
-of the security mechanisms used are: introduction of new user ids,
+security mechanisms used are: introduction of new user identifiers,
 capabilities restriction, namespace isolation and policy-based Seccomp
 filtering. These tools expose a powerful interface meant
 to be used by security experts. Similar considerations are shared with
@@ -59,7 +59,7 @@ framework to isolate libraries in lightweight sandboxes -- i.e.,
 process, Wasm. It facilitates the retrofitting of applications
 employing static information flow enforcement and dynamic checks
 expressed in the C++ type system. These solutions were designed for
-compiled languages, so while some of the concepts are portable to JS
+compiled languages, so while some concepts are portable to JS
 runtimes, the solutions are not easily adapted to this domain.
 
 A recent study by Staicu et al.~\cite{staicu2021bilingual} highlights
@@ -84,7 +84,7 @@ application context available to external modules. Process and
 container isolation enable the protection of native code, however the
 specification of their permissions are beyond the scope of the
 proposal.
-{\em Cage4deno}~\cite{cage4deno} protects filesystem resources from subprocesses
+{\em Cage4deno}~\cite{cage4deno} protects file system resources from subprocesses
 executed by JavaScript runtimes.
 {\em BinWrap}~\cite{binwrap} separates the execution of
 third-party components from the rest of the application using distinct
@@ -104,14 +104,14 @@ works in this domain~\cite{vasilakis2021preventing, sandtrap,
   npm-malicious-update} propose a lightweight permission system providing
 per-package on/off switches that limit access to Node.js core modules
 (e.g., child\_process, fs, http). By doing so, it can prohibit access
-to subprocess, filesystem, and network resources for the JS
-code. Similarly, \natisand takes care of protecting filesystem, IPC, and
+to subprocess, file system, and network resources for the JS
+code. Similarly, \natisand takes care of protecting file system, IPC, and
 network resources, targeting native code. {\em Mir}~\cite{
   vasilakis2021preventing} is a system preventing the compromise of
 the application by third-party modules with the enforcement of
 fine-grained RWX permissions on every field of every variable in the
 JS context. \natisand adopts an equivalent permission model to contain
-native code when accessing filesystem resources. Another research work
+native code when accessing file system resources. Another research work
 enforcing security boundaries stated in a policy is {\em
   SandTrap}~\cite{sandtrap}. The approach enforces fine-grained
 access control policies on cross-domain interactions between

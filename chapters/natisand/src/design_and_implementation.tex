@@ -36,8 +36,8 @@ effort required to take advantage of \natisand should be extremely
 low. Ideally, a single configuration file specifying the ambient
 rights associated with each compartment should be enough to
 successfully configure it. To facilitate the transition from no
-sandboxing to complete isolation, a valuable solution should permit to
-start by sandboxing the components associated with the highest risk,
+sandboxing to complete isolation, a valuable solution should permit
+starting by sandboxing the components associated with the highest risk,
 and then gradually extend the protection to the remainder of the
 application.
 
@@ -67,7 +67,7 @@ rights. This allows the developer to configure fine-grained access to
 confidential or privileged system resources, such as files, message
 queues, shared memory areas, sockets, and other resources.
 
-\natisand separates system resources into three categories: filesystem,
+\natisand separates system resources into three categories: file system,
 IPC, and network. By default, native code sandboxed by our solution
 cannot access any privileged resource in each category. Indeed, the
 developer must explicitly grant access to resources using a
@@ -79,21 +79,21 @@ and no effort needs to be spent by the developer to understand how
 permissions are enforced.
 
 Internally, \natisand leverages dedicated Linux Security Modules to
-restrict access to each resource category.  Filesystem-related
+restrict access to each resource category.  File-system-related
 permissions are enforced using Landlock, while the availability of IPC
 channels to interact with other processes or services already running
 on the host is controlled with Seccomp and eBPF. Finally, eBPF constrains the ability
 to open new connections and limits the devices reachable by a context.
 Three important characteristics are
 shared by the selected LSMs: (i) they are lightweight, (ii) they do
-not require to leverage root permissions while the application is
+not require leveraging root permissions while the application is
 running, and (iii) they operate in stacking
 mode~\cite{smalley2001implementing}, hence they are
 compatible with other LSMs already running on the host, such as
 AppArmor, SELinux, and SMACK. The stacking behavior also means that
 whenever the access decisions of two LSMs do not match, deny takes
 precedence. To give an example, Seccomp can deny the application to
-create a fifo file, even when Landlock grants the permission to write
+create a FIFO file, even when Landlock grants the permission to write
 in the target directory.
 
 \begin{figure}[t]
@@ -206,7 +206,7 @@ used to execute the native code~\whitecircle{3}.
 Specifically, when there is a request to run an executable,
 the JS runtime forks a process. On the other hand, when a shared
 library should be loaded, a thread is spawned. The consequence is
-that any request to access filesystem, IPC, and network resources will
+that any request to access file system, IPC, and network resources will
 be subject to the restrictions imposed by the LSMs
 (\whitecircle{4a},~\whitecircle{4b},~\whitecircle{4c}). The approach
 implemented by \natisand ensures that native code is never loaded nor
@@ -236,8 +236,8 @@ a new entry into the map of restricted contexts. The entry
   map. No intervention by the developer is required, as policy
 inheritance is transparently handled by our solution.
 
-\paragraph{Filesystem}
-\natisand restricts access to the filesystem using Landlock. The sandbox
+\paragraph{File system}
+\natisand restricts access to the file system using Landlock. The sandbox
 enforces a straightforward {\tt read}, {\tt write}, {\tt exec} (RWX)
 permission model, specified with three allow-list vectors (e.g., lines
 5, 6, and 7 in Listing~\ref{natisand:lst:policy_file}). After the security
@@ -245,7 +245,6 @@ context has been activated, the available permissions can only be
 further restricted.
 
 \begin{table}[!t]
-	\small
 	\begin{tabular}{cc}
 	  \parbox{0.47\columnwidth}{
       \centering
@@ -282,9 +281,9 @@ further restricted.
 To explain the isolation features \natisand provides, we start with a
 description of how programs and libraries generally use IPC.
 Native programs often rely on parallelism and concurrency to achieve
-high resource utilization. Parallel execution typically requires to
-handle synchronization and communication between a parent and a group
-of child tasks. In this setting, best practice suggests to provide the
+high resource utilization. Parallel execution typically requires
+handling synchronization and communication between a parent and a group
+of child tasks. In this setting, best practice suggests providing the
 children with the necessary communication channels through the
 inheritance properties of the {\tt clone} syscall~\cite{doc-pipe}. For
 instance, when two programs are piped in the Bash shell, an IPC
@@ -304,7 +303,7 @@ problems.
 To block the communication between components associated with
 incompatible security contexts, \natisand by default denies IPC over
 globally visible communication mechanisms. In this category there are
-fifo (i.e., named pipes), message queues, named semaphores,
+FIFO (i.e., named pipes), message queues, named semaphores,
 non-private shared memory, signals, and UNIX named sockets.  Many of
 these mechanisms can be fully blocked by denying access to the related
 system calls, but in some cases the evaluation of syscall
@@ -330,14 +329,14 @@ reported in Table~\ref{table:hooks}b (which are not affected by TOCTOU
 issues, since they operate on arguments that were previously deep
   copied by the kernel). In particular, in the case of UNIX sockets the programs are
 attached to the {\tt lsm/socket\_bind} and {\tt lsm/socket\_connect}
-hooks, while for fifo files the kernel function {\tt fifo\_open} is
+hooks, while for FIFO files the kernel function {\tt fifo\_open} is
 used. A summary of the IPC mechanisms controlled by \natisand, along with
 the LSMs leveraged to perform the security checks, is reported in
 Table~\ref{table:ipc}.
 
 \paragraph{Network}
 %
-\natisand permits to control how each isolated context connects to network
+\natisand permits controlling how each isolated context connects to network
 resources. In detail, it permits to completely revoke access to the
 network, to connect only to a restricted list of hosts, and when
 needed, to use the network without restrictions. The sandboxer relies
@@ -386,7 +385,6 @@ connections~\cite{doc-accept}.
 
 \begin{table}[t!]
 \centering
-\small	
 \setlength{\tabcolsep}{0.06cm}
 \begin{tabular}{| l | l | l | c | c |}
   \hline
@@ -423,7 +421,7 @@ connections~\cite{doc-accept}.
   problem and have proposed countermeasures~\cite{RLBox,
     kirth2022pkru, wu2012codejail, cali, vasilakis2018breakapp,
     binwrap}. In general, these works are compatible with the design
-  of our solution, therefore they could be used in conjuction with
+  of our solution, therefore they could be used in conjunction with
   \natisand to improve isolation of shared libraries. Among them,
   BreakApp~\cite{vasilakis2018breakapp} and BinWrap~\cite{binwrap}
   propose approaches tailored for interpreted languages, but they

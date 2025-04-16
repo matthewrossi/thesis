@@ -4,10 +4,10 @@ This section presents our experimental evaluation. In the first part
 (Section~\ref{dmng:sect:exp-mitig}), we show the benefits coming from the
 introduction of sandboxing in cloud applications. In detail, we
 reproduce a sample of CVEs affecting open source software, and
-showcase how the sandbox mitigates the exploits. In the second part
+showcase how the sandbox mitigates the exploits. Then, in the second part
 (Section~\ref{dmng:sect:exp-perf}), we analyze the performance
 overhead. Specifically, we implement an application that performs
-various operations on media resources, and then evaluate the
+various operations on media resources, and evaluate the
 degradation of latency when sandboxing and eBPF-based monitoring are
 activated. The tests have been executed on a workstation with Arch
 Linux, kernel version 6.4, an AMD Ryzen 5 7600X CPU, 32 GB RAM, and 1
@@ -48,7 +48,7 @@ protections extend to a broader set of CVEs.
     \midrule
     CVE-2020-29599  & ImageMagick  & v7.0.10-36  & A bug in the PDF codec enables arbitrary code execution \\
     \midrule
-    CVE-2022-1292  & OpenSSL  & v3.0.2 & Improper sanitisation allows command injection \\
+    CVE-2022-1292  & OpenSSL  & v3.0.2 & Improper sanitization allows command injection \\
     \midrule
     CVE-2021-22204   & ExifTool        &  v12.23 & Improper neutralization of user data in the DjVu file format is used to run arbitrary executables \\
     \bottomrule
@@ -75,20 +75,21 @@ introduced by the network, which may make harder to visualize latency
 degradation for short-lived operations.
 
 \begin{figure*}[t!]
-  \begin{subfigure}[b]{0.5\linewidth}
+  \begin{subfigure}[b]{0.45\linewidth}
     \centering
     \includegraphics[width=\linewidth]{chapters/dmng/fig/convert_small.pdf}
     \caption{32x32 image resolution}
     \label{fig:convert-small-times}
   \end{subfigure}
-  \begin{subfigure}[b]{0.5\linewidth}
+  \hspace{2em}
+  \begin{subfigure}[b]{0.45\linewidth}
     \centering
     \includegraphics[width=\linewidth]{chapters/dmng/fig/convert_med.pdf}
     \caption{640x480 image resolution}
     \label{fig:convert-med-times}
   \end{subfigure}
   \begin{center}
-    \begin{subfigure}[b]{0.5\linewidth}
+    \begin{subfigure}[b]{0.45\linewidth}
       \centering
       \includegraphics[width=\linewidth]{chapters/dmng/fig/convert_large.pdf}
       \caption{1920x1080 image resolution}
@@ -103,23 +104,24 @@ degradation for short-lived operations.
 \end{figure*}
 
 \begin{figure*}[t!]
-  \begin{subfigure}[b]{0.5\linewidth}
+  \begin{subfigure}[b]{0.45\linewidth}
     \centering
     \includegraphics[width=\linewidth]{chapters/dmng/fig/ffmpeg_1.pdf}
-    \caption{6 seconds 480p video}
+    \caption{6-seconds 480p video}
     \label{fig:ffmpeg1-times}
   \end{subfigure}
-  \begin{subfigure}[b]{0.5\linewidth}
+  \hspace{2em}
+  \begin{subfigure}[b]{0.45\linewidth}
     \centering
     \includegraphics[width=\linewidth]{chapters/dmng/fig/ffmpeg_10.pdf}
-    \caption{1 minute 480p video}
+    \caption{1-minute 480p video}
     \label{fig:ffmpeg10-times}
   \end{subfigure}
   \begin{center}
-    \begin{subfigure}[b]{0.5\linewidth}
+    \begin{subfigure}[b]{0.45\linewidth}
       \centering
       \includegraphics[width=\linewidth]{chapters/dmng/fig/ffmpeg_100.pdf}
-      \caption{10 minutes 480p video}
+      \caption{10-minutes 480p video}
       \label{fig:ffmpeg100-times}
     \end{subfigure}
   \end{center}
@@ -149,7 +151,7 @@ the application leverages {\em ffmpeg} to decode, copy, cut, loop and
 extract audio from videos with 480p resolution and with 6 seconds, 1
 minute, and 10 minutes duration respectively. The results are shown in
 Figure~\ref{fig:ffmpeg-times}. The overhead introduced by sandboxing
-is perceptible only for the decode and copy operations on the shortest
+is perceptible only for decode and copy operations on the shortest
 video (6 seconds). However, it never exceeds 18.3\%. As expected, the
 overhead becomes practically negligible for operations that take
 longer than 100 ms. The same considerations extend to the eBPF-based

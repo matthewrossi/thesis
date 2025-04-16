@@ -32,7 +32,7 @@ would not fit into the current Android
 architecture~\cite{seapp_tapsm_m}.
 
 {\em FlaskDroid}~\cite{seapp_flaskdroid} defines a versatile
-middleware and kernel layer policy language.  It is based on Userspace
+middleware and kernel layer policy language.  It is based on User Space
 Object Managers (USOMs), which control access to services, intents and
 data stored in Content Providers.  However, FlaskDroid does not focus
 on intra-app compartmentalization, a central aspect in our proposal.
@@ -52,8 +52,8 @@ attention to internal compartmentalization.
 {\em DroidCap}~\cite{seapp_droidcap} is a recent contribution proposed
 by Dawoud and Bugiel, in which the authors propose to replace
 Android's UID-based ambient authority (DAC) with per-process Binder
-object capabilities.  The proposal is interesting as it permits to
-achieve security compartmentalization between different app
+object capabilities.  The proposal is interesting as it permits the
+achievement of secure compartmentalization between different app
 components. To introduce capability-based access control on files,
 {\em DroidCap} had to integrate {\em Capsicum for
   Linux}~\cite{seapp_capsic} in Android. Overall, DroidCap is a nicely
@@ -75,7 +75,7 @@ to rely on.
 
 {\em AFrame}~\cite{seapp_aframe} and {\em
   CompARTist}~\cite{seapp_10.1145/3133956.3134064} propose to
-compartmentalize third-party libs from their host app using a separate
+compartmentalize third-party libraries from their host app using a separate
 process with a dedicated UID. In {\em AFrame} the Android Manifest is
 modified with the introduction of library ad-hoc permissions, while
 {\em CompARTist} uses compile time app rewriting. Both proposals do

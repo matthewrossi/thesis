@@ -28,11 +28,11 @@ an isolated context (we call it the {\em JS context}), a development
 platform requires complementary features to be fully functional. For
 instance, a backend web application may need to open network
 connections, handle several concurrent HTTP requests, or access the
-filesystem to read configuration files. To address these requirements,
+file system to read configuration files. To address these requirements,
 the architecture of a modern runtime extends the engine with various
 runtime-specific components dedicated to the interaction with the host
 system. A few well-known functions implemented following this design
-pattern are: interaction with the filesystem (e.g., fs, Deno.FsFile),
+pattern are: interaction with the file system (e.g., fs, Deno.FsFile),
 creation of UNIX sockets (e.g., net), and exposure of HTTP servers
 (e.g., http, Deno.serveHttp).
 
@@ -65,7 +65,7 @@ being executed, while with {\em command}, the runtime first delegates
 to the OS the creation of a process with the {\tt clone} system call,
 then performs an {\tt exec} to replace the process image and run the
 desired program.  Independently of the runtime used, both APIs require
-to execute code outside of the isolated context managed by the engine,
+executing code outside the isolated context managed by the engine,
 as shown in Figure~\ref{fig:js_runtime}, which means that this code
 runs with the same privileges of the user executing the entire JS
 application.
@@ -92,7 +92,7 @@ in the kernel starting from release 5.13. The goal of Landlock is to
 enable unprivileged applications to restrict their ambient rights in
 accordance with the least privilege principle. Ambient rights are
 specified by {\em rulesets} -- i.e., simple structures that
-associate a set of permissible actions with a filesystem path (e.g.,
+associate a set of permissible actions with a file system path (e.g.,
 {\tt read} and {\tt exec} over the resources stored in {\tt
   /tmp}). Several rulesets can be combined to determine the final set
 of actions available to an application. To make them effective, a call
@@ -108,7 +108,7 @@ is fully composable with other LSMs already available on the host, such
 as SELinux, AppArmor and SMACK.
 %
 Although Landlock offers a simple, yet powerful, sandboxing API,
-currently, the protection offered is only limited to the filesystem.
+currently, the protection offered is only limited to the file system.
 
 
 \subsubsection*{BPF}
@@ -138,8 +138,8 @@ hooks. Specifically, LSM hooks correspond to the functions
   used by LSMs (e.g. SELinux) to perform security decisions and are
   characterized by operating entirely on arguments in kernel memory.
 To persist information between distinct invocations of the same
-program, data structures named {\em maps} are used. Maps also permit
-to share data among eBPF programs and user space
+program, data structures named {\em maps} are used. Maps also enable
+sharing data among eBPF programs and user space
 applications.
 
 eBPF programs are written in bytecode and are loaded into the kernel
@@ -154,11 +154,11 @@ two-phase process comprising {\em program verification} and {\em JIT
 is safe to execute by the kernel. The second phase instead ensures the
 bytecode is optimized, hence it can be run as efficiently as compiled
 kernel code on the underlying architecture. In case no errors are
-raised, the eBPF program is attached to the proper hook and it is ready
+raised, the eBPF program is attached to the proper hook, and it is ready
 to be executed.
 
 Modern eBPF development is facilitated by the presence of {\em
-  frontends}. These frameworks permit to write eBPF programs in a C
+  frontends}. These frameworks permit writing eBPF programs in a C
 dialect, and also assist the developer in automatically performing the
 steps needed to load and attach the programs to the intended hooks
 (see Figure~\ref{fig:bpf_sandbox}). In the work presented in this
@@ -179,7 +179,7 @@ versions.
 
 Seccomp~\cite{seccompbpf} is a mechanism
 provided by the Linux kernel to restrict the system calls
-available to a userspace application. The rationale is that the
+available to a user space application. The rationale is that the
 implementation of system calls may be affected by bugs or errors,
 therefore reducing the kernel surface exposed to an unprivileged
 application narrows the attack surface.
@@ -188,7 +188,7 @@ The initial implementation of Seccomp restricted the set of allowed
 system calls only to {\tt exit}, {\tt sigreturn}, {\tt read} and {\tt
   write} (on previously opened file
 descriptors)~\cite{edge2015seccomp}. The implementation was greatly
-extended in 2012, and it now permits to intercept system calls and
+extended in 2012, and it now permits intercepting system calls and
 determine whether each of them is safe to execute.
 To this purpose a {\em filter} program written in the cBPF
 dialect must be provided. Unfortunately, a classic program has only

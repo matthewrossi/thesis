@@ -6,7 +6,7 @@ on the backend, namely Node.js, Deno, and Bun. As highlighted in
 Section~\ref{sect:background-js-runtime}, their architectures have
 strong similarities, and NatiSand is designed to be compatible with
 all of them (since no assumption is made on specific runtime
-components). Nevertheless the integration is not trivial, and it requires
+components). Nevertheless, the integration is not trivial, and it requires
 significant engineering effort, therefore we integrated \natisand into only
 one of them to demonstrate the achievement of the set objectives
 (Section~\ref{subsect:objectives}). In this section we explain our
@@ -30,8 +30,7 @@ explicitly grants it. Deno provides the
 {\em Node Compatibility Mode}~\cite{deno-compatibility-mode}, a
 feature enabling the reuse of
 code and libraries originally built for Node.js. The availability of
-this function permits to
-import packages hosted by Deno on {\tt deno.land/x}, as well as
+this function permits importing packages hosted by Deno on {\tt deno.land/x}, as well as
 modules published to npm. To conclude, Node.js and Deno prevail
 over Bun on popularity and security-oriented features. Node.js wins over Deno on
 popularity (but Deno is quickly growing), they are comparable in terms
@@ -103,7 +102,7 @@ developers two alternatives: (i) turn off
 the fast call support and safely rely on the execution of sandboxed
 native functions with \natisand without any code change, and (ii) enable insecure fast calls but
 allow to select the JS functions that need to be isolated with minimal code changes. The second
-option permits to take advantage of fast calls when performance is
+option enables taking advantage of fast calls when performance is
 critical and risks are limited (e.g., arithmetic operations), and at
 the same time benefit from the security features \natisand provides. To
 this end, we introduced a new API named {\tt Deno.nativeCall()}. The API receives, as first argument, the name of the function

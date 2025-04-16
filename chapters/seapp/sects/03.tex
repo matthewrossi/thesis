@@ -34,7 +34,7 @@ common security problems in Android
 apps~\cite{seapp_common_play_protect_vulnerabilites} that were
 implemented in the showcase app.
 
-\begin{figure}[h]
+\begin{figure}[t]
 	\centering
 	\includegraphics[width=0.8\columnwidth]{chapters/seapp/figs/seapp_showcase_app}
 	\caption{\label{fig:seapp_showcase} Security Enhanced App}
@@ -44,7 +44,7 @@ implemented in the showcase app.
 
 Android apps can collect data from multiple sources, and the system
 provides many options to store it.  The default one is {\em Internal
-  Storage}: a filesystem region, located at \dataappdir, reserved to
+  Storage}: a file system region, located at \dataappdir, reserved to
 each package.  Its content is available to all app's internal
 components and inaccessible to any other app.  Since data can be
 extremely sensitive, the developer may be interested in restricting
@@ -104,7 +104,7 @@ the device location.
 
 App developers often have to consider that the input provided to the
 app can come from untrusted sources.  A typical example is the
-rendering of complex Javascript code performed by WebView.  The
+rendering of complex JavaScript code performed by WebView.  The
 solution currently offered by Android is to execute these potentially
 dangerous actions within a sandbox using {\em isolatedprocess}, i.e.,
 a special process that is isolated from the rest of the system and has
@@ -196,7 +196,7 @@ privileges at the application layer, \seapp could be used as building
 block to enforce such restrictions at the MAC layer too, enabling
 defense in depth. Moreover, SEApp could also work in conjunction with
 other solutions that work at MAC level such as {\em
-  FlaskDroid}~\cite{seapp_flaskdroid}, to benefit of its Userspace
+  FlaskDroid}~\cite{seapp_flaskdroid}, to benefit of its User Space
 Object Managers (USOMs) coverage of the Android system services and
 provide finer granularity in access to services.
 

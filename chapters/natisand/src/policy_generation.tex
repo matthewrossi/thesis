@@ -44,15 +44,15 @@ program.
 
 \subsubsection*{Fs}
 
-The fs element is used to configure filesystem-related permissions. Fs
+The fs element is used to configure file-system-related permissions. Fs
 stores three optional arrays: {\em read}, {\em write} and {\em
-  exec}. Filesystem paths are used as array values. As an example, the
+  exec}. File system paths are used as array values. As an example, the
 context detailed in Listing~\ref{natisand:lst:policy_file} can read and execute
 the curl binary, and write to {\tt response.json} in the current
 working directory of the web application. In case the developer wants
 to operate with a coarser granularity, the value {\tt true} can be
 used to replace any of the {\em fs}, {\em read}, {\em write} and {\em
-  exec} arrays to grant access to the whole filesystem.
+  exec} arrays to grant access to the whole file system.
 
 \subsubsection*{Ipc}
 
@@ -66,15 +66,15 @@ of the underlying architecture and enforce the policy when IPC is
 performed between groups of threads associated with separate
 contexts. No understanding of the standards available (e.g., System V,
 POSIX) is required by developers to restrict the permissions
-associated with their application. Similarly to the filesystem case, the
+associated with their application. Similarly to the file system case, the
 developer can use a coarser granularity by setting the {\em ipc}
 element to {\tt true}, enabling all communication mechanisms.
 Notice that globally available IPC channels are often bound to
-filesystem resources, so, while the granularity of the six flags
+file system resources, so, while the granularity of the six flags
 described above may seem coarse, finer-grained permissions can be
 specified leveraging the path associated with the IPC resource.
 For example, the developer can restrict the use of a specific named
-pipe (pinned to the filesystem) by using its fully qualified path.
+pipe (pinned to the file system) by using its fully qualified path.
 
 \subsubsection*{Net}
 
@@ -82,7 +82,7 @@ Web application developers are often interested in restricting the
 hosts an application can connect to. The policy permits to
 specify an array of reachable hosts. Each host is fully qualified by
 its URL/IP, and the sequence of permitted ports. As in the case of the
-filesystem, the policy permits to grant access to the network without
+file system, the policy permits granting access to the network without
 limitations (setting {\em net} to {\tt true}), enable all the ports
 for a specific host (setting {\em ports} to {\tt true}), or completely
 remove access to the network (leveraging the default-deny
@@ -137,7 +137,7 @@ from multiple tests, and refine policies interactively.
 In the following we provide details on
 the work we performed for each of the protected subsystems.
 
-\subsubsection*{Filesystem}
+\subsubsection*{File system}
 
 The automatic retrieval of the dependencies of a binary is a
 well-known problem. Our utility is capable to discover the
@@ -147,7 +147,7 @@ spawned by dedicated POSIX or shell wrappers. The utility first uses
 dependencies, then, it relies on {\em strace}~\cite{linux-strace} to
 monitor the interaction between the kernel and a traced binary, so to
 complement the information previously found with additional
-filesystem permissions.
+file system permissions.
 
 \subsubsection*{IPC}
 
@@ -175,7 +175,7 @@ for IPs we observe network socket connections using {\tt kprobes} on
     getaddrinfo} with a dedicated eBPF program, which also updates the
   eBPF map of allowed hosts accordingly. By doing so we make sure that
   the security checks reflect the policy. This approach can also be
-  extended monitorng DNS traffic on port 53, hence providing support
+  extended monitoring DNS traffic on port 53, hence providing support
   for native components that do not rely on libc functions.  
 
 \vspace{2 mm}

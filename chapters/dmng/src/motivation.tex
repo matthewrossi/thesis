@@ -65,8 +65,8 @@ Modern cloud applications are often deployed as Kubernetes Pod
 instances and executed in one or more containers. Kubernetes provides
 several tools to improve the security and isolation of Pods. Relevant
 to this scenario are the support for RBAC policies and the
-availability of restricted Seccomp profiles. RBAC policies by default
-permit to define access of human users, however, they can also be used
+availability of restricted Seccomp profiles. RBAC policies
+are meant to define access of human users, however, they can also be used
 to govern the behavior of software resources through {\em service
   accounts}. Unfortunately, these policies can only restrict access to
 Kubernetes APIs, therefore they are not suitable for fine-grained

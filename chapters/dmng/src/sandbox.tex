@@ -34,9 +34,9 @@ permitted on each {\em object} (e.g., file, directory). The sandboxer
 separates the available actions to match the {\tt rwx} categories, and
 then leverages the {\em landlock\textunderscore create\textunderscore
   ruleset()} and {\em landlock\textunderscore add\textunderscore
-  rule()} interfaces to populate the rulesets accordingly. To activate
+  rule()} interfaces to populate the ruleset accordingly. To activate
 the restrictions, a call to {\em landlock\textunderscore
-  restrict\textunderscore self()} is perfomed. The process is
+  restrict\textunderscore self()} is performed. The process is
 illustrated in Figure~\ref{fig:landlock}.
 
 An important property defined by Landlock is {\em policy inheritance}.

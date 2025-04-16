@@ -4,7 +4,7 @@
 JS runtimes let developers specify the set of access privileges given
 to a web application~\cite{deno-permissions, node-permissions}.  This
 is possible through a set of configuration flags that, when specified,
-allow to constrain how JS code can access system resources.  This is a
+allow constraining how JS code can access system resources.  This is a
 significant security improvement compared to the past, where
 applications were able to access any underlying system
 resource~\cite{staicu2018synode, zimmermann-risks}.  However,
@@ -41,9 +41,9 @@ recognition (e.g., Tesseract), and many others.  The native code may
 contain vulnerabilities, which may be exploited and lead to a variety
 of security violations.
 
-\paragraph{{Filesystem compromise}}
+\paragraph{{File system compromise}}
 Guaranteeing the integrity and confidentiality of the application host
-filesystem is crucial to mitigate risks of data corruption and
+file system is crucial to mitigate risks of data corruption and
 exfiltration~\cite{berman1995tron}. As a whole a web application often has access
 to many critical resources: databases, executables, private keys, user
 confidential files, etc. When native code is executed, it can use the
@@ -51,7 +51,7 @@ same privileges of the web application.  In line with the
 least privilege principle, the potentially vulnerable components
 should be able to access only the files needed to perform their
 duties.  Authorizing access only to the needed portions of the
-filesystem restricts what can be read, written or run by an attacker,
+file system restricts what can be read, written or run by an attacker,
 highly limiting the security risk associated with the presence of
 vulnerabilities.
 
@@ -95,7 +95,7 @@ may be malicious due to supply chain attacks, or affected by
 vulnerabilities due to incorrect memory management, improper data
 validation, etc. Protection against attacks targeting JS code is out
 of the scope of our proposal, since we consider JS engines and the
-permissions system enforced by JS runtimes able to securely render JS
+permission system enforced by JS runtimes able to securely render JS
 code. \natisand aims to constrain the execution of potentially malicious, or vulnerable,
 binary utilities and functions used by JS applications.  This native
 code accesses system resources unconstrained by the security

@@ -1,5 +1,19 @@
 \section{Architecture}\label{design}
 
+\begin{figure}[t!]
+     \centering
+     \includegraphics[width=0.8\columnwidth]{chapters/wasm/fig/wasi-bpf}
+     \caption[eBPF-based restriction of Wasm modules]{
+          eBPF-based restriction of Wasm modules. The runtime
+          instantiates the Wasm module (\blackcircle{A}), and
+          configures the associated policy calling the traced user
+          probe (\blackcircle{B}). After the Wasm module is run, all
+          the hostcalls issued by the program (\whitecircle{1}) are
+          restricted by eBPF (\whitecircle{2}, \whitecircle{3})
+     }
+     \label{fig:arch}
+\end{figure}
+
 Our analysis starts from the scenario illustrated in
 Figure~\ref{fig:wasi}. Currently, WASI-compliant runtimes
 implement dedicated user-space wrappers to enforce the
@@ -13,7 +27,7 @@ Three permissions are available: (i) {\tt read} to open and read a
 file, (ii) {\tt write} to modify, truncate and append content to a
 file, and (iii) {\tt delete} to remove the file. When permissions are
 related to a directory, {\tt read} translates to listing its content,
-{\tt write} allows to create and delete files within it. We extended the Wasmtime
+{\tt write} allows the creation and deletion of files within it. We extended the Wasmtime
 and WasmEdge runtimes to load the policy at startup, and, instead of
 pre-opening the directories available to the Wasm module, we enforce
 the policy with eBPF. eBPF code is split into programs attached to a
@@ -48,27 +62,13 @@ immediately after the process running the runtime terminates.
 
 This architecture offers several advantages. First, it eliminates the
 risks coming from buggy user-space security checks (e.g., wrong
-filepath resolution~\cite{parentfix}, wrong directory
+path resolution~\cite{parentfix}, wrong directory
 removal~\cite{removedirfix}). Then, by leveraging kernel hook
 points~\cite{bpf-lsm-hooks}, our approach allows the runtime developer
 to focus on the interaction between Wasm code and the memory unsafe
 system call, leaving aside authorizations and policy-related issues.
 Lastly, access constraints can be audited by simply looking at the
 JSON policy, instead of inspecting the code.
-
-\begin{figure}[t!]
-     \centering
-     \includegraphics[width=0.9\columnwidth]{chapters/wasm/fig/wasi-bpf}
-     \caption[eBPF-based restriction of Wasm modules]{
-          eBPF-based restriction of Wasm modules. The runtime
-          instantiates the Wasm module (\blackcircle{A}), and
-          configures the associated policy calling the traced user
-          probe (\blackcircle{B}). After the Wasm module is run, all
-          the hostcalls issued by the program (\whitecircle{1}) are
-          restricted by eBPF (\whitecircle{2}, \whitecircle{3})
-     }
-     \label{fig:arch}
-\end{figure}
 
 
 %%% Local Variables:

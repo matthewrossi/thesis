@@ -32,12 +32,12 @@ them with the policy of the system.  Then, as last operation of the
 SELinux setup stage, \init re-executes itself to transition from the
 initial \kernel domain to the \initdomain domain, entering the second
 stage.  As the second stage starts, \init parses the \initrc files and
-performs the builtin functions listed there, among them mounting the
+performs the built-in functions listed there, among them mounting the
 \data partition.  Now, the policy modules are available, and we can
 produce with \secilc~\cite{seapp_secilccom} (the \sel CIL compiler)
 the binary policy consisting of the integration among the system
 policy, the \seapp macros and the app policy modules.  To trigger the
-build and reload of the policy, we implemented a new builtin function,
+build and reload of the policy, we implemented a new built-in function,
 and modified the \initrc to call this function right after \data is
 mounted.  The policy is considered immediately after the \data
 partition is available and this ensures that the policy modules are
@@ -69,7 +69,7 @@ the user made to the device configuration, including the apps.  By
 placing the app policy modules and the apps into the same partition, a
 factory reset removes the policy modules as well.
 
-\begin{figure}[h]
+\begin{figure}[t]
 	\begin{center}
 		\includegraphics[width=0.8\columnwidth]{chapters/seapp/figs/app_installation}
 	\end{center}
@@ -81,7 +81,7 @@ factory reset removes the policy modules as well.
 As introduced in Section~\ref{subsect:seapp_structure}, the developer
 willing to define its own policy module is expected to load it in the
 app package.  At app installation, the \pms~\cite{seapp_pmsserva}
-inspects the APK to identify whether or not the current installation
+inspects the APK to identify whether the current installation
 involves a policy module, by looking for the \apkpolicydir directory
 at the root of the archive.  When the app has a policy module attached
 to it (see Figure~\ref{fig:seapp_install}), the \pms extracts it
@@ -110,7 +110,7 @@ changed the system policy to allow \installd to load the app policy
 module.
 
 As for the policy configuration files, some changes were introduced to
-load the application \filecontexts, \seappcontexts and
+load the application \filecontexts, \seappcontexts, and
 \macpermissions.  {\em SELinuxMMAC}~\cite{seapp_mmacsel}, i.e., the
 class responsible for loading the appropriate \macpermissions file and assigning \seinfo values
 to apks, was modified to load the new \macpermissions specified within
@@ -161,7 +161,7 @@ routed by the system to the {\em
 the {\em ActivityManagerService} checks if the process in which the
 target component should be executed is already running; if not, the
 native service called \zygote~\cite{seapp_zygoterfi} is executed.  Its
-role is to spawn and correctly setup the new application process.  To
+role is to spawn and correctly set up the new application process.  To
 achieve this, it first replicates itself by performing a fork, then,
 using the input provided by the {\em ActivityManagerService} (namely,
 package name, \seinfo, {\tt android:process}, etc.), it starts
@@ -190,7 +190,7 @@ the developer could explicitly state a domain transition in the code,
 wherever she needs it.  Although this category of solutions would give
 the developers more control over domain transitions, it also has some
 drawbacks.  First, the developer would be expected to enforce the
-isolation among source and target domains managing the multi-threaded
+isolation among source and target domains managing the multithreaded
 scenario, and second, this design implies granting too many
 permissions to the app (e.g., \dyntransition, \setcurrent and
 read/write access to \selinuxfs).  Moreover, such solution would
@@ -244,7 +244,7 @@ the correct labeling (\whitecircle{6}).
 
 We also investigated three other implementation approaches: (i) change
 of the default security context inheritance behavior for the {\em
-  ext4} filesystem, (ii) execution of the \sel \restorecon operation
+  ext4} file system, (ii) execution of the \sel \restorecon operation
 by the app, once the file is successfully created, and (iii) use of
 \restorecond~\cite{seapp_restorecondd}.  The first option would change
 the default behavior system-wide.  As it might cause compatibility
@@ -261,16 +261,6 @@ scale, especially considering that \seapp needs to manage all files
 created by \seapp-aware apps.  Another major issue is that this approach
 is exposed to race conditions, because there is a delay between file
 creation and its relabeling.
-
-\begin{figure}[h]
-	\centering
-  \subfloat{\includegraphics[width=185pt]{chapters/seapp/data/three_kinds_basic}}        
-  \hfill
-  \subfloat{\includegraphics[width=185pt]{chapters/seapp/data/three_kinds_ordinary}}
-  \\
-  \subfloat{\includegraphics[width=185pt]{chapters/seapp/data/three_kinds_huge}}
-	\caption{\label{fig:seapp_three_kinds} Installation time overhead for apps with different complexity}
-\end{figure}      
 
 
 %%% Local Variables: 

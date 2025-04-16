@@ -15,13 +15,13 @@ target, and applied runtime-specific optimization
 (with {\tt wasmedgec}~\cite{wasmedgec} for WasmEdge and with
 {\tt wasmtime compile}~\cite{wasmtimecompile} for Wasmtime) to further
 speed up the code. Then, we reproduced
-the benchmarks reported in the coreutils repository, with the
-exception of those that are not portable to WASI due to temporary lack
+the benchmarks reported in the coreutils repository, except for
+those that are not portable to WASI due to temporary lack
 of support (e.g., the {\tt dd} utility needs to spawn threads, a
 feature that is yet to be implemented~\cite{wasi-threads}). Finally, we
 repeated the experiments with our protection in place. The Hyperfine
 benchmarking tool~\cite{hyperfine} was used to log measures, and 1000
-runs were performed (with 100 warmups). As shown from the results in Table~\ref{table:exp}, our approach introduces
+runs were performed (with 100 warm-ups). As shown from the results in Table~\ref{table:exp}, our approach introduces
 a limited overhead, ranging from an additional 0.12\% to 6.30\% for
 WasmEdge, and from 0.28\% to 14.29\% for Wasmtime. As expected, the
 highest overhead is experienced by short-living utilities (e.g.,
@@ -52,7 +52,7 @@ mostly caused by the specific post-compilation optimizations.
 	\caption[Average execution time of coreutils with and without our approach]{
 		\label{table:exp} Average execution time in {\em ms} of the
 		coreutils without and with* our approach (\% overhead in
-		parenthesis)
+		parentheses)
 	}
 \end{table}
 %%% Local Variables:
