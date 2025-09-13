@@ -37,7 +37,6 @@ protections extend to a broader set of CVEs.
 
 \begin{table}[!t]
   \footnotesize
-  \caption{\label{table:cve} Sample of CVEs reproduced in our evaluation}
   \setlength{\tabcolsep}{0.2cm}
   \begin{tabularx}{\columnwidth}{ l l l >{\raggedright\arraybackslash}X}
     \toprule
@@ -53,6 +52,7 @@ protections extend to a broader set of CVEs.
     CVE-2021-22204   & ExifTool        &  v12.23 & Improper neutralization of user data in the DjVu file format is used to run arbitrary executables \\
     \bottomrule
   \end{tabularx}
+  \caption{\label{table:cve} Sample of CVEs reproduced in our evaluation.}
 \end{table}
 
 \subsection{Overhead}\label{dmng:sect:exp-perf}
@@ -78,27 +78,27 @@ degradation for short-lived operations.
   \begin{subfigure}[b]{0.45\linewidth}
     \centering
     \includegraphics[width=\linewidth]{chapters/dmng/fig/convert_small.pdf}
-    \caption{32x32 image resolution}
+    \caption{32x32 image resolution.}
     \label{fig:convert-small-times}
   \end{subfigure}
   \hspace{2em}
   \begin{subfigure}[b]{0.45\linewidth}
     \centering
     \includegraphics[width=\linewidth]{chapters/dmng/fig/convert_med.pdf}
-    \caption{640x480 image resolution}
+    \caption{640x480 image resolution.}
     \label{fig:convert-med-times}
   \end{subfigure}
   \begin{center}
     \begin{subfigure}[b]{0.45\linewidth}
       \centering
       \includegraphics[width=\linewidth]{chapters/dmng/fig/convert_large.pdf}
-      \caption{1920x1080 image resolution}
+      \caption{1920x1080 image resolution.}
       \label{fig:convert-large-times}
     \end{subfigure}
   \end{center}
   \caption[Latency of image processing operations]{
       Latency associated with various operations for an image
-      processing application
+      processing application.
   }
   \label{fig:convert-times}
 \end{figure*}
@@ -107,27 +107,27 @@ degradation for short-lived operations.
   \begin{subfigure}[b]{0.45\linewidth}
     \centering
     \includegraphics[width=\linewidth]{chapters/dmng/fig/ffmpeg_1.pdf}
-    \caption{6-seconds 480p video}
+    \caption{6-seconds 480p video.}
     \label{fig:ffmpeg1-times}
   \end{subfigure}
   \hspace{2em}
   \begin{subfigure}[b]{0.45\linewidth}
     \centering
     \includegraphics[width=\linewidth]{chapters/dmng/fig/ffmpeg_10.pdf}
-    \caption{1-minute 480p video}
+    \caption{1-minute 480p video.}
     \label{fig:ffmpeg10-times}
   \end{subfigure}
   \begin{center}
     \begin{subfigure}[b]{0.45\linewidth}
       \centering
       \includegraphics[width=\linewidth]{chapters/dmng/fig/ffmpeg_100.pdf}
-      \caption{10-minutes 480p video}
+      \caption{10-minutes 480p video.}
       \label{fig:ffmpeg100-times}
     \end{subfigure}
   \end{center}
   \caption[Latency of video processing operations]{
       Latency associated with various operations for a video
-      processing application
+      processing application.
   }
   \label{fig:ffmpeg-times}
 \end{figure*}

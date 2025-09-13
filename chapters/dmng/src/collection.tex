@@ -49,7 +49,7 @@ identify the set of dynamic libraries they depend upon.
   \includegraphics[width=0.6\columnwidth]{chapters/dmng/fig/ptrace_overview.pdf}
   \caption[Architecture of the ptrace-based instrumentation]{\dmng acts as a
     tracer for the application, inspecting the arguments of every
-    syscall}
+    syscall.}
   \label{fig:ptrace}
 \end{figure}
 
@@ -84,7 +84,7 @@ terminate without exceptions then the loading of the program is successful.
   \includegraphics[width=0.7\columnwidth]{chapters/dmng/fig/ebpf_overview.pdf}
   \caption[Architecture of the eBPF-based instrumentation]{\dmng uses
     libbpf to load the eBPF tracing programs and maps, then it polls
-    data from the shared ring buffer}
+    data from the shared ring buffer.}
   \label{fig:ebpf}
 \end{figure}
 
@@ -118,7 +118,6 @@ unmodified.
 
 \begin{table}[t]
   \centering
-  \caption{List of file system traced hook points}
   \label{table-fs-hooks}
   \begin{tabular}{ l }
     \toprule
@@ -147,6 +146,7 @@ unmodified.
     {\tt lsm/mmap\textunderscore file}                                                    \\
     \bottomrule
   \end{tabular}
+  \caption{List of fil system traced hook points.}
 \end{table}
 
 
