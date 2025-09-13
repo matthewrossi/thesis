@@ -42,7 +42,8 @@ follows.
   language=policyfile, caption=Showcase app \seappcontexts,
   numbersep=2pt, resetmargins=false, label=seapp_seappctxp,
   aboveskip=4mm, belowskip=1mm, breakatwhitespace=true,
-  postbreak=\mbox{{$\hookrightarrow$}\space}, breakindent=1ex
+  postbreak=\mbox{{$\hookrightarrow$}\space}, breakindent=1ex,
+  captionpos=b
 ]
 user=_app seinfo=showcase_app domain=com_example_showcaseapp.core_logic_d name=com.example.showcaseapp:core_logic levelFrom=all
 user=_app seinfo=showcase_app domain=com_example_showcaseapp.user_logic_d name=com.example.showcaseapp:user_logic levelFrom=all
@@ -53,7 +54,8 @@ user=_app seinfo=showcase_app domain=com_example_showcaseapp.media_d name=com.ex
   language=policyfile, caption=Showcase app \filecontexts,
   numbersep=2pt,resetmargins=false, label=seapp_filectxp,
   aboveskip=2mm, belowskip=1mm, breakatwhitespace=true,
-  postbreak=\mbox{{$\hookrightarrow$}\space}, breakindent=1ex
+  postbreak=\mbox{{$\hookrightarrow$}\space}, breakindent=1ex,
+  captionpos=b
 ]
 .*                  u:object_r:app_data_file:s0
 files/confidential  u:object_r:com_example_showcaseapp.confidential_t:s0
@@ -62,7 +64,7 @@ files/ads_cache     u:object_r:com_example_showcaseapp.ads_t:s0
 \begin{lstlisting}[
   language=policyfile, caption=Showcase app \macpermissions,
   numbersep=2pt, resetmargins=false, label=seapp_macctxp,
-  aboveskip=2mm, belowskip=1mm
+  aboveskip=2mm, belowskip=1mm, captionpos=b
 ]
 <?xml version="1.0" encoding="iso-8859-1"?>
 <policy>
@@ -77,6 +79,7 @@ files/ads_cache     u:object_r:com_example_showcaseapp.ads_t:s0
   language=policyfile, caption=Showcase app \sepolicy,
   numbersep=2pt, resetmargins=false, label=seapp_sepolctxp,
   aboveskip=2mm, belowskip=1mm, basicstyle=\footnotesize\ttfamily,
+  captionpos=b
 ]
 (block com_example_showcaseapp
   ; creation of domain types

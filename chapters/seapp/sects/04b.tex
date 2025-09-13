@@ -138,9 +138,9 @@ changes to the \textit{PackageParser}~\cite{seapp_packparse}, as there
 are no modifications to the manifest schema.
 
 \begin{lstlisting}[language=policyfile, caption=\seappcontexts
-  example, label=seapp_lstseapp, numbersep=2pt,resetmargins=false,
-  breakatwhitespace=true,postbreak=\mbox{{$\hookrightarrow$}\space},
-  breakindent=1ex]
+  example, label=seapp_lstseapp, numbersep=2pt, resetmargins=false,
+  breakatwhitespace=true, postbreak=\mbox{{$\hookrightarrow$}\space},
+  breakindent=1ex, captionpos=b]
 user=_app seinfo=cert_id domain=package_name.unclassified name=package.name:unclassified
 user=_app seinfo=cert_id domain=package_name.secret name=package.name:secret
 \end{lstlisting}
@@ -177,7 +177,7 @@ alternative implementation of class \texttt{java.io.File}, named
 its creation, transparently handling the call to our service.
 
 \begin{lstlisting}[language=policyfile, caption=\filecontexts
-  example, label=seapp_lstfile, numbersep=2pt,resetmargins=false]
+  example, label=seapp_lstfile, numbersep=2pt, resetmargins=false, captionpos=b]
 .*                u:object_r:app_data_file:s0
 dir/unclassified  u:object_r:package_name.unclassified_file:s0
 dir/secret        u:object_r:package_name.secret_file:s0
@@ -204,7 +204,7 @@ which the {\tt cameraserver} service is made accessible to the {\em
   secret} process.
 
 \begin{lstlisting}[language=policyfile, caption=Granting \texttt{cameraserver}
-access to secret domain, label=seapp_lstdomains, numbersep=2pt,resetmargins=false]
+  access to secret domain, label=seapp_lstdomains, numbersep=2pt, resetmargins=false, captionpos=b]
 (block package_name
   (type secret)
   (call md_appdomain (secret))

@@ -111,13 +111,13 @@ Listing~\ref{lst:sqlite3_example} shows how to sandbox the functions
 from the native database driver {\em sqlite3}.
 %
 \begin{lstlisting}[
-	abovecaptionskip=-5pt,
 	caption=Code sandboxing with {\tt nativeCall()},
 	float=t,
 	floatplacement=tbp,
 	label=lst:sqlite3_example,
 	language=javascript,
-	]
+  captionpos=b,
+]
 function query(db, stmt) {
     const sqliteDB = new sqlite3.Database(db);
     const query = sqliteDB.prepare(stmt);
